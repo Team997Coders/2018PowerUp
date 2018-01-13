@@ -16,11 +16,19 @@ package org.usfirst.frc.team997.robot;
 public class RobotMap {
 	public static class Ports {
 		public static int
-		//PWM
+		//CAN
 		leftTalonPort = 0,
 		rightTalonPort = 1,
+		
 		leftVictorPort = 2,
-		rightVictorPort = 3,
+		leftVictorPort2 = 3,
+		rightVictorPort = 4,
+		rightVictorPort2 = 5,
+		
+		//Other mechanisms we will use:
+		//elevator - basically bunnybot arm
+		//collector
+		//??
 		
 		//DIO
 		leftEncoderPort1 = 0,

@@ -8,6 +8,7 @@
 package org.usfirst.frc.team997.robot;
 
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
@@ -21,15 +22,26 @@ public class OI {
 	}
 	
 	public double getLeftY() {
-		return -driverOne.getRawAxis(1);
+		return joystickDeadband(-driverOne.getRawAxis(1));
 	}
 	
 	public double getRightY() {
-		return -driverOne.getRawAxis(5);
+		return joystickDeadband(-driverOne.getRawAxis(5));
 	}
 	
 	public double getRightX() {
-		return driverOne.getRawAxis(4);
+		return joystickDeadband(driverOne.getRawAxis(4));
 	}
 	
+	public static double joystickDeadband(double x) {
+		if(Math.abs(x) < 0.05) {
+			return 0;
+		} else {
+			return x;
+		}
+	}
+	
+	public void updateDashboard() {
+		
+	}
 }

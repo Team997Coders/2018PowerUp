@@ -9,9 +9,9 @@ import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
-import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -21,20 +21,24 @@ public class DriveTrain extends Subsystem {
 	private TalonSRX leftTalon;
 	private TalonSRX rightTalon;
 	private VictorSPX leftVictor;
+	private VictorSPX leftVictor2;
 	private VictorSPX rightVictor;
+	private VictorSPX rightVictor2;
 	private Encoder leftEncoder;
 	private Encoder rightEncoder;
 	
-    // Put methods for controlling this subsystem
-    // here. Call these from Commands.
 	public DriveTrain() {
 		leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
 		rightTalon = new TalonSRX(RobotMap.Ports.rightTalonPort);
 		leftVictor = new VictorSPX(RobotMap.Ports.leftVictorPort);
+		leftVictor2 = new VictorSPX(RobotMap.Ports.leftVictorPort2);
 		rightVictor = new VictorSPX(RobotMap.Ports.rightVictorPort);
+		rightVictor2 = new VictorSPX(RobotMap.Ports.rightVictorPort2);
 		
 		leftVictor.follow(leftTalon);
+		leftVictor2.follow(leftTalon);
 		rightVictor.follow(rightTalon);
+		rightVictor2.follow(rightTalon);
 		
 		leftEncoder = new Encoder(RobotMap.Ports.leftEncoderPort1, RobotMap.Ports.leftEncoderPort2);
 		rightEncoder = new Encoder(RobotMap.Ports.rightEncoderPort1, RobotMap.Ports.rightEncoderPort2);
@@ -49,18 +53,29 @@ public class DriveTrain extends Subsystem {
     	//setDefaultCommand(new ArcadeDrive());
     }
     
-    public void getVoltages(IMotorController motor) {
-    	motor.getMotorOutputVoltage();
+    public double getLeftMasterVoltage() {
+    	return leftTalon.getMotorOutputVoltage();
+    }
+    
+    public double getRightMasterVoltage() {
+    	return rightTalon.getMotorOutputVoltage();
     }
     
     public void setVoltages(double leftSpeed, double rightSpeed) {
-    	//leftTalon.(); Not sure which method to use
-    	//rightTalon.(); Not sure which method to use
+    	leftTalon.set(ControlMode.PercentOutput, leftSpeed);
+    	rightTalon.set(ControlMode.PercentOutput, rightSpeed);
     }
     
     public void resetEncoders() {
     	leftEncoder.reset();
     	rightEncoder.reset();
+    }
+    
+    public void updateDashboard() {
+    	SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
+    	SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
+    	SmartDashboard.putNumber("DT - Left Encoder", leftEncoder.get());
+    	SmartDashboard.putNumber("DT - Right Encoder", rightEncoder.get());
     }
 }
 

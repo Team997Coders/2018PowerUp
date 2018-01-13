@@ -22,7 +22,8 @@ public class ArcadeDrive extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX(), Robot.m_oi.getLeftY() + Robot.m_oi.getRightX());
+    	Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX(), 
+    								Robot.m_oi.getLeftY() + Robot.m_oi.getRightX());
     }
 
     // Make this return true when this Command no longer needs to run execute()
