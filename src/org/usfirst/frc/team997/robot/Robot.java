@@ -124,4 +124,16 @@ public class Robot extends TimedRobot {
 	@Override
 	public void testPeriodic() {
 	}
+	
+	//x = clamp(x, -1, 1);
+	public static double clamp(double x, double min, double max) {
+		if (x > max) {
+			return max;
+		} else if(x < min) {
+			return min;
+		} else {
+			return x;
+		}
+	}
+	
 }

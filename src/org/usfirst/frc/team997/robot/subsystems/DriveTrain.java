@@ -8,6 +8,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
+import com.kauailabs.navx.frc.AHRS;
 
 import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -26,6 +27,9 @@ public class DriveTrain extends Subsystem {
 	private VictorSPX rightVictor2;
 	private Encoder leftEncoder;
 	private Encoder rightEncoder;
+	private AHRS ahrs;
+	
+	public boolean gyropresent;
 	
 	public DriveTrain() {
 		leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
@@ -42,6 +46,14 @@ public class DriveTrain extends Subsystem {
 		
 		leftEncoder = new Encoder(RobotMap.Ports.leftEncoderPort1, RobotMap.Ports.leftEncoderPort2);
 		rightEncoder = new Encoder(RobotMap.Ports.rightEncoderPort1, RobotMap.Ports.rightEncoderPort2);
+		
+		try {
+			ahrs = new AHRS(RobotMap.Ports.AHRS);
+		} catch(RuntimeException e) {
+			System.out.println("DT - The AHRS constructor do a bad.");
+		}
+		
+		ahrs.reset();
 		
 		leftEncoder.reset();
 		rightEncoder.reset();
@@ -66,6 +78,14 @@ public class DriveTrain extends Subsystem {
     	rightTalon.set(ControlMode.PercentOutput, rightSpeed);
     }
     
+    public double getLeftEncoderTicks() {
+    	return leftEncoder.get();
+    }
+    
+    public double getRightEncoderTicks() {
+    	return rightEncoder.get();
+    }
+    
     public void resetEncoders() {
     	leftEncoder.reset();
     	rightEncoder.reset();
@@ -77,5 +97,10 @@ public class DriveTrain extends Subsystem {
     	SmartDashboard.putNumber("DT - Left Encoder", leftEncoder.get());
     	SmartDashboard.putNumber("DT - Right Encoder", rightEncoder.get());
     }
+    
+    public double getAHRSAngle() {
+    	return ahrs.getAngle();
+    }
+    
 }
 

@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team997.robot;
 
+import edu.wpi.first.wpilibj.SerialPort;
+
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
  * to a variable name. This provides flexibility changing wiring, makes checking
@@ -37,5 +39,18 @@ public class RobotMap {
 		leftEncoderPort2 = 1,
 		rightEncoderPort1 = 2,
 		rightEncoderPort2 = 3;
+		
+		//USB
+		public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
+		
+	}
+	
+	public static class Values {
+		
+		public static double
+		
+		driveDistanceP = 0;
+		
+		
 	}
 }
