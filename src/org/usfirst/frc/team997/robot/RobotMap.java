@@ -17,13 +17,15 @@ public class RobotMap {
 	public static class Ports {
 		public static int
 		//CAN
-		leftTalonPort = 0,
-		rightTalonPort = 1,
+		leftTalonPort = 1,
+		rightTalonPort = 2,
+		elevatorTalonPort = 3,
 		
-		leftVictorPort = 2,
-		leftVictorPort2 = 3,
-		rightVictorPort = 4,
-		rightVictorPort2 = 5,
+		//PWM
+		leftVictorPort = 1,
+		leftVictorPort2 = 2,
+		rightVictorPort = 3,
+		rightVictorPort2 = 4,
 		
 		//Other mechanisms we will use:
 		//elevator - basically bunnybot arm
