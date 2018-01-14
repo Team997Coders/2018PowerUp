@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 
 import edu.wpi.first.wpilibj.TimedRobot;
@@ -37,8 +38,8 @@ public class Robot extends TimedRobot {
 	public void robotInit() {
 		drivetrain = new DriveTrain();
 		m_oi = new OI();
-		//m_chooser.addDefault("Default Auto", new ExampleCommand());
-		// chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addDefault("Do nothing", new AutoDoNothing());
+		//m_chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
