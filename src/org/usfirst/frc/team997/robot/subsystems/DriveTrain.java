@@ -29,6 +29,7 @@ public class DriveTrain extends Subsystem {
 	private Encoder rightEncoder;
 	private AHRS ahrs;
 	
+	public boolean decellOn;  //Default is false. 
 	public boolean gyropresent;
 	public double decellSpeed;
 	public double decellDivider;
@@ -63,6 +64,7 @@ public class DriveTrain extends Subsystem {
 		
 		decellSpeed = 0.2;
 		decellDivider = 1.2;
+		decellOn = false;
 		
 	}
 
@@ -72,21 +74,29 @@ public class DriveTrain extends Subsystem {
     	//setDefaultCommand(new ArcadeDrive());
     }
     
-    private double getDecell(double velocity, double prevVelocity) {
+    private double getDecell(double velocity, double prevVelocity) { //copied from 2017 :I
     	
-    	if ((velocity >= 0 && prevVelocity >= 0) || (velocity >= 0 && prevVelocity >= 0)) {
-    		prevVelocity = velocity;
+    	if (!decellOn) {
+    		return velocity;
     	} else {
-    		
-    		if (Math.abs(prevVelocity) <= decellSpeed) {
+    	
+    		if ((velocity >= 0 && prevVelocity >= 0) || (velocity >= 0 && prevVelocity >= 0)) {
     			prevVelocity = velocity;
     		} else {
-    			prevVelocity = prevVelocity / decellDivider; 
-    		}
     		
-    	}
+    			if (Math.abs(prevVelocity) <= decellSpeed) {
+    				prevVelocity = velocity;
+    			} else {
+    				prevVelocity = prevVelocity / decellDivider; 
+    			}
+    		
+    		}
     	
-    	return prevVelocity;
+    		return prevVelocity;
+    	}
+    }
+    
+    public void driveDecell(double leftSpeed, double rightSpeed) {
     	
     }
     

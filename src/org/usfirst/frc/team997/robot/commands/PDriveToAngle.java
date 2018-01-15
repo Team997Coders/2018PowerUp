@@ -44,7 +44,7 @@ public class PDriveToAngle extends Command {
     }
     
     private boolean onTarget() {
-    	return piderror() < minError;
+    	return Math.abs(piderror()) < minError;
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
