@@ -30,8 +30,11 @@ public class DriveTrain extends Subsystem {
 	private AHRS ahrs;
 	
 	public boolean gyropresent;
+	public double decellSpeed;
+	public double decellDivider;
 	
 	public DriveTrain() {
+		
 		leftTalon = new TalonSRX(RobotMap.Ports.leftTalonPort);
 		rightTalon = new TalonSRX(RobotMap.Ports.rightTalonPort);
 		leftVictor = new VictorSPX(RobotMap.Ports.leftVictorPort);
@@ -57,12 +60,34 @@ public class DriveTrain extends Subsystem {
 		
 		leftEncoder.reset();
 		rightEncoder.reset();
+		
+		decellSpeed = 0.2;
+		decellDivider = 1.2;
+		
 	}
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
     	setDefaultCommand(new TankDrive());
     	//setDefaultCommand(new ArcadeDrive());
+    }
+    
+    private double getDecell(double velocity, double prevVelocity) {
+    	
+    	if ((velocity >= 0 && prevVelocity >= 0) || (velocity >= 0 && prevVelocity >= 0)) {
+    		prevVelocity = velocity;
+    	} else {
+    		
+    		if (Math.abs(prevVelocity) <= decellSpeed) {
+    			prevVelocity = velocity;
+    		} else {
+    			prevVelocity = prevVelocity / decellDivider; 
+    		}
+    		
+    	}
+    	
+    	return prevVelocity;
+    	
     }
     
     public double getLeftMasterVoltage() {
