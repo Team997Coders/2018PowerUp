@@ -12,7 +12,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PDriveToDistance extends Command {
 	
-	public static double ticksPerFoot = 8370.0;
+	public static double ticksPerFoot = 8370.0; //TODO fix this numba. Thx NootNoot.
 	//How many ticks on the encoder it takes to travel 1 foot.
 	
 	private double distSetpoint;

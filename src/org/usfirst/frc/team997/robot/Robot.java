@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static OI m_oi;
-
+	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
 
@@ -136,5 +136,5 @@ public class Robot extends TimedRobot {
 			return x;
 		}
 	}
-	
+
 }
