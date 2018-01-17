@@ -10,6 +10,7 @@ package org.usfirst.frc.team997.robot;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static OI m_oi;
+	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -135,6 +137,9 @@ public class Robot extends TimedRobot {
 		} else {
 			return x;
 		}
+	}
+		public static String getGameData() {
+			return gameData;
 	}
 
 }

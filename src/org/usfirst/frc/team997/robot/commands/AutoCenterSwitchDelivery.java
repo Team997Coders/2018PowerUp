@@ -10,28 +10,27 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoCenterSwitchDelivery extends CommandGroup {
 
     public AutoCenterSwitchDelivery() {
-    	String gameData;
+    
     	
-    	gameData = DriverStation.getInstance().getGameSpecificMessage();
-    	
-    	addSequential(new PDriveToDistance(2 * PDriveToDistance.ticksPerFoot));
-    	if(gameData.charAt(0) == 'L') {
+    	addSequential(new PDriveToDistance(2 * PDriveToDistance.ticksPerFoot)); //Drive forward to avoid exhchange zone.
+    	if(Robot.getGameData().charAt(0) == 'L') {
     		
-    		addSequential(new PDriveToAngle(-65));
-    		addSequential(new PDriveToDistance(4.6 * PDriveToDistance.ticksPerFoot));
-    		addSequential(new PDriveToAngle(65));
-    		addSequential(new PDriveToDistance(3.470 * PDriveToDistance.ticksPerFoot));
-    		//NEED TO DROP CUBE AFTERWARDS IN SWITCH.
-    		//NEEDS TESTING!!
+    		addSequential(new PDriveToAngle(-65)); //Turn left to face switch.
+    		addSequential(new PDriveToDistance(4.6 * PDriveToDistance.ticksPerFoot)); //Diagonal length towards our switch.
+    		addSequential(new PDriveToAngle(65)); //Turn right to face straight again.
+    		addSequential(new PDriveToDistance(3.47 * PDriveToDistance.ticksPerFoot)); //Drive to reach switch for cube delivery.
+    		//TODO NEED TO DROP CUBE AFTERWARDS IN SWITCH.
+    		//PRETTY ACCURATE NOW!!:^)
     		//When our side of the switch is on the left, this will deliver the cube to
     		//that side.
     	}
     	else {
-    		addSequential(new PDriveToAngle(65));
-    		addSequential(new PDriveToDistance(4.6 * PDriveToDistance.ticksPerFoot));
-    		addSequential(new PDriveToAngle(-65));
-    		addSequential(new PDriveToDistance(3.470 * PDriveToDistance.ticksPerFoot));
-    		//NEEDS TESTING!!
+    		addSequential(new PDriveToAngle(65)); //Turn right to face switch.
+    		addSequential(new PDriveToDistance(4.6 * PDriveToDistance.ticksPerFoot)); //Diagonal length towards our switch.
+    		addSequential(new PDriveToAngle(-65)); //Turn left to face straight again.
+    		addSequential(new PDriveToDistance(3.470 * PDriveToDistance.ticksPerFoot)); //Drive to reach switch for cube delivery.
+    		//TODO NEED TO DROP CUBE AFTERWARDS IN SWITCH.
+    		//PRETTY ACCURATE NOW :^)
     		//When our side of the switch is on the right, this will deliver the cube to
     		//that side.
     	}

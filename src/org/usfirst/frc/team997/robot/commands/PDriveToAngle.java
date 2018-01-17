@@ -15,19 +15,15 @@ public class PDriveToAngle extends Command {
 	private double Ktheta = 0.02;
 
     public PDriveToAngle(double _ang) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	requires(Robot.drivetrain);
     	angSetpoint = _ang;
     }
-    
-    // Called just before this Command runs the first time
+
     protected void initialize() {
     	initYaw = Robot.drivetrain.getAHRSAngle();
     	System.out.println("PDriveAngle - Init PAngle");
     }
 
-    // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// calculate yaw correction
     	double yawcorrect = piderror() * Ktheta;
@@ -46,19 +42,16 @@ public class PDriveToAngle extends Command {
     private boolean onTarget() {
     	return Math.abs(piderror()) < minError;
     }
-    // Make this return true when this Command no longer needs to run execute()
+
     protected boolean isFinished() {
         return onTarget();   
     }
 
-    // Called once after isFinished returns true
     protected void end() {
     	Robot.drivetrain.setVoltages(0, 0);
     	System.out.println("PDriveAngle - PAngle End");
     }
 
-    // Called when another command which requires one or more of the same
-    // subsystems is scheduled to run
     protected void interrupted() {
     	end();
     }

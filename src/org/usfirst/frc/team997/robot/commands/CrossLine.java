@@ -7,6 +7,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class CrossLine extends CommandGroup {
 
     public CrossLine() {
-    	addSequential(new PDriveToDistance(12 * PDriveToDistance.ticksPerFoot));
+    	addSequential(new PDriveToDistance(12 * PDriveToDistance.ticksPerFoot)); //Drives forward 12 feet, crossing the 10 foot auto line.
     }
 }
