@@ -11,6 +11,7 @@ import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
 
+import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -28,6 +29,7 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
 	public static OI m_oi;
+	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -138,6 +140,9 @@ public class Robot extends TimedRobot {
 		} else {
 			return x;
 		}
+	}
+		public static String getGameData() {
+			return gameData;
 	}
 
 }
