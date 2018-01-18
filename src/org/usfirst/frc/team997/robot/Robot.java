@@ -9,6 +9,7 @@ package org.usfirst.frc.team997.robot;
 
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
+import org.usfirst.frc.team997.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -25,6 +26,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
+	public static Elevator elevator;
 	public static OI m_oi;
 	
 	Command m_autonomousCommand;
@@ -37,6 +39,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void robotInit() {
 		drivetrain = new DriveTrain();
+		elevator = new Elevator();
 		m_oi = new OI();
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
 		//m_chooser.addObject("My Auto", new MyAutoCommand());

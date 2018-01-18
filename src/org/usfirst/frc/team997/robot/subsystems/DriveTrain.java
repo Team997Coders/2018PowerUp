@@ -70,8 +70,8 @@ public class DriveTrain extends Subsystem {
 
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
-    	setDefaultCommand(new TankDrive());
-    	//setDefaultCommand(new ArcadeDrive());
+    	//setDefaultCommand(new TankDrive());
+    	setDefaultCommand(new ArcadeDrive());
     }
     
     private double getDecell(double velocity, double prevVelocity) { //copied from 2017 :I
