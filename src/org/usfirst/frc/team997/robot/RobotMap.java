@@ -58,6 +58,21 @@ public class RobotMap {
 		elevatorPidI = 0,
 		elevatorPidD = 0;
 		
+	}
+	
+	public static class Ints {
+		
+		public static int
+		
+		selectedHeight = 0;
+		
+	}
+	
+	public static class Arrays {
+		
+		public static double[]
+				
+		heightList = new double[3];
 		
 	}
 	
