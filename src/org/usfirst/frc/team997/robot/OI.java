@@ -7,7 +7,12 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
+import org.usfirst.frc.team997.robot.commands.LockElevator;
+import org.usfirst.frc.team997.robot.commands.MoveElevator;
+
 import edu.wpi.first.wpilibj.Joystick;
+import edu.wpi.first.wpilibj.buttons.JoystickButton;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
@@ -15,22 +20,49 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public Joystick driverOne;
+	public Joystick 
+	GamePad1, 
+	GamePad2;
+	
+	public JoystickButton
+	elevatorManualUp,
+	elevatorManualDown,
+	elevatorArrayUp,
+	elevatorArrayDown;
 	
 	public OI() {
-		driverOne = new Joystick(0);
+		//JOYSTICK INIT
+		GamePad1 = new Joystick(RobotMap.Ports.GamePad1);
+		GamePad2 = new Joystick(RobotMap.Ports.GamePad2);
+		
+		//ELEVATOR MANUAL CONTROL BUTTONS
+		elevatorManualUp = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualUp);
+		elevatorManualUp.whileHeld(new MoveElevator(0.5));
+		elevatorManualUp.whenReleased(new LockElevator());
+		
+		elevatorManualDown = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualDown);
+		elevatorManualDown.whileHeld(new MoveElevator(-0.5));
+		elevatorManualDown.whenReleased(new LockElevator());
+		
+		//ELEVATOR ARRAY CONTROL BUTTONS
+		//elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
+		//elevatorArrayUp.whenPressed(new ElevatorToHeight(true));
+		
+		//elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
+		//elevatorArrayDown.whenPressed(new ElevatorToHeight(false));
+		//COMMENTED OUT BECAUSE ARRAY ISN'T DONE
 	}
 	
 	public double getLeftY() {
-		return joystickDeadband(-driverOne.getRawAxis(1));
+		return joystickDeadband(-GamePad1.getRawAxis(1));
 	}
 	
 	public double getRightY() {
-		return joystickDeadband(-driverOne.getRawAxis(5));
+		return joystickDeadband(-GamePad1.getRawAxis(5));
 	}
 	
 	public double getRightX() {
-		return joystickDeadband(driverOne.getRawAxis(4));
+		return joystickDeadband(GamePad1.getRawAxis(4));
 	}
 	
 	public static double joystickDeadband(double x) {

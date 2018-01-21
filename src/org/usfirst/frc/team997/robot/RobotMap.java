@@ -38,7 +38,11 @@ public class RobotMap {
 		leftEncoderPort1 = 0,
 		leftEncoderPort2 = 1,
 		rightEncoderPort1 = 2,
-		rightEncoderPort2 = 3;
+		rightEncoderPort2 = 3,
+		
+		//GAMEPADS
+		GamePad1 = 0,
+		GamePad2 = 1;
 		
 		//USB
 		public static final SerialPort.Port AHRS = SerialPort.Port.kUSB;
@@ -49,8 +53,21 @@ public class RobotMap {
 		
 		public static double
 		
-		driveDistanceP = 0;
+		driveDistanceP = 0,
+		elevatorPidP = 0,
+		elevatorPidI = 0,
+		elevatorPidD = 0;
 		
 		
+	}
+	
+	public static class Buttons {
+		public static int
+		
+		//ELEVATOR CONTROLS
+		elevatorManualUp = 6, //Right Bumper, GamePad1
+		elevatorManualDown = 5, //Left Bumper, GamePad1
+		elevatorArrayUp = 4, //Y, GamePad2
+		elevatorArrayDown = 1; //A, GamePad2
 	}
 }
