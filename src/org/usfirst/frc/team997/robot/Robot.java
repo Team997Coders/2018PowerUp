@@ -8,6 +8,7 @@
 package org.usfirst.frc.team997.robot;
 
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
+import org.usfirst.frc.team997.robot.subsystems.Climber;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
 
@@ -26,6 +27,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+	public static Climber climber;
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
 	public static OI m_oi;
@@ -40,6 +42,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		climber = new Climber();
 		drivetrain = new DriveTrain();
 		elevator = new Elevator();
 		m_oi = new OI();

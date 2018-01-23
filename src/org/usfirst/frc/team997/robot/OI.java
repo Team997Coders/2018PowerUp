@@ -7,9 +7,11 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.Climb;
 import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
 import org.usfirst.frc.team997.robot.commands.LockElevator;
 import org.usfirst.frc.team997.robot.commands.MoveElevator;
+import org.usfirst.frc.team997.robot.commands.UnClimb;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -28,13 +30,20 @@ public class OI {
 	elevatorManualUp,
 	elevatorManualDown,
 	elevatorArrayUp,
-	elevatorArrayDown;
+	elevatorArrayDown,
+	climbbutton,
+	unclimbbutton;
 	
 	public OI() {
 		//JOYSTICK INIT
 		GamePad1 = new Joystick(RobotMap.Ports.GamePad1);
 		GamePad2 = new Joystick(RobotMap.Ports.GamePad2);
+		//CLIMBERCONTROLS
+		climbbutton = new JoystickButton(GamePad2, RobotMap.Buttons.climbbutton);
+		climbbutton.whenPressed(new Climb());
 		
+		unclimbbutton = new JoystickButton(GamePad2, RobotMap.Buttons.unclimbbutton);
+		unclimbbutton.whenPressed(new UnClimb());
 		//ELEVATOR MANUAL CONTROL BUTTONS
 		elevatorManualUp = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualUp);
 		elevatorManualUp.whileHeld(new MoveElevator(0.5));
