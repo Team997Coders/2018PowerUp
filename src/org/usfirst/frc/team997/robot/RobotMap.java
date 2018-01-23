@@ -29,6 +29,8 @@ public class RobotMap {
 		rightVictorPort = 3,
 		rightVictorPort2 = 4,
 		climberVictorPort = 5,
+		leftCollectorPort = 6,
+		rightCollectorPort = 7,
 		
 		//Other mechanisms we will use:
 		//elevator - basically bunnybot arm
