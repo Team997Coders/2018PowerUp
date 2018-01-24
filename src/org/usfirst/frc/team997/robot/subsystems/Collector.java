@@ -22,6 +22,7 @@ public class Collector extends Subsystem {
 	}
 	
 	public void smartcollect() {
+		
 		//TODO: infrared sensor code :)
 	}
     

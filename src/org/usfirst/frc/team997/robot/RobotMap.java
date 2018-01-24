@@ -23,6 +23,10 @@ public class RobotMap {
 		rightTalonPort = 2,
 		elevatorTalonPort = 3,
 		
+		//ANALOGINPUT
+		leftCollectorSensorInput = 0,
+		rightCollectorSensorInput = 1,
+		
 		//PWM
 		leftVictorPort = 1,
 		leftVictorPort2 = 2,
@@ -55,6 +59,10 @@ public class RobotMap {
 	public static class Values {
 		
 		public static double
+		
+		slowcollectspeed = 0.25,
+		fastcollectspeed = 0.75,
+		collectspeed = 0.5,
 		
 		driveDistanceP = 0,
 		elevatorPidP = 0,
