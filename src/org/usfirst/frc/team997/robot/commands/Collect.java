@@ -16,7 +16,6 @@ public class Collect extends Command {
     	
     	leftspeed = _leftspeed;
     	rightspeed = _rightspeed;
-        
     }
 
     // Called just before this Command runs the first time
@@ -26,11 +25,14 @@ public class Collect extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.collector.collect(leftspeed, rightspeed);
+    	if (Robot.collector.getAvgLeftVoltage() > 2.5 || Robot.collector.getAvgRightVoltage() > 2.5) {
+    		Robot.m_oi.gotCube = true;
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+        return Robot.m_oi.gotCube;
     }
 
     // Called once after isFinished returns true

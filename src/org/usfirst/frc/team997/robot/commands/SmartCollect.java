@@ -14,8 +14,7 @@ public class SmartCollect extends Command {
 	double leftv,rightv;
 	double rightspeed, leftspeed;
 	double error;
-	AnalogInput leftinput = new AnalogInput(RobotMap.Ports.leftCollectorSensorInput);
-	AnalogInput rightinput = new AnalogInput(RobotMap.Ports.rightCollectorSensorInput);
+	
 	
 
     public SmartCollect() {
@@ -28,33 +27,39 @@ public class SmartCollect extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	//GET THE READINGS FROM THE SENSORS
-    	leftv = leftinput.getAverageVoltage();
-    	rightv = rightinput.getAverageVoltage();
+    	leftv = Robot.collector.getAvgLeftVoltage();
+    	rightv = Robot.collector.getAvgRightVoltage();
     	
     	System.out.println("leftv: " + leftv);
     	System.out.println("rightv: " + rightv);
-    	//PUT VALUES THROUGH DEADBAND, FILTERS, ETC. 
     	
-    	//COMPARE THE LEFT AND RIGHT SIDES
-    	//TODO: find way to use error to calculate speed
-    	error = leftv - rightv;
-    	if (error > 0) {
-    		//this means right side is closer, so left side speeds up
-    		Robot.collector.collect(RobotMap.Values.fastcollectspeed, RobotMap.Values.collectspeed);
-    		
-    	} else if (error < 0) {
-    		//this means left side is closer, so right side speeds up
-    		Robot.collector.collect(RobotMap.Values.collectspeed, RobotMap.Values.fastcollectspeed);
-    		
+    	if(leftv > 2.5 || rightv > 2.5) {
+    		Robot.m_oi.gotCube = true;
     	} else {
-    		//this means both sides are basically equal, so both sides same speed
-    		Robot.collector.collect(RobotMap.Values.collectspeed, RobotMap.Values.collectspeed);
+    		//PUT VALUES THROUGH DEADBAND, FILTERS, ETC. 
+    			//TODO: filter values + convert to distances
+    	
+    		//COMPARE THE LEFT AND RIGHT SIDES
+    			//TODO: find way to use error to calculate speed
+    		error = leftv - rightv;
+    		if (error > 0) {
+    			//this means right side is closer, so left side speeds up
+    			Robot.collector.collect(RobotMap.Values.fastcollectspeed, RobotMap.Values.collectspeed);
+    		
+    		} else if (error < 0) {
+    			//this means left side is closer, so right side speeds up
+    			Robot.collector.collect(RobotMap.Values.collectspeed, RobotMap.Values.fastcollectspeed);
+    		
+    		} else {
+    			//this means both sides are basically equal, so both sides same speed
+    			Robot.collector.collect(RobotMap.Values.collectspeed, RobotMap.Values.collectspeed);
+    		}
     	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (error == 0);
+        return (error == 0) || Robot.m_oi.gotCube;
     }
 
     // Called once after isFinished returns true
