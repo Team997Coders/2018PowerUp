@@ -3,6 +3,7 @@ package org.usfirst.frc.team997.robot.commands;
 import org.usfirst.frc.team997.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -24,6 +25,7 @@ public class Collect extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
+    	
     	Robot.collector.collect(leftspeed, rightspeed);
     	if (Robot.collector.getAvgLeftVoltage() > 2.5 || Robot.collector.getAvgRightVoltage() > 2.5) {
     		Robot.m_oi.gotCube = true;

@@ -81,6 +81,8 @@ public class RobotMap {
 		elevatorArrayUp = 4, //Y, GamePad2
 		elevatorArrayDown = 1, //A, GamePad2
 		climbbutton = 3, //not final
-		unclimbbutton = 2; //not final
+		unclimbbutton = 2, //not final
+		collectButton = 7, //not final
+		smartCollectButton = 8;
 	}
 }

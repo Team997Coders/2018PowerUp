@@ -62,6 +62,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		drivetrain.updateDashboard();
+		collector.updateSmartDashboard();
 	}
 
 	//noot noot
@@ -69,6 +70,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+		collector.updateSmartDashboard();
 	}
 
 	/**
@@ -98,6 +100,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.start();
 		}
 		drivetrain.updateDashboard();
+		collector.updateSmartDashboard();
 	}
 
 	/**
@@ -107,6 +110,7 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+		collector.updateSmartDashboard();
 	}
 
 	@Override
@@ -119,6 +123,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		drivetrain.updateDashboard();
+		collector.updateSmartDashboard();
 	}
 
 	/**
@@ -128,6 +133,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+		collector.updateSmartDashboard();
 	}
 
 	/**

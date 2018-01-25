@@ -5,6 +5,7 @@ import org.usfirst.frc.team997.robot.RobotMap;
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
+import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -13,6 +14,8 @@ public class Collector extends Subsystem {
 	private VictorSP leftmotor, rightmotor;
 	private AnalogInput leftinput = new AnalogInput(RobotMap.Ports.leftCollectorSensorInput);
 	private AnalogInput rightinput = new AnalogInput(RobotMap.Ports.rightCollectorSensorInput);
+	public static double leftVoltage;
+	public static double rightVoltage;
 	
 	public Collector() {
 		leftmotor = new VictorSP(RobotMap.Ports.leftCollectorPort);
@@ -25,15 +28,22 @@ public class Collector extends Subsystem {
 	}
 	
 	public double getAvgLeftVoltage() {
-		return leftinput.getAverageVoltage();
+		leftVoltage = leftinput.getAverageVoltage();
+		return leftVoltage;
 	}
 	
 	public double getAvgRightVoltage() {
-		return rightinput.getAverageVoltage();
+		rightVoltage = rightinput.getAverageVoltage();
+		return rightVoltage;
 	}
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    public void updateSmartDashboard() {
+    	SmartDashboard.putNumber("rightCollectorSensor", rightVoltage);
+		SmartDashboard.putNumber("leftCollectorSensor", leftVoltage);
+    }
+    
 }
 
