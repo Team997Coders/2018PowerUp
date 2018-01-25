@@ -30,10 +30,9 @@ public class RobotMap {
 		rightVictorPort2 = 4,
 		climberVictorPort = 5,
 		
-		//Other mechanisms we will use:
-		//elevator - basically bunnybot arm
-		//collector
-		//??
+		//PNEUMATICS
+		elevatorSolenoidPort = 0,
+		elevatorSolenoidPort2 = 1,
 		
 		//DIO
 		leftEncoderPort1 = 0,
@@ -70,7 +69,11 @@ public class RobotMap {
 		elevatorManualDown = 5, //Left Bumper, GamePad1
 		elevatorArrayUp = 4, //Y, GamePad2
 		elevatorArrayDown = 1, //A, GamePad2
+		
 		climbbutton = 3, //not final
-		unclimbbutton = 2; //not final
+		unclimbbutton = 2, //not final
+		
+		flopButton = 7;
+		
 	}
 }

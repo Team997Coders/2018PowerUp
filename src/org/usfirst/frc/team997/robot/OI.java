@@ -9,6 +9,7 @@ package org.usfirst.frc.team997.robot;
 
 import org.usfirst.frc.team997.robot.commands.Climb;
 import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
+import org.usfirst.frc.team997.robot.commands.Flop;
 import org.usfirst.frc.team997.robot.commands.LockElevator;
 import org.usfirst.frc.team997.robot.commands.MoveElevator;
 import org.usfirst.frc.team997.robot.commands.UnClimb;
@@ -32,7 +33,8 @@ public class OI {
 	elevatorArrayUp,
 	elevatorArrayDown,
 	climbbutton,
-	unclimbbutton;
+	unclimbbutton,
+	flopButton;
 	
 	public OI() {
 		//JOYSTICK INIT
@@ -52,6 +54,9 @@ public class OI {
 		elevatorManualDown = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualDown);
 		elevatorManualDown.whileHeld(new MoveElevator(-0.5));
 		elevatorManualDown.whenReleased(new LockElevator());
+		
+		flopButton = new JoystickButton(GamePad1, RobotMap.Buttons.flopButton);
+		flopButton.whenPressed(new Flop());
 		
 		//ELEVATOR ARRAY CONTROL BUTTONS
 		//elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
