@@ -57,7 +57,16 @@ public class RobotMap {
 		elevatorPidP = 0,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
-		climbspeed = 0.5;
+		climbspeed = 0.5,
+		
+		//voltage limits in amps
+		drivetrainLeftLimit = 81,
+		drivetrainRightLimit = 81,
+		collectorLeftLimit = 12,
+		collectorRightLimit = 12,
+		elevatorLimit = 55,
+		climberLimit = 50;
+		
 		
 	}
 	

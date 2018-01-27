@@ -1,5 +1,6 @@
 package org.usfirst.frc.team997.robot.subsystems;
 
+import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.VictorSP;
@@ -16,17 +17,27 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 		climberMotor = new VictorSP(RobotMap.Ports.climberVictorPort);
 	}
 		
-	public void climb() {
-		climberMotor.set(RobotMap.Values.climbspeed);
+	public void safeClimb() {
+		if (Robot.pdp.getCurrent(RobotMap.Ports.climberVictorPort) > RobotMap.Values.climberLimit) {
+			climberMotor.set(0);
+		} else {
+			climberMotor.set(RobotMap.Values.climbspeed);
+		}
 	}
 
-	public void unclimb() {
-		climberMotor.set(-RobotMap.Values.climbspeed);
+	public void safeUnclimb() {
+		if (Robot.pdp.getCurrent(RobotMap.Ports.climberVictorPort) > RobotMap.Values.climberLimit) {
+			climberMotor.set(0);
+		} else {
+			climberMotor.set(-RobotMap.Values.climbspeed);
+		}
 	}
 	
 	public void stopclimb() {
 		climberMotor.set(0);
 	}
+	
+	
     // Put methods for controlling this subsystem
     // here. Call these from Commands.
 
@@ -34,5 +45,6 @@ import edu.wpi.first.wpilibj.command.Subsystem;
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
     }
+    
 }
 

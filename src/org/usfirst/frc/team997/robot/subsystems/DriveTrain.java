@@ -1,5 +1,6 @@
 package org.usfirst.frc.team997.robot.subsystems;
 
+import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 import org.usfirst.frc.team997.robot.commands.ArcadeDrive;
 import org.usfirst.frc.team997.robot.commands.TankDrive;
@@ -33,6 +34,9 @@ public class DriveTrain extends Subsystem {
 	public boolean gyropresent;
 	public double decellSpeed;
 	public double decellDivider;
+	
+	public static double totalLeftCurrent;
+	public static double totalRightCurrent;
 	
 	public DriveTrain() {
 		
@@ -131,10 +135,41 @@ public class DriveTrain extends Subsystem {
     	SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
     	SmartDashboard.putNumber("DT - Left Encoder", leftEncoder.get());
     	SmartDashboard.putNumber("DT - Right Encoder", rightEncoder.get());
+    	SmartDashboard.putNumber("total left current", totalLeftCurrent);
+    	SmartDashboard.putNumber("total right current", totalRightCurrent);
     }
     
     public double getAHRSAngle() {
     	return ahrs.getAngle();
+    }
+    
+    public double getTotalLeftCurrent() {
+    	totalLeftCurrent = (Robot.pdp.getCurrent(RobotMap.Ports.leftTalonPort) + 
+    				Robot.pdp.getCurrent(RobotMap.Ports.leftVictorPort) + 
+    				Robot.pdp.getCurrent(RobotMap.Ports.leftVictorPort2));
+    	return totalLeftCurrent;
+    }
+    
+    public double getTotalRightCurrent() {
+    	totalRightCurrent = (Robot.pdp.getCurrent(RobotMap.Ports.rightTalonPort) + 
+    				Robot.pdp.getCurrent(RobotMap.Ports.rightVictorPort) + 
+    				Robot.pdp.getCurrent(RobotMap.Ports.rightVictorPort2));
+    	return totalRightCurrent;
+    }
+    
+    public void safeVoltages(double leftSpeed, double rightSpeed) {
+    	
+    	if (getTotalLeftCurrent() > RobotMap.Values.drivetrainLeftLimit) {
+    		leftTalon.set(ControlMode.PercentOutput, 0);
+    	} else {
+    		leftTalon.set(ControlMode.PercentOutput, leftSpeed);
+    	}
+    	
+    	if(getTotalRightCurrent() > RobotMap.Values.drivetrainRightLimit) {
+    		rightTalon.set(ControlMode.PercentOutput, 0);
+    	} else {
+    		rightTalon.set(ControlMode.PercentOutput, rightSpeed);
+    	}
     }
     
 }

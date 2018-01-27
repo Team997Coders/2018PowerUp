@@ -13,6 +13,7 @@ import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
@@ -32,6 +33,7 @@ public class Robot extends TimedRobot {
 	public static Elevator elevator;
 	public static OI m_oi;
 	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
+	public static PowerDistributionPanel pdp;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -46,6 +48,7 @@ public class Robot extends TimedRobot {
 		drivetrain = new DriveTrain();
 		elevator = new Elevator();
 		m_oi = new OI();
+		pdp = new PowerDistributionPanel();
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
 		//m_chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -59,6 +62,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		drivetrain.updateDashboard();
+		controlCurrent();
 	}
 
 	//noot noot
@@ -66,6 +70,7 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+		controlCurrent();
 	}
 
 	/**
@@ -95,6 +100,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.start();
 		}
 		drivetrain.updateDashboard();
+		controlCurrent();
 	}
 
 	/**
@@ -104,6 +110,7 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+		controlCurrent();
 	}
 
 	@Override
@@ -116,6 +123,7 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		drivetrain.updateDashboard();
+		controlCurrent();
 	}
 
 	/**
@@ -125,6 +133,7 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+		controlCurrent();
 	}
 
 	/**
@@ -132,6 +141,13 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void testPeriodic() {
+	}
+	
+	public void controlCurrent() {
+		if (pdp.getTotalCurrent() > 180) {
+			RobotMap.Values.drivetrainLeftLimit = 61;
+			RobotMap.Values.drivetrainRightLimit = 61;
+		}
 	}
 	
 	//x = clamp(x, -1, 1);

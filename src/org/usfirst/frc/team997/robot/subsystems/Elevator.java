@@ -24,6 +24,7 @@ public class Elevator extends Subsystem {
 	public boolean isZeroed = false;
 	public int absolutePosition;
 	public int flop; //whether the collector is "flopped" down or not
+	public double elevatorCurrent;
 	
     // Initialize your subsystem here
     public Elevator() {
@@ -74,6 +75,11 @@ public class Elevator extends Subsystem {
     	}
     }
     
+    public double getCurrent() {
+    	elevatorCurrent = Robot.pdp.getCurrent(RobotMap.Ports.elevatorTalonPort);
+    	return elevatorCurrent;
+    }
+    
     public double getPosition() {
     	return Motor.getSelectedSensorPosition(0);
     }
@@ -104,6 +110,14 @@ public class Elevator extends Subsystem {
     	Motor.set(ControlMode.PercentOutput, volts);
     }
     
+    public void safeSetVoltage(double volts) {
+    	if (getCurrent() > RobotMap.Values.elevatorLimit) {
+    		Motor.set(ControlMode.PercentOutput, 0);
+    	} else {
+    		Motor.set(ControlMode.PercentOutput, volts);
+    	}
+    }
+    
     public void updateSmartDashboard() {
     	absolutePosition = Motor.getSelectedSensorPosition(0);// & 0xFFF;
     	
@@ -115,5 +129,6 @@ public class Elevator extends Subsystem {
     	SmartDashboard.putBoolean("Elevator Zeroed", Robot.elevator.isZeroed);
     	SmartDashboard.putNumber("ElevatorPIDError", Motor.getClosedLoopError(0));
     	SmartDashboard.putNumber("Elevator Position ", Motor.getSelectedSensorPosition(0));
+    	SmartDashboard.putNumber("Elevator current", elevatorCurrent);
     }
 }
