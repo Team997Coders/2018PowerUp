@@ -53,29 +53,17 @@ public class RobotMap {
 		
 		public static double
 		
+		elevatorHeight1, 
+		elevatorHeight2,
+		elevatorHeight3,
+		
 		driveDistanceP = 0,
 		elevatorPidP = 0,
 		elevatorPidI = 0,
 		elevatorPidD = 0;
 		
 	}
-	
-	public static class Ints {
-		
-		public static int
-		
-		selectedHeight = 0;
-		
-	}
-	
-	public static class Arrays {
-		
-		public static double[]
-				
-		heightList = new double[3];
-		
-	}
-	
+
 	public static class Buttons {
 		public static int
 		

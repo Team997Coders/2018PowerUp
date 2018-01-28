@@ -20,6 +20,9 @@ public class Elevator extends Subsystem {
 	public static final double absoluteTolerance = 0.01;
 	public boolean isZeroed = false;
 	public int absolutePosition;
+	public int index = 0;
+	public double[] heightList = new double[] {RobotMap.Values.elevatorHeight1, 
+			RobotMap.Values.elevatorHeight2, RobotMap.Values.elevatorHeight3};
 	
     // Initialize your subsystem here
     public Elevator() {
@@ -83,6 +86,24 @@ public class Elevator extends Subsystem {
     
     public void setVoltage(double volts) {
     	Motor.set(ControlMode.PercentOutput, volts);
+    }
+    
+    public void incrementIndex() {
+    	index++;
+    	if (index > heightList.length - 1) {
+    		index = heightList.length - 1;
+    	}
+    }
+    
+    public void decrementIndex() {
+    	index--;
+    	if(index < 0) {
+    		index = 0;
+    	}
+    }
+    
+    public double getHeightFromArray() {
+    	return heightList[index];
     }
     
     public void updateSmartDashboard() {

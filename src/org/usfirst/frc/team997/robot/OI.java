@@ -7,6 +7,7 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.ArrayHeightSelector;
 import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
 import org.usfirst.frc.team997.robot.commands.LockElevator;
 import org.usfirst.frc.team997.robot.commands.MoveElevator;
@@ -45,12 +46,12 @@ public class OI {
 		elevatorManualDown.whenReleased(new LockElevator());
 		
 		//ELEVATOR ARRAY CONTROL BUTTONS
-		//elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
-		//elevatorArrayUp.whenPressed(new ElevatorToHeight(true));
+		elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
+		elevatorArrayUp.whenPressed(new ArrayHeightSelector(true));
 		
-		//elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
-		//elevatorArrayDown.whenPressed(new ElevatorToHeight(false));
-		//COMMENTED OUT BECAUSE ARRAY ISN'T DONE
+		elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
+		elevatorArrayDown.whenPressed(new ArrayHeightSelector(false));
+		
 	}
 	
 	public double getLeftY() {
