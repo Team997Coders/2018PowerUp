@@ -53,6 +53,10 @@ public class RobotMap {
 		
 		public static double
 		
+		elevatorHeight1, 
+		elevatorHeight2,
+		elevatorHeight3,
+		
 		driveDistanceP = 0,
 		elevatorPidP = 0,
 		elevatorPidI = 0,
@@ -67,9 +71,8 @@ public class RobotMap {
 		elevatorLimit = 55,
 		climberLimit = 50;
 		
-		
 	}
-	
+
 	public static class Buttons {
 		public static int
 		
