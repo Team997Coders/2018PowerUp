@@ -7,6 +7,8 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+
+import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -15,17 +17,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class Elevator extends Subsystem {
 	
+	private DoubleSolenoid elevatorSolenoid;
 	private TalonSRX Motor;
 	public SensorCollection sensorCollection;
 	public static final double absoluteTolerance = 0.01;
 	public boolean isZeroed = false;
 	public int absolutePosition;
+
 	public int index = 0;
 	public double[] heightList = new double[] {RobotMap.Values.elevatorHeight1, 
 			RobotMap.Values.elevatorHeight2, RobotMap.Values.elevatorHeight3};
+
+	public int flop; //whether the collector is "flopped" down or not
+	public double elevatorCurrent;
 	
     // Initialize your subsystem here
     public Elevator() {
+    	
+    	elevatorSolenoid = new DoubleSolenoid(RobotMap.Ports.elevatorSolenoidPort, RobotMap.Ports.elevatorSolenoidPort2);
     	
     	Motor = new TalonSRX(RobotMap.Ports.elevatorTalonPort);
     	
@@ -48,6 +57,19 @@ public class Elevator extends Subsystem {
     	Motor.config_kF(0, 0, 10);
     	
     	sensorCollection = new SensorCollection(Motor);
+    	
+    	flop = 0;
+    	elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
+    }
+    
+    public void flop(int p) {
+    	if (flop != p && flop != 0) {
+    		elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
+    		flop = 0;
+    	} else if (flop != p) {
+    		elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
+    		flop = 1;
+    	}
     }
     
     public void autozero() {
@@ -56,6 +78,11 @@ public class Elevator extends Subsystem {
     		Motor.setSelectedSensorPosition(0, 0, 10);
     		System.out.println("Zeroed " + Motor.getSelectedSensorPosition(0));
     	}
+    }
+    
+    public double getCurrent() {
+    	elevatorCurrent = Robot.pdp.getCurrent(RobotMap.Ports.elevatorTalonPort);
+    	return elevatorCurrent;
     }
     
     public double getPosition() {
@@ -106,6 +133,14 @@ public class Elevator extends Subsystem {
     	return heightList[index];
     }
     
+    public void safeSetVoltage(double volts) {
+    	if (getCurrent() > RobotMap.Values.elevatorLimit) {
+    		Motor.set(ControlMode.PercentOutput, 0);
+    	} else {
+    		Motor.set(ControlMode.PercentOutput, volts);
+    	}
+    }
+    
     public void updateSmartDashboard() {
     	absolutePosition = Motor.getSelectedSensorPosition(0);// & 0xFFF;
     	
@@ -117,5 +152,6 @@ public class Elevator extends Subsystem {
     	SmartDashboard.putBoolean("Elevator Zeroed", Robot.elevator.isZeroed);
     	SmartDashboard.putNumber("ElevatorPIDError", Motor.getClosedLoopError(0));
     	SmartDashboard.putNumber("Elevator Position ", Motor.getSelectedSensorPosition(0));
+    	SmartDashboard.putNumber("Elevator current", elevatorCurrent);
     }
 }

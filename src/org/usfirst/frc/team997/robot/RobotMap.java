@@ -28,11 +28,11 @@ public class RobotMap {
 		leftVictorPort2 = 2,
 		rightVictorPort = 3,
 		rightVictorPort2 = 4,
+		climberVictorPort = 5,
 		
-		//Other mechanisms we will use:
-		//elevator - basically bunnybot arm
-		//collector
-		//??
+		//PNEUMATICS
+		elevatorSolenoidPort = 0,
+		elevatorSolenoidPort2 = 1,
 		
 		//DIO
 		leftEncoderPort1 = 0,
@@ -60,7 +60,16 @@ public class RobotMap {
 		driveDistanceP = 0,
 		elevatorPidP = 0,
 		elevatorPidI = 0,
-		elevatorPidD = 0;
+		elevatorPidD = 0,
+		climbspeed = 0.5,
+		
+		//voltage limits in amps
+		drivetrainLeftLimit = 81,
+		drivetrainRightLimit = 81,
+		collectorLeftLimit = 12,
+		collectorRightLimit = 12,
+		elevatorLimit = 55,
+		climberLimit = 50;
 		
 	}
 
@@ -71,6 +80,12 @@ public class RobotMap {
 		elevatorManualUp = 6, //Right Bumper, GamePad1
 		elevatorManualDown = 5, //Left Bumper, GamePad1
 		elevatorArrayUp = 4, //Y, GamePad2
-		elevatorArrayDown = 1; //A, GamePad2
+		elevatorArrayDown = 1, //A, GamePad2
+		
+		climbbutton = 3, //not final
+		unclimbbutton = 2, //not final
+		
+		flopButton = 7;
+		
 	}
 }
