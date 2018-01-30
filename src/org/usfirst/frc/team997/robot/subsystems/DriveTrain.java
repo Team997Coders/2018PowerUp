@@ -22,8 +22,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
 
-	private TalonSRX leftTalon;
-	private TalonSRX rightTalon;
+	public TalonSRX leftTalon;
+	public TalonSRX rightTalon;
+	//temp
 	private VictorSPX leftVictor;
 	private VictorSPX leftVictor2;
 	private VictorSPX rightVictor;
@@ -68,9 +69,9 @@ public class DriveTrain extends Subsystem {
 		leftVictor.setInverted(false);
 		leftVictor2.setInverted(false);
 		
-		rightTalon.setInverted(false);
-		rightVictor.setInverted(false);
-		rightVictor2.setInverted(false);
+		rightTalon.setInverted(true);
+		rightVictor.setInverted(true);
+		rightVictor2.setInverted(true);
 
 		/*
 		 * CTRE encoder on each Talon on the drivetrain, mechanically connected to the front wheels (i.e. 1:1 ratio)

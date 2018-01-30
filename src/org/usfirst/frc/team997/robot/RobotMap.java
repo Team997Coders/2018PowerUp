@@ -19,16 +19,17 @@ public class RobotMap {
 	public static class Ports {
 		public static int
 		//CAN
-		leftTalonPort = 1,
-		rightTalonPort = 2,
-		elevatorTalonPort = 3,
+		leftTalonPort = 3,
+		rightTalonPort = 8,
+		elevatorTalonPort = 2,
 		
 		//PWM
-		leftVictorPort = 1,
-		leftVictorPort2 = 2,
-		rightVictorPort = 3,
-		rightVictorPort2 = 4,
-		climberVictorPort = 5,
+		leftVictorPort = 4,
+		leftVictorPort2 = 5,
+		rightVictorPort = 6,
+		rightVictorPort2 = 7,
+		climberVictorPort = 9,
+		elevatorVictorPort = 1,
 		
 		//PNEUMATICS
 		elevatorSolenoidPort = 0,
