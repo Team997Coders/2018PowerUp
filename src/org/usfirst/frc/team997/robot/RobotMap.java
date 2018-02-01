@@ -50,6 +50,23 @@ public class RobotMap {
 		
 	}
 	
+	public static class PDPPorts {
+		public static int
+		
+		rightDriveTrain = 0,
+		rightDriveTrain2 = 1,
+		climber = 2,
+		climber2 = 3,
+		intake = 6,
+		intake2 = 7,
+		elevatorTalon = 10,
+		elevatorVictor = 11,
+		leftDriveTrain = 12,
+		leftDriveTrain2 = 13,
+		leftDriveTrainTalon = 14,
+		rightDriveTrainTalon = 15;
+	}
+	
 	public static class Values {
 		
 		public static double

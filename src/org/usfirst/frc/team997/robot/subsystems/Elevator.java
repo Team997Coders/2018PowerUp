@@ -88,7 +88,7 @@ public class Elevator extends Subsystem {
     }
     
     public double getCurrent() {
-    	elevatorCurrent = Robot.pdp.getCurrent(RobotMap.Ports.elevatorTalonPort);
+    	elevatorCurrent = Robot.pdp.getCurrent(RobotMap.PDPPorts.elevatorTalon);
     	return elevatorCurrent;
     }
     

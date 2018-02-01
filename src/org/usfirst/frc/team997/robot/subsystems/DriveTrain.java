@@ -208,16 +208,16 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getTotalLeftCurrent() {
-		totalLeftCurrent = (Robot.pdp.getCurrent(RobotMap.Ports.leftTalonPort)
-				+ Robot.pdp.getCurrent(RobotMap.Ports.leftVictorPort)
-				+ Robot.pdp.getCurrent(RobotMap.Ports.leftVictorPort2));
+		totalLeftCurrent = (Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrainTalon)
+				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain)
+				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain2));
 		return totalLeftCurrent;
 	}
 
 	public double getTotalRightCurrent() {
-		totalRightCurrent = (Robot.pdp.getCurrent(RobotMap.Ports.rightTalonPort)
-				+ Robot.pdp.getCurrent(RobotMap.Ports.rightVictorPort)
-				+ Robot.pdp.getCurrent(RobotMap.Ports.rightVictorPort2));
+		totalRightCurrent = (Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrainTalon)
+				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrain)
+				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrain2));
 		return totalRightCurrent;
 	}
 

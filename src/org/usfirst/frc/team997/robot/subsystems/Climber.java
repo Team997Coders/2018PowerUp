@@ -18,7 +18,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 	}
 		
 	public void safeClimb() {
-		if (Robot.pdp.getCurrent(RobotMap.Ports.climberVictorPort) > RobotMap.Values.climberLimit) {
+		if (Robot.pdp.getCurrent(RobotMap.PDPPorts.climber) > RobotMap.Values.climberLimit) {
 			climberMotor.set(0);
 		} else {
 			climberMotor.set(RobotMap.Values.climbspeed);
@@ -26,7 +26,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 	}
 
 	public void safeUnclimb() {
-		if (Robot.pdp.getCurrent(RobotMap.Ports.climberVictorPort) > RobotMap.Values.climberLimit) {
+		if (Robot.pdp.getCurrent(RobotMap.PDPPorts.climber) > RobotMap.Values.climberLimit) {
 			climberMotor.set(0);
 		} else {
 			climberMotor.set(-RobotMap.Values.climbspeed);
