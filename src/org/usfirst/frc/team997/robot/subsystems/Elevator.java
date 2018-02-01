@@ -7,6 +7,7 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
+import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
 import edu.wpi.first.wpilibj.command.Subsystem;
@@ -19,6 +20,7 @@ public class Elevator extends Subsystem {
 	
 	private DoubleSolenoid elevatorSolenoid;
 	private TalonSRX Motor;
+	private VictorSPX follower;
 	public SensorCollection sensorCollection;
 	public static final double absoluteTolerance = 0.01;
 	public boolean isZeroed = false;
@@ -37,6 +39,11 @@ public class Elevator extends Subsystem {
     	elevatorSolenoid = new DoubleSolenoid(RobotMap.Ports.elevatorSolenoidPort, RobotMap.Ports.elevatorSolenoidPort2);
     	
     	Motor = new TalonSRX(RobotMap.Ports.elevatorTalonPort);
+    	follower = new VictorSPX(RobotMap.Ports.elevatorVictorPort);
+    	
+    	follower.follow(Motor);
+    	
+    	follower.setInverted(false);
     	
     	absolutePosition = Motor.getSelectedSensorPosition(0); // & 0xFFF;
     	Motor.setSelectedSensorPosition(absolutePosition, 0, 10);
