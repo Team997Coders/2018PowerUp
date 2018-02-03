@@ -8,6 +8,7 @@ import org.usfirst.frc.team997.robot.commands.TankDrive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.IMotorController;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -81,6 +82,9 @@ public class DriveTrain extends Subsystem {
 		leftTalon.setSensorPhase(true);
 		rightTalon.setSensorPhase(true);
 		
+		leftTalon.setNeutralMode(NeutralMode.Coast);
+		rightTalon.setNeutralMode(NeutralMode.Coast);
+		
 		/* set the peak, nominal outputs */
 		leftTalon.configNominalOutputForward(0, 10);
 		leftTalon.configNominalOutputReverse(0, 10);
@@ -131,7 +135,7 @@ public class DriveTrain extends Subsystem {
 
 	public void initDefaultCommand() {
 		// Set the default command for a subsystem here.
-		// setDefaultCommand(new TankDrive());
+		//setDefaultCommand(new TankDrive());
 		setDefaultCommand(new ArcadeDrive());
 	}
 

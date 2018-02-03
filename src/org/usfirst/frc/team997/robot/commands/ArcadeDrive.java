@@ -18,8 +18,8 @@ public class ArcadeDrive extends Command {
     }
 
     protected void execute() {
-    	Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX(), 
-    								Robot.m_oi.getLeftY() + Robot.m_oi.getRightX());
+    	Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() + Robot.m_oi.getRightX(), 
+    								Robot.m_oi.getLeftY() - Robot.m_oi.getRightX());
     }
 
     protected boolean isFinished() {
