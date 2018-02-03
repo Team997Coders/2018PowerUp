@@ -172,7 +172,7 @@ public class DriveTrain extends Subsystem {
 	public double getRightMasterVoltage() {
 		return rightTalon.getMotorOutputVoltage();
 	}
-
+	
 	public void setVoltages(double leftSpeed, double rightSpeed) {
 		leftTalon.set(ControlMode.PercentOutput, leftSpeed);
 		rightTalon.set(ControlMode.PercentOutput, rightSpeed);
@@ -200,6 +200,8 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
 		SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
 		SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderTicks());
+		SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
+		SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
 		SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("DT - Heading", getHeading());

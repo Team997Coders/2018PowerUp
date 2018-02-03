@@ -70,6 +70,7 @@ public class RobotMap {
 	public static class Values {
 		
 		public static double
+		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
 		
 		elevatorHeight1, 
 		elevatorHeight2,
