@@ -82,8 +82,8 @@ public class DriveTrain extends Subsystem {
 		leftTalon.setSensorPhase(true);
 		rightTalon.setSensorPhase(true);
 		
-		leftTalon.setNeutralMode(NeutralMode.Coast);
-		rightTalon.setNeutralMode(NeutralMode.Coast);
+		leftTalon.setNeutralMode(NeutralMode.Brake);
+		rightTalon.setNeutralMode(NeutralMode.Brake);
 		
 		/* set the peak, nominal outputs */
 		leftTalon.configNominalOutputForward(0, 10);
