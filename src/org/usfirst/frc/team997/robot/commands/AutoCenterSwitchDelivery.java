@@ -1,6 +1,7 @@
 package org.usfirst.frc.team997.robot.commands;
 
 import org.usfirst.frc.team997.robot.Robot;
+import org.usfirst.frc.team997.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.command.CommandGroup;
@@ -12,13 +13,13 @@ public class AutoCenterSwitchDelivery extends CommandGroup {
     public AutoCenterSwitchDelivery() {
     
     	
-    	addSequential(new PDriveToDistance(2 * PDriveToDistance.ticksPerFoot)); //Drive forward to avoid exhchange zone.
+    	addSequential(new PDriveToDistance(2 * RobotMap.Values.ticksPerFoot)); //Drive forward to avoid exhchange zone.
     	if(Robot.getGameData().charAt(0) == 'L') {
     		
     		addSequential(new PDriveToAngle(-65)); //Turn left to face switch.
-    		addSequential(new PDriveToDistance(4.6 * PDriveToDistance.ticksPerFoot)); //Diagonal length towards our switch.
+    		addSequential(new PDriveToDistance(4.6 * RobotMap.Values.ticksPerFoot)); //Diagonal length towards our switch.
     		addSequential(new PDriveToAngle(65)); //Turn right to face straight again.
-    		addSequential(new PDriveToDistance(3.47 * PDriveToDistance.ticksPerFoot)); //Drive to reach switch for cube delivery.
+    		addSequential(new PDriveToDistance(3.47 * RobotMap.Values.ticksPerFoot)); //Drive to reach switch for cube delivery.
     		//TODO NEED TO DROP CUBE AFTERWARDS IN SWITCH.
     		//PRETTY ACCURATE NOW!!:^)
     		//When our side of the switch is on the left, this will deliver the cube to
@@ -26,9 +27,9 @@ public class AutoCenterSwitchDelivery extends CommandGroup {
     	}
     	else {
     		addSequential(new PDriveToAngle(65)); //Turn right to face switch.
-    		addSequential(new PDriveToDistance(4.6 * PDriveToDistance.ticksPerFoot)); //Diagonal length towards our switch.
+    		addSequential(new PDriveToDistance(4.6 * RobotMap.Values.ticksPerFoot)); //Diagonal length towards our switch.
     		addSequential(new PDriveToAngle(-65)); //Turn left to face straight again.
-    		addSequential(new PDriveToDistance(3.470 * PDriveToDistance.ticksPerFoot)); //Drive to reach switch for cube delivery.
+    		addSequential(new PDriveToDistance(3.470 * RobotMap.Values.ticksPerFoot)); //Drive to reach switch for cube delivery.
     		//TODO NEED TO DROP CUBE AFTERWARDS IN SWITCH.
     		//PRETTY ACCURATE NOW :^)
     		//When our side of the switch is on the right, this will deliver the cube to

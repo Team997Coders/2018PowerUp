@@ -12,10 +12,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PDriveToDistance extends Command {
 	
-	public static double ticksPerFoot = 8370.0; //TODO fix this numba. Thx NootNoot.
-	//Uh, isn't this already correct though?
-	//How many ticks on the encoder it takes to travel 1 foot.
-	
 	private double distSetpoint;
 	private double minError = 10;
 	public Timer timer = new Timer();
@@ -24,7 +20,7 @@ public class PDriveToDistance extends Command {
 	private double deltaT = 0;
 	private double speed = 0.5;
 	private double initYaw = -999;
-	private double Ktheta = 0.02;
+	private double Ktheta = 0.002;
 
     public PDriveToDistance(double _speed, double _dist) {
         // Use requires() here to declare subsystem dependencies

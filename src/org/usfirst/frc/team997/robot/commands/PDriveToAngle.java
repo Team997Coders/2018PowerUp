@@ -12,7 +12,7 @@ public class PDriveToAngle extends Command {
 	private double minError = 5;
 	private double initYaw = -999;
 	//private double Ktheta = 0.015; 
-	private double Ktheta = 0.02;
+	private double Ktheta = 0.0125;
 
     public PDriveToAngle(double _ang) {
     	requires(Robot.drivetrain);
@@ -27,12 +27,12 @@ public class PDriveToAngle extends Command {
     protected void execute() {
     	// calculate yaw correction
     	double yawcorrect = piderror() * Ktheta;
-    	Robot.drivetrain.setVoltages(-yawcorrect, yawcorrect); //TODO check signs plez. mek it go forward.
+    	Robot.drivetrain.setVoltages(yawcorrect, -yawcorrect); //TODO check signs plez. mek it go forward.
     	// Debug information to be placed on the smart dashboard.
-    	SmartDashboard.putNumber("Angle Error", piderror());
-    	SmartDashboard.putNumber("Theta Angle Correction", yawcorrect);
-    	SmartDashboard.putBoolean("On Angle Target", onTarget());
-    	SmartDashboard.putNumber("Init Angle Yaw", initYaw);
+    	SmartDashboard.putNumber("PDriveToAngle: Angle Error", piderror());
+    	SmartDashboard.putNumber("PDriveToAngle: Theta Angle Correction", yawcorrect);
+    	SmartDashboard.putBoolean("PDriveToAngle: On Angle Target", onTarget());
+    	SmartDashboard.putNumber("PDriveToAngle: Init Angle Yaw", initYaw);
     }
 
     private double piderror() {

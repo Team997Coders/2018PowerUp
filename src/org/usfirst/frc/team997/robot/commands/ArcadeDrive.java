@@ -14,7 +14,7 @@ public class ArcadeDrive extends Command {
 	double initAngle;
 	double deltaTheta;
 	double correction;
-	double kTheta = 0.2;
+	double kTheta = 0.02;
 	
 	double leftEncoderDist;
 	double rightEncoderDist;
@@ -25,6 +25,7 @@ public class ArcadeDrive extends Command {
 
     protected void initialize() {
     	Robot.drivetrain.resetEncoders();
+    	initAngle = Robot.drivetrain.getAHRSAngle();
     }
 
     protected void execute() {
@@ -32,8 +33,12 @@ public class ArcadeDrive extends Command {
     	rightEncoderDist = Robot.drivetrain.getRightEncoderTicks()*RobotMap.Values.inchesPerTick;
     	
     	//no correction
-    	Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() + Robot.m_oi.getRightX(), 
-				Robot.m_oi.getLeftY() - Robot.m_oi.getRightX());
+    	/*Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() + Robot.m_oi.getRightX(), 
+				Robot.m_oi.getLeftY() - Robot.m_oi.getRightX());*/
+    	
+    	//simple correction
+    	Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()), 
+				(Robot.m_oi.getLeftY()*0.9) - (Robot.m_oi.getRightX()*0.9));
     	
     	//correction using encoders (unfinished)
     	/*if (Math.abs(Robot.m_oi.getRightX()) != 0) {
@@ -52,8 +57,8 @@ public class ArcadeDrive extends Command {
     		
     		deltaTheta = Robot.drivetrain.getAHRSAngle() - initAngle;
     		correction = deltaTheta*kTheta;
-    		Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY() + Robot.m_oi.getRightX()) + correction, 
-					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) - correction);
+    		Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY() + Robot.m_oi.getRightX()) - correction, 
+					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) + correction);
     	}
     	
     	SmartDashboard.putNumber("Arcade drive initAngle", initAngle);

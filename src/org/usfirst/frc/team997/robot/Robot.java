@@ -8,6 +8,8 @@
 package org.usfirst.frc.team997.robot;
 
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
+import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
+import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
 import org.usfirst.frc.team997.robot.commands.SlowForward;
 import org.usfirst.frc.team997.robot.subsystems.Climber;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
@@ -88,7 +90,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		//m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new SlowForward();
+		m_autonomousCommand = new PDriveToDistance(3732.5);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",

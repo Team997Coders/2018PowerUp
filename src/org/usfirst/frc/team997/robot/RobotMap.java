@@ -71,6 +71,7 @@ public class RobotMap {
 		
 		public static double
 		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
+		ticksPerFoot = 3732.5, //encoder ticks per foot
 		
 		elevatorHeight1, 
 		elevatorHeight2,

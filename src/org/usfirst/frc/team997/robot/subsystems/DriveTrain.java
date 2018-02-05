@@ -115,6 +115,7 @@ public class DriveTrain extends Subsystem {
 		 */
 		try {
 			ahrs = new AHRS(RobotMap.Ports.AHRS);
+			System.out.println("ahrs is cool!");
 		} catch (RuntimeException e) {
 			System.out.println("DT - The AHRS constructor do a bad.");
 		}
