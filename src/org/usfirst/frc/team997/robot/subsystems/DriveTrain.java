@@ -23,15 +23,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
 
-	public TalonSRX leftTalon;
-	public TalonSRX rightTalon;
+	private TalonSRX leftTalon;
+	private TalonSRX rightTalon;
 	//temp
 	private VictorSPX leftVictor;
 	private VictorSPX leftVictor2;
 	private VictorSPX rightVictor;
 	private VictorSPX rightVictor2;
-	public SensorCollection leftSensorCollection;
-	public SensorCollection rightSensorCollection;
+	private SensorCollection leftSensorCollection;
+	private SensorCollection rightSensorCollection;
 
 	private AHRS ahrs;
 	private double init_angle;
