@@ -2,6 +2,7 @@ package org.usfirst.frc.team997.robot.subsystems;
 
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
+import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -160,5 +161,10 @@ public class Elevator extends Subsystem {
     	SmartDashboard.putNumber("ElevatorPIDError", Motor.getClosedLoopError(0));
     	SmartDashboard.putNumber("Elevator Position ", Motor.getSelectedSensorPosition(0));
     	SmartDashboard.putNumber("Elevator current", elevatorCurrent);
+    	
+    	//POSITION SETPOINTS
+    	SmartDashboard.putData("Elevator Height 1", new ElevatorToHeight(RobotMap.Values.elevatorHeight1));
+    	SmartDashboard.putData("Elevator Height 2", new ElevatorToHeight(RobotMap.Values.elevatorHeight2));
+    	SmartDashboard.putData("Elevator Height 3", new ElevatorToHeight(RobotMap.Values.elevatorHeight3));
     }
 }
