@@ -35,6 +35,7 @@ public class Robot extends TimedRobot {
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
 	public static OI m_oi;
+	public static Logger logger;
 	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
 	public static PowerDistributionPanel pdp;
 	
@@ -52,6 +53,9 @@ public class Robot extends TimedRobot {
 		elevator = new Elevator();
 		m_oi = new OI();
 		pdp = new PowerDistributionPanel();
+		
+		logger = Logger.getInstance();
+		
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
 		//m_chooser.addObject("My Auto", new MyAutoCommand());
 		SmartDashboard.putData("Auto mode", m_chooser);
@@ -65,6 +69,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		drivetrain.updateDashboard();
+		this.logger.close();
 		controlCurrent();
 	}
 
@@ -89,6 +94,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void autonomousInit() {
+		logger.openFile();
 		//m_autonomousCommand = m_chooser.getSelected();
 		m_autonomousCommand = new PDriveToDistance(3732.5);
 
@@ -114,6 +120,7 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+		logger.logAll();
 		controlCurrent();
 	}
 

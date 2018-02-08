@@ -187,6 +187,14 @@ public class DriveTrain extends Subsystem {
 		return rightTalon.getSelectedSensorPosition(0);
 	}
 
+	public double getLeftEncoderRate() {
+		return leftTalon.getSelectedSensorVelocity(0);
+	}
+
+	public double getRightEncoderRate() {
+		return rightTalon.getSelectedSensorVelocity(0);
+	}
+
 	public void resetEncoders() {
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
 		rightTalon.setSelectedSensorPosition(0, 0, 10);
