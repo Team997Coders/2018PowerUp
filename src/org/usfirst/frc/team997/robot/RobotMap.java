@@ -19,27 +19,27 @@ public class RobotMap {
 	public static class Ports {
 		public static int
 		//CAN
-		leftTalonPort = 1,
-		rightTalonPort = 2,
-		elevatorTalonPort = 3,
+		leftTalonPort = 3,
+		rightTalonPort = 8,
+		elevatorTalonPort = 2,
 		
 		//ANALOGINPUT
 		leftCollectorSensorInput = 0,
 		rightCollectorSensorInput = 1,
 		
 		//PWM
-		leftVictorPort = 1,
-		leftVictorPort2 = 2,
-		rightVictorPort = 3,
-		rightVictorPort2 = 4,
-		climberVictorPort = 5,
-		leftCollectorPort = 6,
-		rightCollectorPort = 7,
+		leftVictorPort = 4,
+		leftVictorPort2 = 5,
+		rightVictorPort = 6,
+		rightVictorPort2 = 7,
+		climberVictorPort = 9,
+		elevatorVictorPort = 1,
+		leftCollectorPort = 2,
+		rightCollectorPort = 3,
 		
-		//Other mechanisms we will use:
-		//elevator - basically bunnybot arm
-		//collector
-		//??
+		//PNEUMATICS
+		elevatorSolenoidPort = 0,
+		elevatorSolenoidPort2 = 1,
 		
 		//DIO
 		leftEncoderPort1 = 0,
@@ -56,9 +56,32 @@ public class RobotMap {
 		
 	}
 	
+	public static class PDPPorts {
+		public static int
+		
+		rightDriveTrain = 0,
+		rightDriveTrain2 = 1,
+		climber = 2,
+		climber2 = 3,
+		intake = 6,
+		intake2 = 7,
+		elevatorTalon = 10,
+		elevatorVictor = 11,
+		leftDriveTrain = 12,
+		leftDriveTrain2 = 13,
+		leftDriveTrainTalon = 14,
+		rightDriveTrainTalon = 15;
+	}
+	
 	public static class Values {
 		
 		public static double
+		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
+		ticksPerFoot = 3732.5, //encoder ticks per foot
+		
+		elevatorHeight1, 
+		elevatorHeight2,
+		elevatorHeight3,
 		
 		slowcollectspeed = 0.25,
 		fastcollectspeed = 0.75,
@@ -68,10 +91,18 @@ public class RobotMap {
 		elevatorPidP = 0,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
-		climbspeed = 0.5;
+		climbspeed = 0.5,
+		
+		//voltage limits in amps
+		drivetrainLeftLimit = 81,
+		drivetrainRightLimit = 81,
+		collectorLeftLimit = 12,
+		collectorRightLimit = 12,
+		elevatorLimit = 55,
+		climberLimit = 50;
 		
 	}
-	
+
 	public static class Buttons {
 		public static int
 		
@@ -80,9 +111,14 @@ public class RobotMap {
 		elevatorManualDown = 5, //Left Bumper, GamePad1
 		elevatorArrayUp = 4, //Y, GamePad2
 		elevatorArrayDown = 1, //A, GamePad2
+		
 		climbbutton = 3, //not final
 		unclimbbutton = 2, //not final
-		collectButton = 7, //not final
-		smartCollectButton = 8;
+
+		collectButton = 8, //not final
+		smartCollectButton = 9,
+
+		flopButton = 7;
+
 	}
 }

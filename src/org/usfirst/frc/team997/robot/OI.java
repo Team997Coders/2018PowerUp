@@ -7,9 +7,11 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.ArrayHeightSelector;
 import org.usfirst.frc.team997.robot.commands.Climb;
 import org.usfirst.frc.team997.robot.commands.Collect;
 import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
+import org.usfirst.frc.team997.robot.commands.Flop;
 import org.usfirst.frc.team997.robot.commands.LockElevator;
 import org.usfirst.frc.team997.robot.commands.MoveElevator;
 import org.usfirst.frc.team997.robot.commands.SmartCollect;
@@ -38,7 +40,8 @@ public class OI {
 	elevatorArrayUp,
 	elevatorArrayDown,
 	climbbutton,
-	unclimbbutton;
+	unclimbbutton,
+	flopButton;
 	
 	public OI() {
 		//JOYSTICK INIT
@@ -65,13 +68,16 @@ public class OI {
 		smartCollectButton = new JoystickButton(GamePad1, RobotMap.Buttons.smartCollectButton);
 		smartCollectButton.whileHeld(new SmartCollect());
 		
-		//ELEVATOR ARRAY CONTROL BUTTONS
-		//elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
-		//elevatorArrayUp.whenPressed(new ElevatorToHeight(true));
+		flopButton = new JoystickButton(GamePad1, RobotMap.Buttons.flopButton);
+		flopButton.whenPressed(new Flop());
 		
-		//elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
-		//elevatorArrayDown.whenPressed(new ElevatorToHeight(false));
-		//COMMENTED OUT BECAUSE ARRAY ISN'T DONE
+		//ELEVATOR ARRAY CONTROL BUTTONS
+		elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
+		elevatorArrayUp.whenPressed(new ArrayHeightSelector(true));
+		
+		elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
+		elevatorArrayDown.whenPressed(new ArrayHeightSelector(false));
+		
 	}
 	
 	public double getLeftY() {
@@ -94,7 +100,4 @@ public class OI {
 		}
 	}
 	
-	public void updateDashboard() {
-		
-	}
 }

@@ -1,5 +1,5 @@
 # Corvallis High School Spartan Robotics Team 997
-Team 997s robot source code for the 2018 FRC game, First PowerUp!
+Team 997's robot source code for the 2018 FRC game, First PowerUp!
 
 ## Contents
 

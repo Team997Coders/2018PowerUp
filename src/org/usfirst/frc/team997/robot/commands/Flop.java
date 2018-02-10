@@ -7,12 +7,12 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Climb extends Command {
+public class Flop extends Command {
 
-    public Climb() {
-    	requires(Robot.climber);
+    public Flop() {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
@@ -21,17 +21,20 @@ public class Climb extends Command {
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	Robot.climber.safeClimb();
+    	if(Robot.elevator.flop == 1) {
+    		Robot.elevator.flop(0);
+    	} else if(Robot.elevator.flop == 0) {
+    		Robot.elevator.flop(1);
+    	}
     }
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return !Robot.m_oi.climbbutton.get();
+        return true;
     }
 
     // Called once after isFinished returns true
     protected void end() {
-    	Robot.climber.stopclimb();
     }
 
     // Called when another command which requires one or more of the same
