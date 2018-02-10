@@ -109,16 +109,16 @@ public class RobotMap {
 		//ELEVATOR CONTROLS
 		elevatorManualUp = 6, //Right Bumper, GamePad1
 		elevatorManualDown = 5, //Left Bumper, GamePad1
-		elevatorArrayUp = 4, //Y, GamePad2
-		elevatorArrayDown = 1, //A, GamePad2
+		elevatorArrayUp = 4, //Squar, GamePad2
+		elevatorArrayDown = 1, //Trangle, GamePad2
 		
-		climbbutton = 3, //not final
-		unclimbbutton = 2, //not final
+		climbbutton = 3, //X, Gamepad2
+		unclimbbutton = 2, //Sorqule, Gamepad2
 
-		collectButton = 8, //not final
-		smartCollectButton = 9,
+		collectButton = 8, //right trigger, Gamepad2
+		smartCollectButton = 7, //left trigger, Gamepad2
 
-		flopButton = 7;
+		flopButton = 7; //back, Gamepad1
 
 	}
 }

@@ -23,8 +23,9 @@ public class Collector extends Subsystem {
 	}
 	
 	public void collect(double leftspeed,double rightspeed) { 
+		//ONE VALUE INVERTED TO COLLECT
 		leftmotor.set(leftspeed);
-		rightmotor.set(rightspeed);
+		rightmotor.set(-rightspeed);
 	}
 	
 	public double getAvgLeftVoltage() {

@@ -61,11 +61,12 @@ public class OI {
 		elevatorManualDown = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualDown);
 		elevatorManualDown.whileHeld(new MoveElevator(-0.5));
 		elevatorManualDown.whenReleased(new LockElevator());
-		//COLLECTCONTROL
-		collectButton = new JoystickButton(GamePad1, RobotMap.Buttons.collectButton);
-		collectButton.whileHeld(new Collect(0.5, 0.5));
 		
-		smartCollectButton = new JoystickButton(GamePad1, RobotMap.Buttons.smartCollectButton);
+		//COLLECTCONTROL
+		collectButton = new JoystickButton(GamePad2, RobotMap.Buttons.collectButton);
+		collectButton.whileHeld(new Collect(0.5, 0.5)); //VALUES ALREADY INVERTED IN COLLECTOR
+		
+		smartCollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.smartCollectButton);
 		smartCollectButton.whileHeld(new SmartCollect());
 		
 		flopButton = new JoystickButton(GamePad1, RobotMap.Buttons.flopButton);
