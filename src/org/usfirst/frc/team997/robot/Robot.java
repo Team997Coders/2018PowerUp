@@ -12,6 +12,7 @@ import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
 import org.usfirst.frc.team997.robot.commands.SlowForward;
 import org.usfirst.frc.team997.robot.subsystems.Climber;
+import org.usfirst.frc.team997.robot.subsystems.Collector;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
 
@@ -31,6 +32,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * project.
  */
 public class Robot extends TimedRobot {
+	public static Collector collector;
 	public static Climber climber;
 	public static DriveTrain drivetrain;
 	public static Elevator elevator;
@@ -48,6 +50,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void robotInit() {
+		collector = new Collector();
 		climber = new Climber();
 		drivetrain = new DriveTrain();
 		elevator = new Elevator();
@@ -69,8 +72,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void disabledInit() {
 		drivetrain.updateDashboard();
+<<<<<<< HEAD
+		collector.updateSmartDashboard();
+=======
 		this.logger.close();
 		controlCurrent();
+>>>>>>> master
 	}
 
 	//noot noot
@@ -78,7 +85,11 @@ public class Robot extends TimedRobot {
 	public void disabledPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+<<<<<<< HEAD
+		collector.updateSmartDashboard();
+=======
 		controlCurrent();
+>>>>>>> master
 	}
 
 	/**
@@ -110,7 +121,11 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.start();
 		}
 		drivetrain.updateDashboard();
+<<<<<<< HEAD
+		collector.updateSmartDashboard();
+=======
 		controlCurrent();
+>>>>>>> master
 	}
 
 	/**
@@ -120,8 +135,12 @@ public class Robot extends TimedRobot {
 	public void autonomousPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+<<<<<<< HEAD
+		collector.updateSmartDashboard();
+=======
 		logger.logAll();
 		controlCurrent();
+>>>>>>> master
 	}
 
 	@Override
@@ -134,7 +153,11 @@ public class Robot extends TimedRobot {
 			m_autonomousCommand.cancel();
 		}
 		drivetrain.updateDashboard();
+<<<<<<< HEAD
+		collector.updateSmartDashboard();
+=======
 		controlCurrent();
+>>>>>>> master
 	}
 
 	/**
@@ -144,7 +167,11 @@ public class Robot extends TimedRobot {
 	public void teleopPeriodic() {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
+<<<<<<< HEAD
+		collector.updateSmartDashboard();
+=======
 		controlCurrent();
+>>>>>>> master
 	}
 
 	/**

@@ -23,6 +23,10 @@ public class RobotMap {
 		rightTalonPort = 8,
 		elevatorTalonPort = 2,
 		
+		//ANALOGINPUT
+		leftCollectorSensorInput = 0,
+		rightCollectorSensorInput = 1,
+		
 		//PWM
 		leftVictorPort = 4,
 		leftVictorPort2 = 5,
@@ -30,6 +34,8 @@ public class RobotMap {
 		rightVictorPort2 = 7,
 		climberVictorPort = 9,
 		elevatorVictorPort = 1,
+		leftCollectorPort = 2,
+		rightCollectorPort = 3,
 		
 		//PNEUMATICS
 		elevatorSolenoidPort = 0,
@@ -77,6 +83,10 @@ public class RobotMap {
 		elevatorHeight2,
 		elevatorHeight3,
 		
+		slowcollectspeed = 0.25,
+		fastcollectspeed = 0.75,
+		collectspeed = 0.5,
+		
 		driveDistanceP = 0,
 		elevatorPidP = 0,
 		elevatorPidI = 0,
@@ -104,8 +114,11 @@ public class RobotMap {
 		
 		climbbutton = 3, //not final
 		unclimbbutton = 2, //not final
-		
+
+		collectButton = 8, //not final
+		smartCollectButton = 9,
+
 		flopButton = 7;
-		
+
 	}
 }
