@@ -116,7 +116,8 @@ public class RobotMap {
 		unclimbbutton = 2, //Sorqule, Gamepad2
 
 		collectButton = 8, //right trigger, Gamepad2
-		smartCollectButton = 7, //left trigger, Gamepad2
+		//smartCollectButton = 7, //left trigger, Gamepad2
+		uncollectButton = 7, //left trigger, Gamepad2
 
 		flopButton = 7; //back, Gamepad1
 

@@ -16,6 +16,7 @@ import org.usfirst.frc.team997.robot.commands.LockElevator;
 import org.usfirst.frc.team997.robot.commands.MoveElevator;
 import org.usfirst.frc.team997.robot.commands.SmartCollect;
 import org.usfirst.frc.team997.robot.commands.UnClimb;
+import org.usfirst.frc.team997.robot.commands.Uncollect;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
@@ -26,7 +27,6 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
-	public static boolean gotCube = false;
 	
 	public Joystick 
 	GamePad1, 
@@ -34,6 +34,7 @@ public class OI {
 	
 	public JoystickButton
 	smartCollectButton,
+	uncollectButton,
 	collectButton,
 	elevatorManualUp,
 	elevatorManualDown,
@@ -64,10 +65,13 @@ public class OI {
 		
 		//COLLECTCONTROL
 		collectButton = new JoystickButton(GamePad2, RobotMap.Buttons.collectButton);
-		collectButton.whileHeld(new Collect(0.5, 0.5)); //VALUES ALREADY INVERTED IN COLLECTOR
+		collectButton.whenPressed(new Collect(0.5, 0.5)); //VALUES ALREADY INVERTED IN COLLECTOR
 		
-		smartCollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.smartCollectButton);
-		smartCollectButton.whileHeld(new SmartCollect());
+		uncollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.uncollectButton);
+		uncollectButton.whileHeld(new Uncollect(-1,-1));
+		
+		//smartCollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.smartCollectButton);
+		//smartCollectButton.whileHeld(new SmartCollect());
 		
 		flopButton = new JoystickButton(GamePad1, RobotMap.Buttons.flopButton);
 		flopButton.whenPressed(new Flop());

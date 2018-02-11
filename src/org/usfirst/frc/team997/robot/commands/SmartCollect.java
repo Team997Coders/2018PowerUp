@@ -15,7 +15,7 @@ public class SmartCollect extends Command {
 	double rightspeed, leftspeed;
 	double error;
 	
-	
+	boolean gotCube = false;
 
     public SmartCollect() {
     	requires(Robot.collector);
@@ -34,7 +34,7 @@ public class SmartCollect extends Command {
     	System.out.println("rightv: " + rightv);
     	
     	if(leftv > 2.5 || rightv > 2.5) {
-    		Robot.m_oi.gotCube = true;
+    		gotCube = true;
     	} else {
     		//PUT VALUES THROUGH DEADBAND, FILTERS, ETC. 
     			//TODO: filter values + convert to distances
@@ -59,7 +59,7 @@ public class SmartCollect extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return (error == 0) || Robot.m_oi.gotCube;
+        return (error == 0) || gotCube;
     }
 
     // Called once after isFinished returns true

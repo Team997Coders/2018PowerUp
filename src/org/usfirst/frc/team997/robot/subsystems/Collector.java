@@ -16,6 +16,7 @@ public class Collector extends Subsystem {
 	private AnalogInput rightinput = new AnalogInput(RobotMap.Ports.rightCollectorSensorInput);
 	public static double leftVoltage;
 	public static double rightVoltage;
+	public boolean gotCube;
 	
 	public Collector() {
 		leftmotor = new VictorSP(RobotMap.Ports.leftCollectorPort);
@@ -42,8 +43,9 @@ public class Collector extends Subsystem {
         //setDefaultCommand(new MySpecialCommand());
     }
     public void updateSmartDashboard() {
-    	SmartDashboard.putNumber("rightCollectorSensor", rightVoltage);
-		SmartDashboard.putNumber("leftCollectorSensor", leftVoltage);
+    	SmartDashboard.putNumber("rightCollectorSensor", getAvgRightVoltage());
+		SmartDashboard.putNumber("leftCollectorSensor", getAvgLeftVoltage());
+		SmartDashboard.putBoolean("got cube?", gotCube);
     }
     
 }

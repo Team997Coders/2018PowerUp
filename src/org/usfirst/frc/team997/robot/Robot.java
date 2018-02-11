@@ -7,10 +7,13 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
+import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
 import org.usfirst.frc.team997.robot.commands.SlowForward;
+import org.usfirst.frc.team997.robot.commands.SwitchSameSideDelivery;
 import org.usfirst.frc.team997.robot.subsystems.Climber;
 import org.usfirst.frc.team997.robot.subsystems.Collector;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
@@ -60,7 +63,10 @@ public class Robot extends TimedRobot {
 		logger = Logger.getInstance();
 		
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
-		//m_chooser.addObject("My Auto", new MyAutoCommand());
+		m_chooser.addObject("Center switch ", new AutoCenterSwitchDelivery());
+		m_chooser.addObject("Cross line", new CrossLine());
+		m_chooser.addObject("Same side switch", new SwitchSameSideDelivery());
+		//m_chooser.addObject("Drive forward ---- distance", new PDriveToDistance(3732.5));
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -73,6 +79,7 @@ public class Robot extends TimedRobot {
 	public void disabledInit() {
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
+		elevator.updateSmartDashboard();
 		this.logger.close();
 		controlCurrent();
 	}
@@ -83,6 +90,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
+		elevator.updateSmartDashboard();
 		controlCurrent();
 	}
 
@@ -100,8 +108,7 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		logger.openFile();
-		//m_autonomousCommand = m_chooser.getSelected();
-		m_autonomousCommand = new PDriveToDistance(3732.5);
+		m_autonomousCommand = m_chooser.getSelected();
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -116,6 +123,7 @@ public class Robot extends TimedRobot {
 		}
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
+		elevator.updateSmartDashboard();
 		controlCurrent();
 
 	}
@@ -128,6 +136,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
+		elevator.updateSmartDashboard();
 		logger.logAll();
 		controlCurrent();
 	}
@@ -143,6 +152,7 @@ public class Robot extends TimedRobot {
 		}
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
+		elevator.updateSmartDashboard();
 		controlCurrent();
 
 	}
@@ -155,6 +165,7 @@ public class Robot extends TimedRobot {
 		Scheduler.getInstance().run();
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
+		elevator.updateSmartDashboard();
 		controlCurrent();
 	}
 
