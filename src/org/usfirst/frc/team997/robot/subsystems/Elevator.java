@@ -28,8 +28,8 @@ public class Elevator extends Subsystem {
 	public int absolutePosition;
 
 	public int index = 0;
-	public double[] heightList = new double[] {RobotMap.Values.elevatorHeight1, 
-			RobotMap.Values.elevatorHeight2, RobotMap.Values.elevatorHeight3};
+	public double[] heightList = new double[] {RobotMap.Values.elevatorTopHeight, 
+			RobotMap.Values.elevatorHighMidHeight, RobotMap.Values.elevatorLowMidHeight, RobotMap.Values.elevatorBottomHeight};
 
 	public int flop; //whether the collector is "flopped" down or not
 	public double elevatorCurrent;
@@ -55,8 +55,8 @@ public class Elevator extends Subsystem {
     	Motor.enableCurrentLimit(false);
     	Motor.configNominalOutputForward(0, 10);
     	Motor.configNominalOutputReverse(0, 10);
-    	Motor.configPeakOutputForward(1, 10);
-    	Motor.configPeakOutputReverse(-1, 10);
+    	Motor.configPeakOutputForward(0.8, 10);
+    	Motor.configPeakOutputReverse(-0.25, 10); //TODO: Test reverse (and forward) value because it takes little power to lower it all the way.
     	Motor.configAllowableClosedloopError(0, 0, 10);
     	Motor.selectProfileSlot(0, 0);
     	Motor.config_kP(0, RobotMap.Values.elevatorPidP, 10);
@@ -155,16 +155,18 @@ public class Elevator extends Subsystem {
        	SmartDashboard.putNumber("TalonSRX Mode", Motor.getControlMode().value);
     	SmartDashboard.putNumber("Absolute Position", absolutePosition);
     	SmartDashboard.putNumber("Elevator Voltage", Motor.getMotorOutputVoltage());
-    	SmartDashboard.putBoolean("Holo1", sensorCollection.isFwdLimitSwitchClosed());
-    	SmartDashboard.putBoolean("Holo2", sensorCollection.isRevLimitSwitchClosed());
+    	SmartDashboard.putBoolean("Top limit switch", sensorCollection.isFwdLimitSwitchClosed());
+    	SmartDashboard.putBoolean("Bottom limit switch", sensorCollection.isRevLimitSwitchClosed());
     	SmartDashboard.putBoolean("Elevator Zeroed", Robot.elevator.isZeroed);
     	SmartDashboard.putNumber("ElevatorPIDError", Motor.getClosedLoopError(0));
     	SmartDashboard.putNumber("Elevator Position ", Motor.getSelectedSensorPosition(0));
-    	SmartDashboard.putNumber("Elevator current", elevatorCurrent);
+    	SmartDashboard.putNumber("Elevator Current", getCurrent());
+    	
     	
     	//POSITION SETPOINTS
-    	SmartDashboard.putData("Elevator Height 1", new ElevatorToHeight(RobotMap.Values.elevatorHeight1));
-    	SmartDashboard.putData("Elevator Height 2", new ElevatorToHeight(RobotMap.Values.elevatorHeight2));
-    	SmartDashboard.putData("Elevator Height 3", new ElevatorToHeight(RobotMap.Values.elevatorHeight3));
+    	SmartDashboard.putData("Elevator Top Height", new ElevatorToHeight(RobotMap.Values.elevatorTopHeight));
+    	SmartDashboard.putData("Elevator High Mid Height", new ElevatorToHeight(RobotMap.Values.elevatorHighMidHeight));
+    	SmartDashboard.putData("Elevator Low Mid Height", new ElevatorToHeight(RobotMap.Values.elevatorLowMidHeight));
+    	SmartDashboard.putData("Elevator Bottom Height", new ElevatorToHeight(RobotMap.Values.elevatorBottomHeight));
     }
 }

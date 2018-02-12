@@ -35,6 +35,7 @@ public class Uncollect extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.collector.gotCube = false;
     	Robot.collector.collect(0,0);
     }
 

@@ -80,6 +80,7 @@ public class Robot extends TimedRobot {
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
+		elevator.autozero();
 		this.logger.close();
 		controlCurrent();
 	}
@@ -91,6 +92,7 @@ public class Robot extends TimedRobot {
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
+		elevator.autozero();
 		controlCurrent();
 	}
 

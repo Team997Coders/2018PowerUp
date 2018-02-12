@@ -48,7 +48,7 @@ public class RobotMap {
 		rightEncoderPort2 = 3,
 		
 		//GAMEPADS
-		GamePad1 = 0,
+		GamePad1 = 0, 
 		GamePad2 = 1;
 		
 		//USB
@@ -79,9 +79,11 @@ public class RobotMap {
 		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
 		ticksPerFoot = 3732.5, //encoder ticks per foot
 		
-		elevatorHeight1 = 0, 
-		elevatorHeight2 = 1000,
-		elevatorHeight3 = 3000,
+		elevatorTopHeight,
+		elevatorHighMidHeight,
+		elevatorLowMidHeight,
+		elevatorBottomHeight,
+		//TODO: Set values
 		
 		slowcollectspeed = 0.25,
 		fastcollectspeed = 0.75,
@@ -109,17 +111,23 @@ public class RobotMap {
 		//ELEVATOR CONTROLS
 		elevatorManualUp = 6, //Right Bumper, GamePad1
 		elevatorManualDown = 5, //Left Bumper, GamePad1
-		elevatorArrayUp = 4, //Squar, GamePad2
-		elevatorArrayDown = 1, //Trangle, GamePad2
+		elevatorArrayUp = 4, //Square, GamePad2
+		elevatorArrayDown = 1, //Triangle, GamePad2
 		
+		topPosition = 4, //Y, GamePad1
+		highMidPosition = 2, //B, GamePad1
+		lowMidPosition = 3, //X, Gamepad1
+		bottomPosition = 1, //A, GamePad1
+		
+		//COLLECTOR CONTROLS
+		collectButton = 8, //Right Trigger, Gamepad2
+		//smartCollectButton = 7, //Left Trigger, Gamepad2 TODO: needs testing
+		uncollectButton = 7, //Left Trigger, Gamepad2
+		flopButton = 7, //Back, Gamepad1
+		
+		//CLIMBER CONTROLS
 		climbbutton = 3, //X, Gamepad2
-		unclimbbutton = 2, //Sorqule, Gamepad2
-
-		collectButton = 8, //right trigger, Gamepad2
-		//smartCollectButton = 7, //left trigger, Gamepad2
-		uncollectButton = 7, //left trigger, Gamepad2
-
-		flopButton = 7; //back, Gamepad1
+		unclimbbutton = 2; //Circle, Gamepad2
 
 	}
 }

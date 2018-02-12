@@ -40,6 +40,10 @@ public class OI {
 	elevatorManualDown,
 	elevatorArrayUp,
 	elevatorArrayDown,
+	elevatorTop,
+	elevatorHighMid,
+	elevatorLowMid,
+	elevatorBottom,
 	climbbutton,
 	unclimbbutton,
 	flopButton;
@@ -48,12 +52,14 @@ public class OI {
 		//JOYSTICK INIT
 		GamePad1 = new Joystick(RobotMap.Ports.GamePad1);
 		GamePad2 = new Joystick(RobotMap.Ports.GamePad2);
+		
 		//CLIMBERCONTROLS
 		climbbutton = new JoystickButton(GamePad2, RobotMap.Buttons.climbbutton);
 		climbbutton.whenPressed(new Climb());
 		
 		unclimbbutton = new JoystickButton(GamePad2, RobotMap.Buttons.unclimbbutton);
 		unclimbbutton.whenPressed(new UnClimb());
+		
 		//ELEVATOR MANUAL CONTROL BUTTONS
 		elevatorManualUp = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualUp);
 		elevatorManualUp.whileHeld(new MoveElevator(0.5));
@@ -62,6 +68,26 @@ public class OI {
 		elevatorManualDown = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualDown);
 		elevatorManualDown.whileHeld(new MoveElevator(-0.5));
 		elevatorManualDown.whenReleased(new LockElevator());
+		
+		//ELEVATOR ARRAY CONTROL BUTTONS
+		elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
+		elevatorArrayUp.whenPressed(new ArrayHeightSelector(true));
+				
+		elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
+		elevatorArrayDown.whenPressed(new ArrayHeightSelector(false));
+		
+		//ELEVATOR SET POSITIONS
+		elevatorTop = new JoystickButton(GamePad1, RobotMap.Buttons.topPosition);
+		elevatorTop.whenPressed(new ElevatorToHeight(RobotMap.Values.elevatorTopHeight));
+		
+		elevatorHighMid = new JoystickButton(GamePad1, RobotMap.Buttons.highMidPosition);
+		elevatorHighMid.whenPressed(new ElevatorToHeight(RobotMap.Values.elevatorHighMidHeight));
+		
+		elevatorLowMid = new JoystickButton(GamePad1, RobotMap.Buttons.lowMidPosition);
+		elevatorLowMid.whenPressed(new ElevatorToHeight(RobotMap.Values.elevatorLowMidHeight));
+		
+		elevatorBottom = new JoystickButton(GamePad1, RobotMap.Buttons.bottomPosition);
+		elevatorBottom.whenPressed(new ElevatorToHeight(RobotMap.Values.elevatorBottomHeight));
 		
 		//COLLECTCONTROL
 		collectButton = new JoystickButton(GamePad2, RobotMap.Buttons.collectButton);
@@ -75,13 +101,6 @@ public class OI {
 		
 		flopButton = new JoystickButton(GamePad1, RobotMap.Buttons.flopButton);
 		flopButton.whenPressed(new Flop());
-		
-		//ELEVATOR ARRAY CONTROL BUTTONS
-		elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
-		elevatorArrayUp.whenPressed(new ArrayHeightSelector(true));
-		
-		elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
-		elevatorArrayDown.whenPressed(new ArrayHeightSelector(false));
 		
 	}
 	
