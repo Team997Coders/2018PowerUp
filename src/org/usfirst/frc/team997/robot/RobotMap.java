@@ -82,6 +82,7 @@ public class RobotMap {
 		elevatorTopHeight,
 		elevatorHighMidHeight,
 		elevatorLowMidHeight,
+		elevatorSwitchHeight,
 		elevatorBottomHeight,
 		//TODO: Set values
 		
@@ -116,6 +117,7 @@ public class RobotMap {
 		
 		topPosition = 4, //Y, GamePad1
 		highMidPosition = 2, //B, GamePad1
+		switchPosition = 8, //Start, GamePad1
 		lowMidPosition = 3, //X, Gamepad1
 		bottomPosition = 1, //A, GamePad1
 		

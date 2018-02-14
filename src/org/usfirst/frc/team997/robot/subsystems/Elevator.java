@@ -11,6 +11,7 @@ import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 
 import edu.wpi.first.wpilibj.DoubleSolenoid;
+import edu.wpi.first.wpilibj.Preferences;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -26,10 +27,12 @@ public class Elevator extends Subsystem {
 	public static final double absoluteTolerance = 0.01;
 	public boolean isZeroed = false;
 	public int absolutePosition;
+	Preferences setpointPrefs;
 
 	public int index = 0;
 	public double[] heightList = new double[] {RobotMap.Values.elevatorTopHeight, 
-			RobotMap.Values.elevatorHighMidHeight, RobotMap.Values.elevatorLowMidHeight, RobotMap.Values.elevatorBottomHeight};
+			RobotMap.Values.elevatorHighMidHeight, RobotMap.Values.elevatorLowMidHeight, 
+			RobotMap.Values.elevatorBottomHeight, RobotMap.Values.elevatorSwitchHeight};
 
 	public int flop; //whether the collector is "flopped" down or not
 	public double elevatorCurrent;
@@ -65,6 +68,14 @@ public class Elevator extends Subsystem {
     	Motor.config_kF(0, 0, 10);
     	
     	sensorCollection = new SensorCollection(Motor);
+    	
+    	setpointPrefs = Preferences.getInstance();
+    	
+    	setpointPrefs.putDouble("Elevator Bottom Height", RobotMap.Values.elevatorBottomHeight);
+    	setpointPrefs.putDouble("Elevator Switch Height", RobotMap.Values.elevatorSwitchHeight);
+    	setpointPrefs.putDouble("Elevator Low Mid Height", RobotMap.Values.elevatorLowMidHeight);
+    	setpointPrefs.putDouble("Elevator High Mid Height", RobotMap.Values.elevatorHighMidHeight);
+    	setpointPrefs.putDouble("Elevator Top Height", RobotMap.Values.elevatorTopHeight);
     	
     	flop = 0;
     	elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
@@ -162,11 +173,23 @@ public class Elevator extends Subsystem {
     	SmartDashboard.putNumber("Elevator Position ", Motor.getSelectedSensorPosition(0));
     	SmartDashboard.putNumber("Elevator Current", getCurrent());
     	
+    	//PREFERENCES SETTER
+    	RobotMap.Values.elevatorBottomHeight = setpointPrefs.getDouble("Elevator Bottom Height", 0);
+    	RobotMap.Values.elevatorSwitchHeight = setpointPrefs.getDouble("Elevator Switch Height", 0);
+    	RobotMap.Values.elevatorLowMidHeight = setpointPrefs.getDouble("Elevator Low Mid Height", 0);
+    	RobotMap.Values.elevatorHighMidHeight = setpointPrefs.getDouble("Elevator High Mid Height", 0);
+    	RobotMap.Values.elevatorTopHeight = setpointPrefs.getDouble("Elevator Top Height", 0);
     	
-    	//POSITION SETPOINTS
+    	
+    	//POSITION SETPOINTS COMMANDS
     	SmartDashboard.putData("Elevator Top Height", new ElevatorToHeight(RobotMap.Values.elevatorTopHeight));
     	SmartDashboard.putData("Elevator High Mid Height", new ElevatorToHeight(RobotMap.Values.elevatorHighMidHeight));
+    	SmartDashboard.putData("Elevator Switch Height", new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
     	SmartDashboard.putData("Elevator Low Mid Height", new ElevatorToHeight(RobotMap.Values.elevatorLowMidHeight));
     	SmartDashboard.putData("Elevator Bottom Height", new ElevatorToHeight(RobotMap.Values.elevatorBottomHeight));
+    	
+    	
+    	
+    	
     }
 }
