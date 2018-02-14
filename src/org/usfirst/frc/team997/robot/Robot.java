@@ -169,6 +169,7 @@ public class Robot extends TimedRobot {
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
 		controlCurrent();
+		elevator.autozero();
 	}
 
 	/**
