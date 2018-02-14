@@ -45,7 +45,7 @@ public class Collector extends Subsystem {
     public void updateSmartDashboard() {
     	SmartDashboard.putNumber("rightCollectorSensor", getAvgRightVoltage());
 		SmartDashboard.putNumber("leftCollectorSensor", getAvgLeftVoltage());
-		SmartDashboard.putBoolean("got cube?", gotCube);
+		SmartDashboard.putBoolean("Got Cube?", gotCube);
     }
     
 }

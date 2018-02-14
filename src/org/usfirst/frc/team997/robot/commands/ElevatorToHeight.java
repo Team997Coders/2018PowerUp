@@ -5,8 +5,8 @@ import org.usfirst.frc.team997.robot.Robot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
-/**
- *
+/*
+ Sets the elevator to a specific position.
  */
 public class ElevatorToHeight extends Command {
 

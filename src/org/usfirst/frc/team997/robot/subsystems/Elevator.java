@@ -163,15 +163,16 @@ public class Elevator extends Subsystem {
     public void updateSmartDashboard() {
     	absolutePosition = Motor.getSelectedSensorPosition(0);// & 0xFFF;
     	
+    	//DISPLAYED DATA
        	SmartDashboard.putNumber("TalonSRX Mode", Motor.getControlMode().value);
     	SmartDashboard.putNumber("Absolute Position", absolutePosition);
-    	SmartDashboard.putNumber("Elevator Voltage", Motor.getMotorOutputVoltage());
     	SmartDashboard.putBoolean("Top limit switch", sensorCollection.isFwdLimitSwitchClosed());
     	SmartDashboard.putBoolean("Bottom limit switch", sensorCollection.isRevLimitSwitchClosed());
     	SmartDashboard.putBoolean("Elevator Zeroed", Robot.elevator.isZeroed);
     	SmartDashboard.putNumber("ElevatorPIDError", Motor.getClosedLoopError(0));
     	SmartDashboard.putNumber("Elevator Position ", Motor.getSelectedSensorPosition(0));
     	SmartDashboard.putNumber("Elevator Current", getCurrent());
+    	SmartDashboard.putNumber("Elevator Voltage", Motor.getMotorOutputVoltage());
     	
     	//PREFERENCES SETTER
     	RobotMap.Values.elevatorBottomHeight = setpointPrefs.getDouble("Elevator Bottom Height", 0);
@@ -179,7 +180,6 @@ public class Elevator extends Subsystem {
     	RobotMap.Values.elevatorLowMidHeight = setpointPrefs.getDouble("Elevator Low Mid Height", 0);
     	RobotMap.Values.elevatorHighMidHeight = setpointPrefs.getDouble("Elevator High Mid Height", 0);
     	RobotMap.Values.elevatorTopHeight = setpointPrefs.getDouble("Elevator Top Height", 0);
-    	
     	
     	//POSITION SETPOINTS COMMANDS
     	SmartDashboard.putData("Elevator Top Height", new ElevatorToHeight(RobotMap.Values.elevatorTopHeight));

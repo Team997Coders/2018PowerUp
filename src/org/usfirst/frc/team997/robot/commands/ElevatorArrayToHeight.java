@@ -4,9 +4,9 @@ import org.usfirst.frc.team997.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
-
-/**
- *
+ 
+/*
+ Using an array, this command sets the elevator to a preset position.
  */
 public class ElevatorArrayToHeight extends Command {
 
@@ -25,7 +25,7 @@ public class ElevatorArrayToHeight extends Command {
     protected void execute() {
     	height = Robot.elevator.getHeightFromArray();
     	Robot.elevator.setPosition(height);
-    	System.out.println("setting elevator to height " + height);
+    	System.out.println("Setting elevator to height " + height + ".");
     }
 
     // Make this return true when this Command no longer needs to run execute()

@@ -111,6 +111,7 @@ public class OI {
 		
 		//smartCollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.smartCollectButton);
 		//smartCollectButton.whileHeld(new SmartCollect());
+		//COMMENTED OUT BECAUSE PROBABLY NOT NECESSARY.
 		
 		flopButton = new JoystickButton(GamePad1, RobotMap.Buttons.flopButton);
 		flopButton.whenPressed(new Flop());
