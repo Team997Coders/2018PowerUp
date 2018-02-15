@@ -25,7 +25,7 @@ public class LockElevator extends Command {
 
     protected boolean isFinished() {
     	double closedLoopError = Robot.elevator.getError();
-    	return !Robot.elevator.isZeroed || (Math.abs(closedLoopError) < 60);
+    	return /*!Robot.elevator.isZeroed ||*/ (Math.abs(closedLoopError) < 60);
     }
 
     protected void end() {

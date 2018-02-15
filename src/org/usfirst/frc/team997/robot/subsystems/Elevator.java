@@ -77,7 +77,7 @@ public class Elevator extends Subsystem {
     	setpointPrefs.putDouble("Elevator High Mid Height", RobotMap.Values.elevatorHighMidHeight);
     	setpointPrefs.putDouble("Elevator Top Height", RobotMap.Values.elevatorTopHeight);
     	
-    	flop = 0;
+    	flop = 1;
     	elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
     }
     
@@ -92,7 +92,7 @@ public class Elevator extends Subsystem {
     }
     
     public void autozero() {
-    	if (sensorCollection.isRevLimitSwitchClosed() && !isZeroed) {
+    	if (sensorCollection.isRevLimitSwitchClosed() /*&& !isZeroed*/) {
     		isZeroed = true;
     		Motor.setSelectedSensorPosition(0, 0, 10);
     		System.out.println("Zeroed " + Motor.getSelectedSensorPosition(0));
