@@ -33,13 +33,16 @@ public class DriveTrain extends Subsystem {
 	private SensorCollection leftSensorCollection;
 	private SensorCollection rightSensorCollection;
 
+	private double prevLeftV;
+	private double prevRightV;
+	
 	private AHRS ahrs;
 	private double init_angle;
 
-	public boolean decellOn; // Default is false.
+	public boolean decellOn = true; // Default is false.
 	public boolean gyropresent;
-	public double decellSpeed;
-	public double decellDivider;
+	public double decellSpeed = 0.2;
+	public double decellDivider = 1.2;
 
 	public static double totalLeftCurrent;
 	public static double totalRightCurrent;
@@ -129,9 +132,7 @@ public class DriveTrain extends Subsystem {
     	rightTalon.set(ControlMode.PercentOutput, 0.0);
 
 		decellSpeed = 0.2;
-		decellDivider = 1.2;
-		decellOn = false;
-
+		decellDivider = 3;
 	}
 
 	public void initDefaultCommand() {
@@ -146,7 +147,7 @@ public class DriveTrain extends Subsystem {
 			return velocity;
 		} else {
 
-			if ((velocity >= 0 && prevVelocity >= 0) || (velocity >= 0 && prevVelocity >= 0)) {
+			if ((velocity >= 0 && prevVelocity >= 0) || (velocity <= 0 && prevVelocity <= 0)) {
 				prevVelocity = velocity;
 			} else {
 
@@ -163,7 +164,12 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void driveDecell(double leftSpeed, double rightSpeed) {
-
+		prevLeftV = getDecell(leftSpeed, prevLeftV);
+		leftTalon.set(ControlMode.PercentOutput, prevLeftV);
+		
+		prevRightV = getDecell(rightSpeed, prevRightV);
+		rightTalon.set(ControlMode.PercentOutput, prevRightV);
+		
 	}
 
 	public double getLeftMasterVoltage() {
@@ -203,6 +209,11 @@ public class DriveTrain extends Subsystem {
 	public double getHeading() {
 		return( ahrs.getAngle() - init_angle );
 	}
+	
+	public void setBrake() {
+		leftTalon.setNeutralMode(NeutralMode.Brake);
+		rightTalon.setNeutralMode(NeutralMode.Brake);
+	}
 
 	public void updateDashboard() {
 		SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
@@ -216,6 +227,7 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putNumber("DT - Heading", getHeading());
 		SmartDashboard.putNumber("total left current", totalLeftCurrent);
 		SmartDashboard.putNumber("total right current", totalRightCurrent);
+		SmartDashboard.putBoolean("Decell on?", decellOn);
 	}
 
 	public double getAHRSAngle() {

@@ -9,9 +9,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PDriveToAngle extends Command {
 	private double angSetpoint;
-	private double minError = 2;
+	private double minError = 1.25;
 	private double initYaw = -999; 
-	private double Ktheta = 0.0125;
+	private double Ktheta = 0.01;
 
     public PDriveToAngle(double _ang) {
     	requires(Robot.drivetrain);
@@ -20,7 +20,8 @@ public class PDriveToAngle extends Command {
 
     protected void initialize() {
     	initYaw = Robot.drivetrain.getAHRSAngle();
-    	System.out.println("PDriveAngle - Init PAngle");
+    	//Robot.drivetrain.setBrake();
+    	System.out.println("PDriveAngle - Init PAngle" + initYaw);
     }
 
     protected void execute() {

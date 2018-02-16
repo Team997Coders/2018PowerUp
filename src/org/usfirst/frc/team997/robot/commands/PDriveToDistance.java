@@ -42,6 +42,7 @@ public class PDriveToDistance extends Command {
     protected void initialize() {
     	lastVoltage = 0;
     	Robot.drivetrain.resetEncoders();
+    	Robot.drivetrain.setBrake();
     	initYaw = Robot.drivetrain.getAHRSAngle();
     	timer.reset();
     	timer.start();
