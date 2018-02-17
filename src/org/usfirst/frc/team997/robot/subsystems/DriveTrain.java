@@ -214,6 +214,11 @@ public class DriveTrain extends Subsystem {
 		leftTalon.setNeutralMode(NeutralMode.Brake);
 		rightTalon.setNeutralMode(NeutralMode.Brake);
 	}
+	
+	public void setCoast() {
+		leftTalon.setNeutralMode(NeutralMode.Coast);
+		rightTalon.setNeutralMode(NeutralMode.Coast);
+	}
 
 	public void updateDashboard() {
 		SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());

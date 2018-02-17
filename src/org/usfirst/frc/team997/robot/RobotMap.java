@@ -81,8 +81,8 @@ public class RobotMap {
 		
 		elevatorTopHeight,
 		elevatorHighMidHeight,
-		elevatorLowMidHeight,
-		elevatorSwitchHeight,
+		elevatorLowMidHeight = 6135,
+		elevatorSwitchHeight = 12841,
 		elevatorBottomHeight,
 		//TODO: Set values
 		
@@ -90,8 +90,8 @@ public class RobotMap {
 		fastcollectspeed = 0.75,
 		collectspeed = 0.5,
 		
-		driveDistanceP = 0,
-		elevatorPidP = 0,
+		driveDistanceP = 1.2,//completely arbitrary guesstimate value; needs tuning
+		elevatorPidP = 0.5,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
 		climbspeed = 0.5,

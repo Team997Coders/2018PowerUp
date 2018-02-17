@@ -6,6 +6,7 @@ import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
+import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
@@ -66,6 +67,7 @@ public class Elevator extends Subsystem {
     	Motor.config_kI(0, RobotMap.Values.elevatorPidI, 10);
     	Motor.config_kD(0, RobotMap.Values.elevatorPidD, 10);
     	Motor.config_kF(0, 0, 10);
+    	Motor.setNeutralMode(NeutralMode.Brake);
     	
     	sensorCollection = new SensorCollection(Motor);
     	

@@ -13,14 +13,14 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PDriveToDistance extends Command {
 	
 	private double distSetpoint;
-	private double minError = 10;
+	private double minError = 3;
 	public Timer timer = new Timer();
 	private double lastTime = 0;
 	private double lastVoltage = 0;
 	private double deltaT = 0;
 	private double speed = 0.5;
 	private double initYaw = -999;
-	private double Ktheta = 0.002;
+	private double Ktheta = 0.001;
 
     public PDriveToDistance(double _speed, double _dist) {
         // Use requires() here to declare subsystem dependencies
