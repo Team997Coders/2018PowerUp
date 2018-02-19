@@ -67,6 +67,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Cross line", new CrossLine());
 		m_chooser.addObject("Same side switch", new SwitchSameSideDelivery());
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
+		m_chooser.addObject("Drive forward 2 ft", new PDriveToDistance(0.3, RobotMap.Values.ticksPerFoot * ((120 - RobotMap.Values.robotLength) / 12)));
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -82,7 +83,7 @@ public class Robot extends TimedRobot {
 		elevator.updateSmartDashboard();
 		elevator.autozero();
 		this.logger.close();
-		controlCurrent();
+		//controlCurrent();
 	}
 
 	//noot noot
@@ -93,7 +94,7 @@ public class Robot extends TimedRobot {
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
 		elevator.autozero();
-		controlCurrent();
+		//controlCurrent();
 	}
 
 	/**
@@ -126,7 +127,7 @@ public class Robot extends TimedRobot {
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
-		controlCurrent();
+		//controlCurrent();
 
 	}
 
@@ -140,7 +141,7 @@ public class Robot extends TimedRobot {
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
 		logger.logAll();
-		controlCurrent();
+		//controlCurrent();
 	}
 
 	@Override
@@ -155,7 +156,7 @@ public class Robot extends TimedRobot {
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
-		controlCurrent();
+		//controlCurrent();
 
 	}
 
@@ -168,7 +169,7 @@ public class Robot extends TimedRobot {
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
-		controlCurrent();
+		//controlCurrent();
 		elevator.autozero();
 	}
 
@@ -179,12 +180,12 @@ public class Robot extends TimedRobot {
 	public void testPeriodic() {
 	}
 	
-	public void controlCurrent() {
+	/*public void controlCurrent() {
 		if (pdp.getTotalCurrent() > 180) {
 			RobotMap.Values.drivetrainLeftLimit = 61;
 			RobotMap.Values.drivetrainRightLimit = 61;
 		}
-	}
+	}*/
 	
 	//x = clamp(x, -1, 1);
 	public static double clamp(double x, double min, double max) {

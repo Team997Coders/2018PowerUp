@@ -69,6 +69,11 @@ public class Elevator extends Subsystem {
     	Motor.config_kF(0, 0, 10);
     	Motor.setNeutralMode(NeutralMode.Brake);
     	
+    	Motor.enableCurrentLimit(true);
+		Motor.configPeakCurrentLimit(40, 10);
+		Motor.configPeakCurrentDuration(100, 10);
+		Motor.configContinuousCurrentLimit(30, 10);
+    	
     	sensorCollection = new SensorCollection(Motor);
     	
     	setpointPrefs = Preferences.getInstance();

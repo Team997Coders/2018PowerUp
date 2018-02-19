@@ -20,7 +20,7 @@ public class PDriveToDistance extends Command {
 	private double deltaT = 0;
 	private double speed = 0.5;
 	private double initYaw = -999;
-	private double Ktheta = 0.001;
+	private double Ktheta = 0.02;
 
     public PDriveToDistance(double _speed, double _dist) {
         // Use requires() here to declare subsystem dependencies
@@ -53,7 +53,7 @@ public class PDriveToDistance extends Command {
     // current algorithm assumes that we are starting
     // from a stop
     private double linearAccel(double input) {
-    	double Klin = 0.8;
+    	double Klin = 0.4;
     	double deltaT = timer.get() - lastTime;
     	lastTime = timer.get();
     	
@@ -68,7 +68,7 @@ public class PDriveToDistance extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// compute the pid P value
-    	double pfactor = speed * Robot.clamp(RobotMap.Values.driveDistanceP * piderror(), 1, -1);
+    	double pfactor = speed * Robot.clamp(RobotMap.Values.driveDistanceP * piderror(), -1, 1);
     	double pfactor2 = linearAccel(pfactor);
     	double deltaTheta = Robot.drivetrain.getAHRSAngle() - initYaw;
     	deltaT = timer.get() - lastTime;
@@ -78,7 +78,7 @@ public class PDriveToDistance extends Command {
     	double yawcorrect = deltaTheta * Ktheta;
     	
     	// set the output voltage
-    	Robot.drivetrain.setVoltages(-pfactor2 + yawcorrect, -pfactor2 - yawcorrect); //TODO check these signs...
+    	Robot.drivetrain.setVoltages(pfactor2 - yawcorrect, pfactor2 + yawcorrect); //TODO check these signs...
     	//Robot.driveTrain.SetVoltages(-pfactor, -pfactor); //without yaw correction, accel
 
     	// Debug information to be placed on the smart dashboard.
@@ -109,6 +109,7 @@ public class PDriveToDistance extends Command {
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println(Robot.drivetrain.getLeftEncoderTicks());
     	System.out.println("PDrive End");
     	timer.stop();
     	Robot.drivetrain.setVoltages(0, 0);

@@ -24,7 +24,7 @@ public class ArcadeDrive extends Command {
     }
 
     protected void initialize() {
-    	Robot.drivetrain.resetEncoders();
+    	//Robot.drivetrain.resetEncoders();
     	Robot.drivetrain.setCoast();
     	initAngle = Robot.drivetrain.getAHRSAngle();
     }

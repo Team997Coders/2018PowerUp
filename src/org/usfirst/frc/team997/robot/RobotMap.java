@@ -77,12 +77,16 @@ public class RobotMap {
 		
 		public static double
 		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
-		ticksPerFoot = 3732.5, //encoder ticks per foot
+		ticksPerFoot = (49152/(3.97*Math.PI)), //3940, //encoder ticks per foot	
+		
+		robotLength = 33.25, //in inches
+		robotWidth = 37.25,
+		robotWheelBase = 30,
 		
 		elevatorTopHeight,
 		elevatorHighMidHeight,
 		elevatorLowMidHeight = 6135,
-		elevatorSwitchHeight = 12841,
+		elevatorSwitchHeight = 10672,
 		elevatorBottomHeight,
 		//TODO: Set values
 		
@@ -90,7 +94,7 @@ public class RobotMap {
 		fastcollectspeed = 0.75,
 		collectspeed = 0.5,
 		
-		driveDistanceP = 1.2,//completely arbitrary guesstimate value; needs tuning
+		driveDistanceP = 0.005,//completely arbitrary guesstimate value; needs tuning
 		elevatorPidP = 0.5,
 		elevatorPidI = 0,
 		elevatorPidD = 0,

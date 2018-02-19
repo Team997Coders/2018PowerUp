@@ -94,10 +94,20 @@ public class DriveTrain extends Subsystem {
 		leftTalon.configPeakOutputForward(1, 10);
 		leftTalon.configPeakOutputReverse(-1, 10);
 		
+		leftTalon.enableCurrentLimit(true);
+		leftTalon.configPeakCurrentLimit(40, 10);
+		leftTalon.configPeakCurrentDuration(100, 10);
+		leftTalon.configContinuousCurrentLimit(30, 10);
+		
 		rightTalon.configNominalOutputForward(0, 10);
 		rightTalon.configNominalOutputReverse(0, 10);
 		rightTalon.configPeakOutputForward(1, 10);
 		rightTalon.configPeakOutputReverse(-1, 10);
+		
+		rightTalon.enableCurrentLimit(true);
+		rightTalon.configPeakCurrentLimit(40, 10);
+		rightTalon.configPeakCurrentDuration(100, 10);
+		rightTalon.configContinuousCurrentLimit(30, 10);
 
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
@@ -213,11 +223,21 @@ public class DriveTrain extends Subsystem {
 	public void setBrake() {
 		leftTalon.setNeutralMode(NeutralMode.Brake);
 		rightTalon.setNeutralMode(NeutralMode.Brake);
+		
+		leftVictor.setNeutralMode(NeutralMode.Brake);
+		rightVictor.setNeutralMode(NeutralMode.Brake);
+		leftVictor2.setNeutralMode(NeutralMode.Brake);
+		rightVictor2.setNeutralMode(NeutralMode.Brake);
 	}
 	
 	public void setCoast() {
 		leftTalon.setNeutralMode(NeutralMode.Coast);
 		rightTalon.setNeutralMode(NeutralMode.Coast);
+		
+		leftVictor.setNeutralMode(NeutralMode.Coast);
+		rightVictor.setNeutralMode(NeutralMode.Coast);
+		leftVictor2.setNeutralMode(NeutralMode.Coast);
+		rightVictor2.setNeutralMode(NeutralMode.Coast);
 	}
 
 	public void updateDashboard() {
