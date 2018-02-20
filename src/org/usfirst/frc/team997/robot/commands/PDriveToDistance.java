@@ -53,7 +53,7 @@ public class PDriveToDistance extends Command {
     // current algorithm assumes that we are starting
     // from a stop
     private double linearAccel(double input) {
-    	double Klin = 0.4;
+    	double Klin = 0.8;
     	double deltaT = timer.get() - lastTime;
     	lastTime = timer.get();
     	
@@ -104,9 +104,14 @@ public class PDriveToDistance extends Command {
     }
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return onTarget();
+    	if (Robot.drivetrain.getleftVelocity() <= 0 && 
+    			Robot.drivetrain.getrightvelocity() <= 0) {
+    		 return onTarget();
+    	} else {
+    		return false;
+    	}
     }
-
+    
     // Called once after isFinished returns true
     protected void end() {
     	System.out.println(Robot.drivetrain.getLeftEncoderTicks());

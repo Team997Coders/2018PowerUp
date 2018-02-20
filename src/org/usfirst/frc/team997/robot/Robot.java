@@ -67,7 +67,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Cross line", new CrossLine());
 		m_chooser.addObject("Same side switch", new SwitchSameSideDelivery());
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
-		m_chooser.addObject("Drive forward 2 ft", new PDriveToDistance(0.3, RobotMap.Values.ticksPerFoot * ((120 - RobotMap.Values.robotLength) / 12)));
+		m_chooser.addObject("Drive forward 2 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((120 - RobotMap.Values.robotLength) / 12)));
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 

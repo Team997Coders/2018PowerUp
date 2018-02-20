@@ -220,6 +220,14 @@ public class DriveTrain extends Subsystem {
 		return( ahrs.getAngle() - init_angle );
 	}
 	
+	public double getleftVelocity() {
+		return leftTalon.getSelectedSensorVelocity(0);
+	}
+	
+	public double getrightvelocity() {
+		return rightTalon.getSelectedSensorVelocity(0);
+	}
+	
 	public void setBrake() {
 		leftTalon.setNeutralMode(NeutralMode.Brake);
 		rightTalon.setNeutralMode(NeutralMode.Brake);
