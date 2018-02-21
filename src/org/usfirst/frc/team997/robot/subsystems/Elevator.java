@@ -59,8 +59,8 @@ public class Elevator extends Subsystem {
     	Motor.enableCurrentLimit(false);
     	Motor.configNominalOutputForward(0, 10);
     	Motor.configNominalOutputReverse(0, 10);
-    	Motor.configPeakOutputForward(0.8, 10);
-    	Motor.configPeakOutputReverse(-0.25, 10); //TODO: Test reverse (and forward) value because it takes little power to lower it all the way.
+    	Motor.configPeakOutputForward(1.0, 10);
+    	Motor.configPeakOutputReverse(-0.35, 10); //TODO: Test reverse (and forward) value because it takes little power to lower it all the way.
     	Motor.configAllowableClosedloopError(0, 0, 10);
     	Motor.selectProfileSlot(0, 0);
     	Motor.config_kP(0, RobotMap.Values.elevatorPidP, 10);

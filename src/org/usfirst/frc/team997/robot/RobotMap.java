@@ -129,7 +129,7 @@ public class RobotMap {
 		collectButton = 8, //Right Trigger, Gamepad2
 		//smartCollectButton = 7, //Left Trigger, Gamepad2 TODO: needs testing
 		uncollectButton = 7, //Left Trigger, Gamepad2
-		flopButton = 7, //Back, Gamepad1
+		flopButton = 10, //Back, Gamepad1
 		
 		//CLIMBER CONTROLS
 		climbbutton = 3, //X, Gamepad2

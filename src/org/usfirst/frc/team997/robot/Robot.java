@@ -62,6 +62,8 @@ public class Robot extends TimedRobot {
 		
 		logger = Logger.getInstance();
 		
+		pdp.clearStickyFaults();
+		
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
 		m_chooser.addObject("Center switch ", new AutoCenterSwitchDelivery());
 		m_chooser.addObject("Cross line", new CrossLine());
