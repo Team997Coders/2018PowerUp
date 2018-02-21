@@ -1,3 +1,10 @@
-bin/
-build/
-dist/
+# Binary files that aren't needed
+*.jar
+
+*.class
+
+*.bak
+FRCUserProgram
+
+# Generated .gitIgnore files from eclipse
+*.gitignore
