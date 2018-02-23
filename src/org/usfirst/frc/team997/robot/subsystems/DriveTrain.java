@@ -23,8 +23,8 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
 
-	private TalonSRX leftTalon;
-	private TalonSRX rightTalon;
+	public TalonSRX leftTalon;
+	public TalonSRX rightTalon;
 	//temp
 	private VictorSPX leftVictor;
 	private VictorSPX leftVictor2;
@@ -195,11 +195,11 @@ public class DriveTrain extends Subsystem {
 		rightTalon.set(ControlMode.PercentOutput, rightSpeed);
 	}
 
-	public double getLeftEncoderTicks() {
+	public int getLeftEncoderTicks() {
 		return leftTalon.getSelectedSensorPosition(0);
 	}
 
-	public double getRightEncoderTicks() {
+	public int getRightEncoderTicks() {
 		return rightTalon.getSelectedSensorPosition(0);
 	}
 
@@ -217,6 +217,7 @@ public class DriveTrain extends Subsystem {
 	}
 	
 	public double getHeading() {
+		// should we be using ahrs.getFusedHeading()?
 		return( ahrs.getAngle() - init_angle );
 	}
 	

@@ -74,14 +74,17 @@ public class RobotMap {
 	}
 	
 	public static class Values {
+		public static int
+		ticksPerRev = 4096;
 		
 		public static double
 		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
-		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot	
+		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot
 		
 		robotLength = 33.25, //in inches
 		robotWidth = 37.25,
 		robotWheelBase = 30, // or 0.6 meters.  Use 0.0254 meters/in or 39.37in/m
+		robotWheelDia = 4.0, // remember all pf variables are in ft.  Need to convert when used.
 		
 		elevatorTopHeight,
 		elevatorHighMidHeight,
@@ -100,13 +103,32 @@ public class RobotMap {
 		elevatorPidD = 0,
 		climbspeed = 0.5,
 		
-		//voltage limits in amps
+		//Current limits in amps
 		drivetrainLeftLimit = 81, //81
 		drivetrainRightLimit = 81, //81
 		collectorLeftLimit = 12,
 		collectorRightLimit = 12,
 		elevatorLimit = 55,
-		climberLimit = 50;
+		climberLimit = 50,
+		
+		//Pathfinder configuration values  -- everything is in ft (and ft/sec, and ft/s/s)
+		// a number of the initial values for these variables came from Team 2053 TigerTronics
+		// https://github.com/team2053tigertronics/Robot2018/blob/master/Robot2018/src/Pathfinder/TestFollower.h
+		// all pathfinder specific variables are prefaced with 'pf_'
+		pf_timestep = 0.05,
+		pf_max_vel = 15, // max velocity in ft/sec.
+		pf_max_acc = 12,
+		pf_max_jerk = 60,
+		pf_Kp = 1,
+		pf_Ki = 0,
+		pf_Kd = 0.15,
+		pf_Kv = (1/pf_max_vel),
+		pf_Ka = 0.0856,
+		pf_Kt = 0.35,
+		
+		// design pattern to make everything above end with a comma and not have to worry about...
+		// "Do I end with a comma or a semicolon?"
+		last=0.0;
 		
 	}
 

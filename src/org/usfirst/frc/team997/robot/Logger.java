@@ -42,7 +42,7 @@ public class Logger {
         	f.mkdir();
         }
         
-    	File[] files = new File("/spartanlogs").listFiles();
+    	File[] files = new File("/home/lvuser/spartanlogs").listFiles();
     	if(files != null) {
 	        for(File file : files) {
 	            if(file.isFile()) {
