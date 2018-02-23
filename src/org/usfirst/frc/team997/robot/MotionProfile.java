@@ -46,14 +46,14 @@ public class MotionProfile {
 	
 	public void runProfile() {
 		// The distance between the left and right sides of the wheelbase is 0.6m
-		double wheelbase_width = 0.6; // in meters.  Use 0.0254 meters/in or 39.37in/m
+
 
 		// Create the Modifier Object
 		TankModifier modifier = new TankModifier(trajectory);
 
 		// Generate the Left and Right trajectories using the original trajectory
 		// as the center
-		modifier.modify(wheelbase_width);
+		modifier.modify(RobotMap.Values.robotWheelBase);
 		
 		/*
 		 * for (int i = 0; i < trajectory.length(); i++) {

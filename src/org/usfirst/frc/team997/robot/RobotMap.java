@@ -81,7 +81,7 @@ public class RobotMap {
 		
 		robotLength = 33.25, //in inches
 		robotWidth = 37.25,
-		robotWheelBase = 30,
+		robotWheelBase = 30, // or 0.6 meters.  Use 0.0254 meters/in or 39.37in/m
 		
 		elevatorTopHeight,
 		elevatorHighMidHeight,
