@@ -13,7 +13,6 @@ import org.usfirst.frc.team997.robot.commands.AutoTest;
 import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
-import org.usfirst.frc.team997.robot.commands.SlowForward;
 import org.usfirst.frc.team997.robot.commands.SwitchSameSideDelivery;
 import org.usfirst.frc.team997.robot.subsystems.Climber;
 import org.usfirst.frc.team997.robot.subsystems.Collector;
@@ -86,7 +85,7 @@ public class Robot extends TimedRobot {
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();
 		elevator.autozero();
-		this.logger.close();
+		logger.close();
 		//controlCurrent();
 	}
 

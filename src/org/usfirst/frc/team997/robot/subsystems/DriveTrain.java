@@ -3,18 +3,14 @@ package org.usfirst.frc.team997.robot.subsystems;
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 import org.usfirst.frc.team997.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team997.robot.commands.TankDrive;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -30,17 +26,15 @@ public class DriveTrain extends Subsystem {
 	private VictorSPX leftVictor2;
 	private VictorSPX rightVictor;
 	private VictorSPX rightVictor2;
-	private SensorCollection leftSensorCollection;
-	private SensorCollection rightSensorCollection;
-
 	private double prevLeftV;
 	private double prevRightV;
 	
 	private AHRS ahrs;
 	private double init_angle;
+	private int upcnt = 0;
 
 	public boolean decellOn = true; // Default is false.
-	public boolean gyropresent;
+	public boolean gyropresent = false;
 	public double decellSpeed = 0.2;
 	public double decellDivider = 1.2;
 
@@ -120,8 +114,8 @@ public class DriveTrain extends Subsystem {
 		rightTalon.config_kI(0, 0, 10);
 		rightTalon.config_kD(0, 0, 10);	
 		
-		leftSensorCollection = new SensorCollection(leftTalon);
-		rightSensorCollection = new SensorCollection(rightTalon);
+		new SensorCollection(leftTalon);
+		new SensorCollection(rightTalon);
 
 		/*
 		 * Set-up the gyro
@@ -129,11 +123,12 @@ public class DriveTrain extends Subsystem {
 		try {
 			ahrs = new AHRS(RobotMap.Ports.AHRS);
 			System.out.println("ahrs is cool!");
+			ahrs.reset();
+			init_angle = ahrs.getAngle();
+			gyropresent = true;
 		} catch (RuntimeException e) {
 			System.out.println("DT - The AHRS constructor do a bad.");
 		}
-		ahrs.reset();
-		init_angle = ahrs.getAngle();
 		
     	//Motor.changeControlMode(TalonControlMode.PercentVbus);
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
@@ -196,10 +191,13 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public double getLeftEncoderTicks() {
+		/* CTRE Magnetic Encoder relative, same as Quadrature */
+		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		return leftTalon.getSelectedSensorPosition(0);
 	}
 
 	public double getRightEncoderTicks() {
+		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		return rightTalon.getSelectedSensorPosition(0);
 	}
 
@@ -212,14 +210,28 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void resetEncoders() {
+		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
+		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		rightTalon.setSelectedSensorPosition(0, 0, 10);
 	}
 	
 	public double getHeading() {
-		return( ahrs.getAngle() - init_angle );
+		if (gyropresent) {
+			return( ahrs.getAngle() - init_angle );
+		} else {
+			return 0.0;
+		}
 	}
 	
+	public double getAHRSAngle() {
+		if (gyropresent) {
+			return ahrs.getAngle();
+		} else {
+			return 0.0;
+		}
+	}
+
 	public double getleftVelocity() {
 		return leftTalon.getSelectedSensorVelocity(0);
 	}
@@ -249,22 +261,23 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void updateDashboard() {
-		SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
-		SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
-		SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
-		SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderTicks());
-		SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
-		SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
-		SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("DT - Heading", getHeading());
-		SmartDashboard.putNumber("total left current", totalLeftCurrent);
-		SmartDashboard.putNumber("total right current", totalRightCurrent);
-		SmartDashboard.putBoolean("Decell on?", decellOn);
-	}
-
-	public double getAHRSAngle() {
-		return ahrs.getAngle();
+		if (upcnt < 5) {
+			upcnt++;
+		} else {
+			upcnt=0;
+			SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
+			SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
+			SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
+			SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderTicks());
+			SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
+			SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
+			SmartDashboard.putNumber("DT - Heading", getHeading());
+			SmartDashboard.putNumber("total left current", totalLeftCurrent);
+			SmartDashboard.putNumber("total right current", totalRightCurrent);
+			SmartDashboard.putBoolean("Decell on?", decellOn);
+		}
 	}
 
 	public double getTotalLeftCurrent() {
@@ -295,5 +308,4 @@ public class DriveTrain extends Subsystem {
 			rightTalon.set(ControlMode.PercentOutput, rightSpeed);
 		}
 	}
-
 }
