@@ -14,13 +14,11 @@ import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
 import org.usfirst.frc.team997.robot.commands.Flop;
 import org.usfirst.frc.team997.robot.commands.LockElevator;
 import org.usfirst.frc.team997.robot.commands.MoveElevator;
-import org.usfirst.frc.team997.robot.commands.SmartCollect;
 import org.usfirst.frc.team997.robot.commands.UnClimb;
 import org.usfirst.frc.team997.robot.commands.Uncollect;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  * This class is the glue that binds the controls on the physical operator
