@@ -28,11 +28,13 @@ public class PDriveToDistance extends Command {
     	requires(Robot.drivetrain);
     	distSetpoint = _dist;
     	speed = _speed;
+    	System.out.println("(PDTD-CONSTRUCTOR) Calling constructor!! :^)");
     }
     
     public PDriveToDistance(double _dist) {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
+    	System.out.println("(PDTD-CONSTRUCTOR) Calling constructor!! :^)");
     	requires(Robot.drivetrain);
     	distSetpoint = _dist;
     	speed = 0.5;
@@ -46,7 +48,7 @@ public class PDriveToDistance extends Command {
     	initYaw = Robot.drivetrain.getAHRSAngle();
     	timer.reset();
     	timer.start();
-    	System.out.println("PDriveDist - Init PDrive");
+    	System.out.println("(PDTD-INIT) OMG, I got initialized!!! :O");
     	lastTime = 0;
     }
     
@@ -105,11 +107,14 @@ public class PDriveToDistance extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	if (Robot.drivetrain.getleftVelocity() <= 0 && 
-    			Robot.drivetrain.getrightvelocity() <= 0) {
+    			Robot.drivetrain.getrightvelocity() <= 0 &&
+    			onTarget()) {
+    		System.out.println("(PDTD-ISFINISHED) PDTD ended with isFinished!");
     		 return onTarget();
     	} else {
     		return false;
     	}
+    	//
     }
     
     // Called once after isFinished returns true
@@ -124,5 +129,6 @@ public class PDriveToDistance extends Command {
     // subsystems is scheduled to run
     protected void interrupted() {
     	end();
+    	System.out.println("(PDTD-INTERRUPTED) I got interrupted!! D:");
     }
 }

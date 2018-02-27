@@ -9,6 +9,7 @@ package org.usfirst.frc.team997.robot;
 
 import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
+import org.usfirst.frc.team997.robot.commands.AutoTest;
 import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
@@ -69,7 +70,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Cross line", new CrossLine());
 		m_chooser.addObject("Same side switch", new SwitchSameSideDelivery());
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
-		m_chooser.addObject("Drive forward 2 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((120 - RobotMap.Values.robotLength) / 12)));
+		m_chooser.addObject("Drive forward 2 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((60 - RobotMap.Values.robotLength) / 12)));
+		m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 

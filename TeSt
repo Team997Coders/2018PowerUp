@@ -1,0 +1,2 @@
+  5. Vim will write the selected lines to the file TEST.  Use  :!dir  or  :!ls
+     to see it.  Do not remove it yet!  We will use it in the next lesson.

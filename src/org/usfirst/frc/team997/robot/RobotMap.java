@@ -32,7 +32,8 @@ public class RobotMap {
 		leftVictorPort2 = 5,
 		rightVictorPort = 6,
 		rightVictorPort2 = 7,
-		climberVictorPort = 9,
+		climberVictorPort = 0,
+		climberVictorPort2 = 1,
 		elevatorVictorPort = 1,
 		leftCollectorPort = 2,
 		rightCollectorPort = 3,
@@ -92,7 +93,7 @@ public class RobotMap {
 		
 		slowcollectspeed = 0.25,
 		fastcollectspeed = 0.75,
-		collectspeed = 0.5,
+		collectspeed = 0.25,
 		
 		driveDistanceP = 0.005,//completely arbitrary guesstimate value; needs tuning
 		elevatorPidP = 0.5,
@@ -132,8 +133,9 @@ public class RobotMap {
 		flopButton = 10, //Back, Gamepad1
 		
 		//CLIMBER CONTROLS
-		climbbutton = 3, //X, Gamepad2
-		unclimbbutton = 2; //Circle, Gamepad2
+		climbbutton = 2, //Circle, Gamepad2
+		unclimbbutton = 3; //X, Gamepad2
 
+	
 	}
 }
