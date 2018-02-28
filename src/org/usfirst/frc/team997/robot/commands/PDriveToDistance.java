@@ -23,6 +23,7 @@ public class PDriveToDistance extends Command {
 	private double initYaw = -999;
 	private double Ktheta = 0.02;
 	private double startTime = -1;
+	private double lastError = 0;
 
     public PDriveToDistance(double _speed, double _dist) {
         // Use requires() here to declare subsystem dependencies
@@ -51,6 +52,7 @@ public class PDriveToDistance extends Command {
     	timer.start();
     	System.out.println("(PDTD-INIT) OMG, I got initialized!!! :O");
     	lastTime = 0;
+    	lastError = 0;
     	accumError = 0;
     	startTime = timer.get();
     }
@@ -58,10 +60,9 @@ public class PDriveToDistance extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	deltaT = timer.get() - lastTime;
-    	lastTime = timer.get();
     	
     	// calculate the control variables
-    	double deltax = piderror() / deltaT;
+    	double deltax = (piderror() - lastError)/ deltaT;
     	accumError += piderror() * (timer.get() - startTime); 
     	
     	// compute the pid P value
@@ -78,7 +79,6 @@ public class PDriveToDistance extends Command {
     	
     	// set the output voltage
     	Robot.drivetrain.setVoltages(output - yawcorrect, output + yawcorrect);
-    	//Robot.driveTrain.SetVoltages(-pfactor, -pfactor); //without yaw correction, accel
 
     	// Debug information to be placed on the smart dashboard.
     	SmartDashboard.putNumber("Setpoint", distSetpoint);
@@ -94,6 +94,9 @@ public class PDriveToDistance extends Command {
     	SmartDashboard.putBoolean("On Target", onTarget());
     	SmartDashboard.putNumber("NavX Heading", Robot.drivetrain.getAHRSAngle());
     	SmartDashboard.putNumber("Init Yaw", initYaw);
+    	
+    	lastError = piderror();
+    	lastTime = timer.get();
     }
 
     private double piderror() {

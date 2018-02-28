@@ -40,6 +40,7 @@ public class PDriveToAngle extends Command {
     	Robot.drivetrain.setBrake();
     	timer.reset();
     	lastTime = 0;
+    	lastError = 0;
     	accumError = 0;
     	timer.start();
     	startTime = timer.get();
