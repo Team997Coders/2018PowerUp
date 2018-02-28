@@ -18,6 +18,7 @@ import org.usfirst.frc.team997.robot.subsystems.Climber;
 import org.usfirst.frc.team997.robot.subsystems.Collector;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
+import org.usfirst.frc.team997.robot.utils;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
@@ -191,18 +192,8 @@ public class Robot extends TimedRobot {
 			RobotMap.Values.drivetrainRightLimit = 61;
 		}
 	}*/
-	
-	//x = clamp(x, -1, 1);
-	public static double clamp(double x, double min, double max) {
-		if (x > max) {
-			return max;
-		} else if(x < min) {
-			return min;
-		} else {
-			return x;
-		}
-	}
-		public static String getGameData() {
+
+	public static String getGameData() {
 			return gameData;
 	}
 

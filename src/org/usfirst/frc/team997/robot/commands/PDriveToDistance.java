@@ -2,6 +2,7 @@ package org.usfirst.frc.team997.robot.commands;
 
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
+import org.usfirst.frc.team997.robot.utils;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -13,14 +14,15 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 public class PDriveToDistance extends Command {
 	
 	private double distSetpoint;
+	private double accumError;
 	private double minError = 3;
 	public Timer timer = new Timer();
 	private double lastTime = 0;
-	private double lastVoltage = 0;
 	private double deltaT = 0;
 	private double speed = 0.5;
 	private double initYaw = -999;
 	private double Ktheta = 0.02;
+	private double startTime = -1;
 
     public PDriveToDistance(double _speed, double _dist) {
         // Use requires() here to declare subsystem dependencies
@@ -42,7 +44,6 @@ public class PDriveToDistance extends Command {
     
     // Called just before this Command runs the first time
     protected void initialize() {
-    	lastVoltage = 0;
     	Robot.drivetrain.resetEncoders();
     	Robot.drivetrain.setBrake();
     	initYaw = Robot.drivetrain.getAHRSAngle();
@@ -50,37 +51,33 @@ public class PDriveToDistance extends Command {
     	timer.start();
     	System.out.println("(PDTD-INIT) OMG, I got initialized!!! :O");
     	lastTime = 0;
-    }
-    
-    // current algorithm assumes that we are starting
-    // from a stop
-    private double linearAccel(double input) {
-    	double Klin = 0.8;
-    	double deltaT = timer.get() - lastTime;
-    	lastTime = timer.get();
-    	
-    	double Volts = lastVoltage + Klin * (deltaT);
-    	if (Volts > input) {
-    		Volts = input;
-    	}
-    	lastVoltage = Volts;
-    	return Volts;
+    	accumError = 0;
+    	startTime = timer.get();
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	// compute the pid P value
-    	double pfactor = speed * Robot.clamp(RobotMap.Values.driveDistanceP * piderror(), -1, 1);
-    	double pfactor2 = linearAccel(pfactor);
-    	double deltaTheta = Robot.drivetrain.getAHRSAngle() - initYaw;
     	deltaT = timer.get() - lastTime;
     	lastTime = timer.get();
+    	
+    	// calculate the control variables
+    	double deltax = piderror() / deltaT;
+    	accumError += piderror() * (timer.get() - startTime); 
+    	
+    	// compute the pid P value
+    	double pfactor = RobotMap.Values.driveDistanceP * piderror();
+    	double ifactor = RobotMap.Values.driveDistanceI * accumError;
+    	double dfactor = RobotMap.Values.driveDistanceD * deltax;
+    	
+    	double deltaTheta = Robot.drivetrain.getAHRSAngle() - initYaw;
+    	
+    	double output = speed * utils.clamp(pfactor + ifactor + dfactor, -1.0, 1.0);
 
     	// calculate yaw correction
     	double yawcorrect = deltaTheta * Ktheta;
     	
     	// set the output voltage
-    	Robot.drivetrain.setVoltages(pfactor2 - yawcorrect, pfactor2 + yawcorrect); //TODO check these signs...
+    	Robot.drivetrain.setVoltages(output - yawcorrect, output + yawcorrect);
     	//Robot.driveTrain.SetVoltages(-pfactor, -pfactor); //without yaw correction, accel
 
     	// Debug information to be placed on the smart dashboard.
@@ -89,7 +86,9 @@ public class PDriveToDistance extends Command {
     	//SmartDashboard.putNumber("Encoder Rate", Robot.drivetrain.getEncoderRate());
     	SmartDashboard.putNumber("Distance Error", piderror());
     	SmartDashboard.putNumber("K-P factor", pfactor);
-    	SmartDashboard.putNumber("K-P factor Accel", pfactor2);
+    	SmartDashboard.putNumber("K-I factor", ifactor);
+    	SmartDashboard.putNumber("K-D factor", dfactor);
+    	SmartDashboard.putNumber("PID Output", output);
     	SmartDashboard.putNumber("deltaT", deltaT);
     	SmartDashboard.putNumber("Theta Correction", yawcorrect);
     	SmartDashboard.putBoolean("On Target", onTarget());

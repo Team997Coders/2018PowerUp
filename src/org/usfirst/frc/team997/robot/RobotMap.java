@@ -21,6 +21,7 @@ public class RobotMap {
 		//CAN
 		leftTalonPort = 3,
 		rightTalonPort = 8,
+		elevatorVictorPort = 1,
 		elevatorTalonPort = 2,
 		
 		//ANALOGINPUT
@@ -28,15 +29,14 @@ public class RobotMap {
 		rightCollectorSensorInput = 1,
 		
 		//PWM
+		climberVictorPort = 0,
+		climberVictorPort2 = 1,
+		leftCollectorPort = 2,
+		rightCollectorPort = 3,
 		leftVictorPort = 4,
 		leftVictorPort2 = 5,
 		rightVictorPort = 6,
 		rightVictorPort2 = 7,
-		climberVictorPort = 0,
-		climberVictorPort2 = 1,
-		elevatorVictorPort = 1,
-		leftCollectorPort = 2,
-		rightCollectorPort = 3,
 		
 		//PNEUMATICS
 		elevatorSolenoidPort = 0,
@@ -95,7 +95,10 @@ public class RobotMap {
 		fastcollectspeed = 0.75,
 		collectspeed = 0.25,
 		
-		driveDistanceP = 0.005,//completely arbitrary guesstimate value; needs tuning
+		driveDistanceP = 0.005,	//completely arbitrary guesstimate value; needs tuning
+		driveDistanceI = 0,		//completely arbitrary guesstimate value; needs tuning
+		driveDistanceD = 0,		//completely arbitrary guesstimate value; needs tuning
+						
 		elevatorPidP = 0.5,
 		elevatorPidI = 0,
 		elevatorPidD = 0,

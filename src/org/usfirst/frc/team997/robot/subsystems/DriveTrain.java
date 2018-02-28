@@ -7,7 +7,6 @@ import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
-import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -78,6 +77,11 @@ public class DriveTrain extends Subsystem {
 		 */
 		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
 		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
+		
+		// default status update period is 25ms.
+		//leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 30, 10);
+		//rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 30, 10);
+		
 		leftTalon.setSensorPhase(true);
 		rightTalon.setSensorPhase(true);
 		
@@ -105,8 +109,6 @@ public class DriveTrain extends Subsystem {
 		rightTalon.configPeakCurrentDuration(100, 10);
 		rightTalon.configContinuousCurrentLimit(30, 10);
 		
-		leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20, 10);
-		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20, 10);
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
 		leftTalon.config_kP(0, 0.113333, 10);
@@ -116,7 +118,11 @@ public class DriveTrain extends Subsystem {
 		rightTalon.config_kF(0, 0.1097, 10);
 		rightTalon.config_kP(0, 0.113333, 10);
 		rightTalon.config_kI(0, 0, 10);
-		rightTalon.config_kD(0, 0, 10);	
+		rightTalon.config_kD(0, 0, 10);
+		
+		// ramp from stop to full power in 1.0 seconds -- needs tuning
+		leftTalon.configOpenloopRamp(0.5, 10);
+		rightTalon.configOpenloopRamp(0.5, 10);
 		
 		new SensorCollection(leftTalon);
 		new SensorCollection(rightTalon);
