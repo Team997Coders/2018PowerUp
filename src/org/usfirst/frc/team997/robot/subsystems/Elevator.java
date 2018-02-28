@@ -28,6 +28,7 @@ public class Elevator extends Subsystem {
 	public static final double absoluteTolerance = 0.01;
 	public boolean isZeroed = false;
 	public int absolutePosition;
+	public int delayCount = 0;
 	Preferences setpointPrefs;
 
 	public int index = 0;
@@ -167,6 +168,7 @@ public class Elevator extends Subsystem {
     }
     
     public void updateSmartDashboard() {
+    	if(delayCount == 10) {
     	absolutePosition = Motor.getSelectedSensorPosition(0);// & 0xFFF;
     	
     	//DISPLAYED DATA
@@ -193,9 +195,11 @@ public class Elevator extends Subsystem {
     	SmartDashboard.putData("Elevator Switch Height", new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
     	SmartDashboard.putData("Elevator Low Mid Height", new ElevatorToHeight(RobotMap.Values.elevatorLowMidHeight));
     	SmartDashboard.putData("Elevator Bottom Height", new ElevatorToHeight(RobotMap.Values.elevatorBottomHeight));
-    	
-    	
-    	
+    	delayCount = 0;
+    	}
+    	else {
+    		delayCount++;
+    	}
     	
     }
 }

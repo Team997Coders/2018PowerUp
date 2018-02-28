@@ -1,7 +1,5 @@
 package org.usfirst.frc.team997.robot.commands;
 
-import org.usfirst.frc.team997.robot.Robot;
-
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
@@ -15,8 +13,6 @@ public class Timercommand extends Command {
 	public double time;
 	public double timeLimit;
     public Timercommand(double _timeLimit) {
-        // Use requires() here to declare subsystem dependencies
-        // eg. requires(chassis);
     	timeLimit = _timeLimit;
     }
 
@@ -24,6 +20,7 @@ public class Timercommand extends Command {
     protected void initialize() {
     	timer.reset();
     	timer.start();
+    	System.out.println("Timer command initialized to " + timeLimit + " sec");
     }
 
     // Called repeatedly when this Command is scheduled to run
@@ -36,6 +33,7 @@ public class Timercommand extends Command {
         	return false;
         }
         else {
+        	System.out.println("...Timer command finished.");
         	return true;
         }
     }
