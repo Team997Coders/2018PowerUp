@@ -98,7 +98,11 @@ public class RobotMap {
 		driveDistanceP = 0.005,	//completely arbitrary guesstimate value; needs tuning
 		driveDistanceI = 0,		//completely arbitrary guesstimate value; needs tuning
 		driveDistanceD = 0,		//completely arbitrary guesstimate value; needs tuning
-						
+		
+		driveAngleP = 0.016,	//completely arbitrary guesstimate value; needs tuning
+		driveAngleI = 0,		//completely arbitrary guesstimate value; needs tuning
+		driveAngleD = 0,		//completely arbitrary guesstimate value; needs tuning
+														
 		elevatorPidP = 0.5,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
