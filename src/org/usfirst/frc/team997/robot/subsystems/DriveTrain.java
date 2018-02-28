@@ -10,6 +10,7 @@ import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
 import com.ctre.phoenix.motorcontrol.SensorCollection;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -43,6 +44,8 @@ public class DriveTrain extends Subsystem {
 	public boolean gyropresent;
 	public double decellSpeed = 0.2;
 	public double decellDivider = 1.2;
+	
+	int delayCount = 0;
 
 	public static double totalLeftCurrent;
 	public static double totalRightCurrent;
@@ -108,7 +111,9 @@ public class DriveTrain extends Subsystem {
 		rightTalon.configPeakCurrentLimit(40, 10);
 		rightTalon.configPeakCurrentDuration(100, 10);
 		rightTalon.configContinuousCurrentLimit(30, 10);
-
+		
+		leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20, 10);
+		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 20, 10);
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
 		leftTalon.config_kP(0, 0.113333, 10);
@@ -214,6 +219,7 @@ public class DriveTrain extends Subsystem {
 	public void resetEncoders() {
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
 		rightTalon.setSelectedSensorPosition(0, 0, 10);
+		System.out.println("Encoders reset!");
 	}
 	
 	public double getHeading() {
@@ -249,18 +255,23 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void updateDashboard() {
-		SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
-		SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
-		SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
-		SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderTicks());
-		SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
-		SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
-		SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("DT - Heading", getHeading());
-		SmartDashboard.putNumber("total left current", totalLeftCurrent);
-		SmartDashboard.putNumber("total right current", totalRightCurrent);
-		SmartDashboard.putBoolean("Decell on?", decellOn);
+		if (delayCount == 10) {
+			SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
+			SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
+			SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
+			SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderTicks());
+			SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
+			SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
+			SmartDashboard.putNumber("DT - Heading", getHeading());
+			SmartDashboard.putNumber("total left current", getTotalLeftCurrent());
+			SmartDashboard.putNumber("total right current", getTotalRightCurrent());
+			SmartDashboard.putBoolean("Decell on?", decellOn);
+			delayCount = 0;
+		} else {
+			delayCount++;
+		}		
 	}
 
 	public double getAHRSAngle() {
@@ -269,12 +280,13 @@ public class DriveTrain extends Subsystem {
 
 	public double getTotalLeftCurrent() {
 		totalLeftCurrent = (Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrainTalon)
-				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain)
-				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain2));
+					+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain)
+					+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain2));
 		return totalLeftCurrent;
 	}
 
 	public double getTotalRightCurrent() {
+		
 		totalRightCurrent = (Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrainTalon)
 				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrain)
 				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrain2));
