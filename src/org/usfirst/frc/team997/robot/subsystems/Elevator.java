@@ -36,7 +36,7 @@ public class Elevator extends Subsystem {
 			RobotMap.Values.elevatorHighMidHeight, RobotMap.Values.elevatorLowMidHeight, 
 			RobotMap.Values.elevatorBottomHeight, RobotMap.Values.elevatorSwitchHeight};
 
-	public int flop; //whether the collector is "flopped" down or not
+	public boolean flop; //whether the collector is "flopped" down or not
 	public double elevatorCurrent;
 	
     // Initialize your subsystem here
@@ -88,15 +88,26 @@ public class Elevator extends Subsystem {
     	flopUp();
     }
     
-    //1 = down (reverse), 0 = up (forward)
+    //true = down (reverse), false = up (forward)
+    
+    public void flopBoolean(boolean _flop) {
+    	if (_flop) {
+    		elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
+    		flop = true;
+    	} else {
+    		elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
+        	flop = false;
+    	}
+    }
+    
     public void flopUp() {
     	elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
-    	flop = 0;
+    	flop = false;
     }
     
     public void flopDown() {
     	elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
-    	flop = 1;
+    	flop = true;
     }
     
     public void autozero() {

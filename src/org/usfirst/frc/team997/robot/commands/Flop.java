@@ -9,27 +9,27 @@ import edu.wpi.first.wpilibj.command.Command;
  */
 public class Flop extends Command {
 	
-	int _state;
+	boolean _state;
 	
     public Flop() {
-    	requires(Robot.elevator);
+    	requires(Robot.elevator);			//Toggle
+    	_state = !Robot.elevator.flop;
     }
     
-    public Flop(int state) {
+    public Flop(boolean state) {			//Manual
     	requires(Robot.elevator);
     	_state = state;
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
+    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.elevator.flop == 1) {
-    		Robot.elevator.flopUp();
-    	} else if (Robot.elevator.flop == 0){
-    		Robot.elevator.flopDown();
+    	if (Robot.elevator.flop != _state) {
+    		Robot.elevator.flopBoolean(_state);
     	}
     	
     }
