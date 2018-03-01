@@ -1,8 +1,10 @@
 package org.usfirst.frc.team997.robot.commands;
 
 import org.usfirst.frc.team997.robot.Robot;
+import org.usfirst.frc.team997.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *
@@ -41,6 +43,7 @@ public class Collect extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.collector.collect(0,0);
+    	Scheduler.getInstance().add(new ElevatorToHeight((RobotMap.Values.elevatorSafeDriveHeight)));
     }
 
     // Called when another command which requires one or more of the same

@@ -88,7 +88,8 @@ public class RobotMap {
 		elevatorHighMidHeight,
 		elevatorLowMidHeight = 6135,
 		elevatorSwitchHeight = 14083,
-		elevatorBottomHeight,
+		elevatorBottomHeight = 0,
+		elevatorSafeDriveHeight = 1503,
 		//TODO: Set values
 		
 		slowcollectspeed = 0.25,
