@@ -9,7 +9,7 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PDriveToAngle extends Command {
 	private double angSetpoint;
-	private double minError = 12;
+	private double minError = 10;
 	private double initYaw = -999; 
 	private double Ktheta = 0.016; 
 

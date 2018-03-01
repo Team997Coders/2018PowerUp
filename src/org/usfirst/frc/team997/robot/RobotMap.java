@@ -87,7 +87,7 @@ public class RobotMap {
 		elevatorTopHeight,
 		elevatorHighMidHeight,
 		elevatorLowMidHeight = 6135,
-		elevatorSwitchHeight = 10672,
+		elevatorSwitchHeight = 14083,
 		elevatorBottomHeight,
 		//TODO: Set values
 		
@@ -130,7 +130,7 @@ public class RobotMap {
 		collectButton = 8, //Right Trigger, Gamepad2
 		//smartCollectButton = 7, //Left Trigger, Gamepad2 TODO: needs testing
 		uncollectButton = 7, //Left Trigger, Gamepad2
-		flopButton = 10, //Back, Gamepad1
+		flopButton = 7, //Back, Gamepad1
 		
 		//CLIMBER CONTROLS
 		climbbutton = 2, //Circle, Gamepad2

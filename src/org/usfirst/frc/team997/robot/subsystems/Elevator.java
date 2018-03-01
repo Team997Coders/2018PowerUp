@@ -85,18 +85,18 @@ public class Elevator extends Subsystem {
     	setpointPrefs.putDouble("Elevator High Mid Height", RobotMap.Values.elevatorHighMidHeight);
     	setpointPrefs.putDouble("Elevator Top Height", RobotMap.Values.elevatorTopHeight);
     	
-    	flop = 0;
-    	elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
+    	flopUp();
     }
     
-    public void flop(int p) {
-    	if (flop != p && flop != 0) {
-    		elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
-    		flop = 0;
-    	} else if (flop != p) {
-    		elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
-    		flop = 1;
-    	}
+    //1 = down (reverse), 0 = up (forward)
+    public void flopUp() {
+    	elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
+    	flop = 0;
+    }
+    
+    public void flopDown() {
+    	elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
+    	flop = 1;
     }
     
     public void autozero() {
