@@ -86,7 +86,7 @@ public class PDriveToDistance extends Command {
 
     	// Debug information to be placed on the smart dashboard.
     	SmartDashboard.putNumber("Setpoint", distSetpoint);
-    	SmartDashboard.putNumber("Encoder Distance", Robot.drivetrain.getLeftEncoderTicks());
+    	SmartDashboard.putNumber("Encoder Distance", Robot.drivetrain.getLeftEncoderPosition());
     	//SmartDashboard.putNumber("Encoder Rate", Robot.drivetrain.getEncoderRate());
     	SmartDashboard.putNumber("Distance Error", piderror());
     	SmartDashboard.putNumber("K-P factor", pfactor);
@@ -99,7 +99,7 @@ public class PDriveToDistance extends Command {
     }
 
     private double piderror() {
-    	return distSetpoint - Robot.drivetrain.getLeftEncoderTicks();
+    	return distSetpoint - Robot.drivetrain.getLeftEncoderPosition();
     }
     
     private boolean onTarget() {
@@ -120,7 +120,7 @@ public class PDriveToDistance extends Command {
     
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println(Robot.drivetrain.getLeftEncoderTicks());
+    	System.out.println(Robot.drivetrain.getLeftEncoderPosition());
     	System.out.println("PDrive End");
     	timer.stop();
     	Robot.drivetrain.setVoltages(0, 0);

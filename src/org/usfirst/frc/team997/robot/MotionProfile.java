@@ -121,6 +121,9 @@ public class MotionProfile {
 	}
 	
 	public void setupTrajectory() {
+		//
+		// remember that all distance parameters are in feet!
+		//
 		Robot.drivetrain.resetEncoders();
 		
 		// Create the Modifier Object
@@ -133,8 +136,8 @@ public class MotionProfile {
 		left = modifier.getLeftTrajectory(); // Get the Left Side
 		right = modifier.getRightTrajectory(); // Get the Right Side
 		
-		int leftCurrentPosition  = Robot.drivetrain.getLeftEncoderTicks();
-		int rightCurrentPosition = Robot.drivetrain.getRightEncoderTicks();
+		int leftCurrentPosition  = Robot.drivetrain.getLeftEncoderPosition();
+		int rightCurrentPosition = Robot.drivetrain.getRightEncoderPosition();
 		
 		leftEncoderFollower =  new EncoderFollower(left);
 		leftEncoderFollower.configureEncoder(leftCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
@@ -166,11 +169,11 @@ public class MotionProfile {
 		 * 
 		 * Need to convert the position to feet from encoder ticks
 		 */
-		int leftPosition =  Robot.drivetrain.getLeftEncoderTicks();
-		int rightPosition = Robot.drivetrain.getRightEncoderTicks();
+		double leftPosition =  Robot.drivetrain.getLeftEncoderPosition() / RobotMap.Values.ticksPerFoot;
+		double rightPosition = Robot.drivetrain.getRightEncoderPosition() / RobotMap.Values.ticksPerFoot;
 		
-		double leftPath = leftEncoderFollower.calculate(leftPosition);
-		double rightPath = leftEncoderFollower.calculate(rightPosition);
+		double leftPath = leftEncoderFollower.calculate((int) leftPosition);
+		double rightPath = leftEncoderFollower.calculate((int) rightPosition);
 		
 		double desiredHeading = Pathfinder.r2d(leftEncoderFollower.getHeading());
 		double angleDiff = (desiredHeading - Robot.drivetrain.getAHRSAngle());

@@ -189,11 +189,11 @@ public class DriveTrain extends Subsystem {
 		rightTalon.set(ControlMode.PercentOutput, rightSpeed);
 	}
 
-	public int getLeftEncoderTicks() {
+	public int getLeftEncoderPosition() {
 		return leftTalon.getSelectedSensorPosition(0);
 	}
 
-	public int getRightEncoderTicks() {
+	public int getRightEncoderPosition() {
 		return rightTalon.getSelectedSensorPosition(0);
 	}
 
@@ -254,10 +254,10 @@ public class DriveTrain extends Subsystem {
 	public void updateDashboard() {
 		SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
 		SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
-		SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
-		SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderTicks());
-		SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
-		SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
+		SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderPosition());
+		SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderPosition());
+		SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderPosition()*RobotMap.Values.inchesPerTick);
+		SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderPosition()*RobotMap.Values.inchesPerTick);
 		SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
 		SmartDashboard.putNumber("DT - Heading", getHeading());

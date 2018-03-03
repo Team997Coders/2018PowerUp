@@ -95,9 +95,9 @@ public class Logger {
 	            this.writer.write(String.format("%.3f", this.timeSinceStart));
 	            this.writer.write(String.format(",%.3f", Robot.pdp.getVoltage()));
 	            this.writer.write(String.format(",%.3f", Robot.pdp.getTotalCurrent()));
-	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getLeftEncoderTicks()));
+	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getLeftEncoderPosition()));
 	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getLeftEncoderRate()));
-	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getRightEncoderTicks()));
+	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getRightEncoderPosition()));
 	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getRightEncoderRate()));
 	            
 	            this.writer.newLine();
