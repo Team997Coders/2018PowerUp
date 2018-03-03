@@ -84,6 +84,15 @@ public class RobotMap {
 		robotWidth = 37.25,
 		robotWheelBase = 30,
 		
+		//distances from centerline. Measure these at each comp!
+		autoLeftSwitchTotal = 11.79167, 
+		autoRightSwitchTotal = 11.77083,
+		autoCenterSwitchTotal = 12,
+		
+		//ir sensor value - the reading when close enough
+		//Measure this at comp
+		autoIRthreshold = 0.8,	//0.8 for plywood, 0.4 for clear plexiglass
+		
 		elevatorTopHeight,
 		elevatorHighMidHeight,
 		elevatorLowMidHeight = 6135,

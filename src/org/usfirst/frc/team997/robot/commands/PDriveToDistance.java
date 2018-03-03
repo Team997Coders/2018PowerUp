@@ -112,7 +112,12 @@ public class PDriveToDistance extends Command {
     		System.out.println("(PDTD-ISFINISHED) PDTD ended with isFinished!");
     		 return onTarget();
     	} else {
-    		return false;
+    		if (Robot.collector.getAvgLeftVoltage() > RobotMap.Values.autoIRthreshold ||
+    			Robot.collector.getAvgRightVoltage() > RobotMap.Values.autoIRthreshold) {
+    			return true;
+    		} else {
+    			return false;
+    		}
     	}
     	//
     }

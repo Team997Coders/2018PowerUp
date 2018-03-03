@@ -105,7 +105,7 @@ public class OI {
 		collectButton.whenPressed(new Collect(0.5, 0.5)); //VALUES ALREADY INVERTED IN COLLECTOR
 		
 		uncollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.uncollectButton);
-		uncollectButton.whileHeld(new Uncollect(-1,-1));
+		uncollectButton.whileHeld(new Uncollect(-0.5,-0.5));
 		
 		//smartCollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.smartCollectButton);
 		//smartCollectButton.whileHeld(new SmartCollect());
