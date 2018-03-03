@@ -1,10 +1,8 @@
 package org.usfirst.frc.team997.robot.commands;
 
 import org.usfirst.frc.team997.robot.Robot;
-import org.usfirst.frc.team997.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
  *
@@ -51,7 +49,7 @@ public class ArcadeDrive extends Command {
         		deltaTheta = Robot.drivetrain.getAHRSAngle() - initAngle;
         		correction = deltaTheta*kTheta;
         		Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY() + Robot.m_oi.getRightX()) - correction, 
-    					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) + correction); //TODO: check these signs     
+    					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) + correction);
         	}
         	
         	SmartDashboard.putNumber("Arcade drive initAngle", initAngle);
@@ -86,7 +84,7 @@ public class ArcadeDrive extends Command {
     		deltaTheta = Robot.drivetrain.getAHRSAngle() - initAngle;
     		correction = deltaTheta*kTheta;
     		Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY() + Robot.m_oi.getRightX()) - correction, 
-					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) + correction); //TODO: check these signs     
+					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) + correction); 
     	}
     	
     	SmartDashboard.putNumber("Arcade drive initAngle", initAngle);

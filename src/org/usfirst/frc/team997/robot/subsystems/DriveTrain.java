@@ -3,18 +3,14 @@ package org.usfirst.frc.team997.robot.subsystems;
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 import org.usfirst.frc.team997.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team997.robot.commands.TankDrive;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
-import com.ctre.phoenix.motorcontrol.IMotorController;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
-import com.ctre.phoenix.motorcontrol.SensorCollection;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
 
-import edu.wpi.first.wpilibj.Encoder;
 import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -30,14 +26,13 @@ public class DriveTrain extends Subsystem {
 	private VictorSPX leftVictor2;
 	private VictorSPX rightVictor;
 	private VictorSPX rightVictor2;
-	private SensorCollection leftSensorCollection;
-	private SensorCollection rightSensorCollection;
 
 	private double prevLeftV;
 	private double prevRightV;
 	
 	private AHRS ahrs;
 	private double init_angle;
+	private double floorHeight = -1;
 
 	public boolean decellOn = true; // Default is false.
 	public boolean gyropresent;
@@ -119,9 +114,6 @@ public class DriveTrain extends Subsystem {
 		rightTalon.config_kP(0, 0.113333, 10);
 		rightTalon.config_kI(0, 0, 10);
 		rightTalon.config_kD(0, 0, 10);	
-		
-		leftSensorCollection = new SensorCollection(leftTalon);
-		rightSensorCollection = new SensorCollection(rightTalon);
 
 		/*
 		 * Set-up the gyro
@@ -129,11 +121,13 @@ public class DriveTrain extends Subsystem {
 		try {
 			ahrs = new AHRS(RobotMap.Ports.AHRS);
 			System.out.println("ahrs is cool!");
+			ahrs.reset();
+			init_angle = ahrs.getAngle();
+			floorHeight = ahrs.getAltitude();
 		} catch (RuntimeException e) {
 			System.out.println("DT - The AHRS constructor do a bad.");
 		}
-		ahrs.reset();
-		init_angle = ahrs.getAngle();
+
 		
     	//Motor.changeControlMode(TalonControlMode.PercentVbus);
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
@@ -221,6 +215,14 @@ public class DriveTrain extends Subsystem {
 		return( ahrs.getAngle() - init_angle );
 	}
 	
+	public double getAHRSAngle() {
+		return ahrs.getAngle();
+	}
+
+	public double getElevation() {
+		return (ahrs.getAltitude() - floorHeight);
+	}
+	
 	public double getleftVelocity() {
 		return leftTalon.getSelectedSensorVelocity(0);
 	}
@@ -264,9 +266,6 @@ public class DriveTrain extends Subsystem {
 		SmartDashboard.putBoolean("Decell on?", decellOn);
 	}
 
-	public double getAHRSAngle() {
-		return ahrs.getAngle();
-	}
 
 	public double getTotalLeftCurrent() {
 		totalLeftCurrent = (Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrainTalon)

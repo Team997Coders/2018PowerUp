@@ -42,6 +42,7 @@ public class Robot extends TimedRobot {
 	public static Logger logger;
 	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
 	public static PowerDistributionPanel pdp;
+	private MotionProfile motionProfile;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -59,6 +60,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		pdp = new PowerDistributionPanel();
 		
+		motionProfile = MotionProfile.getInstance();
 		logger = Logger.getInstance();
 		
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
@@ -83,6 +85,7 @@ public class Robot extends TimedRobot {
 		elevator.autozero();
 		logger.close();
 		//controlCurrent();
+		
 	}
 
 	//noot noot
@@ -186,17 +189,7 @@ public class Robot extends TimedRobot {
 		}
 	}*/
 	
-	//x = clamp(x, -1, 1);
-	public static double clamp(double x, double min, double max) {
-		if (x > max) {
-			return max;
-		} else if(x < min) {
-			return min;
-		} else {
-			return x;
-		}
-	}
-		public static String getGameData() {
+	public static String getGameData() {
 			return gameData;
 	}
 

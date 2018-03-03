@@ -29,7 +29,6 @@ public class MotionProfile {
 	DriverStation ds;
 
 	private int max = 0;
-	private double startAngle=-999;
 
 	public static MotionProfile getInstance() {
 		if (instance == null) {

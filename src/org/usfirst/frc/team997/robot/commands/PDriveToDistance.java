@@ -2,6 +2,7 @@ package org.usfirst.frc.team997.robot.commands;
 
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
+import org.usfirst.frc.team997.robot.utils;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
@@ -68,7 +69,7 @@ public class PDriveToDistance extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// compute the pid P value
-    	double pfactor = speed * Robot.clamp(RobotMap.Values.driveDistanceP * piderror(), -1, 1);
+    	double pfactor = speed * utils.clamp(RobotMap.Values.driveDistanceP * piderror(), -1, 1);
     	double pfactor2 = linearAccel(pfactor);
     	double deltaTheta = Robot.drivetrain.getAHRSAngle() - initYaw;
     	deltaT = timer.get() - lastTime;
