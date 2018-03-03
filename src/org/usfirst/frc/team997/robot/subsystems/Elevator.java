@@ -28,6 +28,7 @@ public class Elevator extends Subsystem {
 	public static final double absoluteTolerance = 0.01;
 	public boolean isZeroed = false;
 	public int absolutePosition;
+	public int delayCount = 0;
 	Preferences setpointPrefs;
 
 	public int index = 0;
@@ -35,7 +36,7 @@ public class Elevator extends Subsystem {
 			RobotMap.Values.elevatorHighMidHeight, RobotMap.Values.elevatorLowMidHeight, 
 			RobotMap.Values.elevatorBottomHeight, RobotMap.Values.elevatorSwitchHeight};
 
-	public int flop; //whether the collector is "flopped" down or not
+	public boolean flop; //whether the collector is "flopped" down or not
 	public double elevatorCurrent;
 	
     // Initialize your subsystem here
@@ -59,8 +60,8 @@ public class Elevator extends Subsystem {
     	Motor.enableCurrentLimit(false);
     	Motor.configNominalOutputForward(0, 10);
     	Motor.configNominalOutputReverse(0, 10);
-    	Motor.configPeakOutputForward(0.8, 10);
-    	Motor.configPeakOutputReverse(-0.25, 10); //TODO: Test reverse (and forward) value because it takes little power to lower it all the way.
+    	Motor.configPeakOutputForward(1.0, 10);
+    	Motor.configPeakOutputReverse(-0.35, 10); //TODO: Test reverse (and forward) value because it takes little power to lower it all the way.
     	Motor.configAllowableClosedloopError(0, 0, 10);
     	Motor.selectProfileSlot(0, 0);
     	Motor.config_kP(0, RobotMap.Values.elevatorPidP, 10);
@@ -84,18 +85,29 @@ public class Elevator extends Subsystem {
     	setpointPrefs.putDouble("Elevator High Mid Height", RobotMap.Values.elevatorHighMidHeight);
     	setpointPrefs.putDouble("Elevator Top Height", RobotMap.Values.elevatorTopHeight);
     	
-    	flop = 0;
-    	elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
+    	flopUp();
     }
     
-    public void flop(int p) {
-    	if (flop != p && flop != 0) {
-    		elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
-    		flop = 0;
-    	} else if (flop != p) {
+    //true = down (reverse), false = up (forward)
+    
+    public void flopBoolean(boolean _flop) {
+    	if (_flop) {
     		elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
-    		flop = 1;
+    		flop = true;
+    	} else {
+    		elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
+        	flop = false;
     	}
+    }
+    
+    public void flopUp() {
+    	elevatorSolenoid.set(DoubleSolenoid.Value.kForward);
+    	flop = false;
+    }
+    
+    public void flopDown() {
+    	elevatorSolenoid.set(DoubleSolenoid.Value.kReverse);
+    	flop = true;
     }
     
     public void autozero() {
@@ -167,6 +179,7 @@ public class Elevator extends Subsystem {
     }
     
     public void updateSmartDashboard() {
+    	if(delayCount == 10) {
     	absolutePosition = Motor.getSelectedSensorPosition(0);// & 0xFFF;
     	
     	//DISPLAYED DATA
@@ -193,9 +206,11 @@ public class Elevator extends Subsystem {
     	SmartDashboard.putData("Elevator Switch Height", new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
     	SmartDashboard.putData("Elevator Low Mid Height", new ElevatorToHeight(RobotMap.Values.elevatorLowMidHeight));
     	SmartDashboard.putData("Elevator Bottom Height", new ElevatorToHeight(RobotMap.Values.elevatorBottomHeight));
-    	
-    	
-    	
+    	delayCount = 0;
+    	}
+    	else {
+    		delayCount++;
+    	}
     	
     }
 }

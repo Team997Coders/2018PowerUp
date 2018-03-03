@@ -1,6 +1,8 @@
 package org.usfirst.frc.team997.robot.commands;
 
 import org.usfirst.frc.team997.robot.Robot;
+import org.usfirst.frc.team997.robot.utils;
+
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -9,9 +11,9 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class PDriveToAngle extends Command {
 	private double angSetpoint;
-	private double minError = 1.35;
+	private double minError = 10;
 	private double initYaw = -999; 
-	private double Ktheta = 0.0125;
+	private double Ktheta = 0.016; 
 
     public PDriveToAngle(double _ang) {
     	requires(Robot.drivetrain);
@@ -27,7 +29,7 @@ public class PDriveToAngle extends Command {
     protected void execute() {
     	// calculate yaw correction
     	double yawcorrect = piderror() * Ktheta;
-    	Robot.drivetrain.setVoltages(yawcorrect, -yawcorrect); //TODO check signs plez. mek it go forward.
+    	Robot.drivetrain.setVoltages(utils.clamp(yawcorrect, -1, 1), utils.clamp(-yawcorrect, -1, 1)); 
     	// Debug information to be placed on the smart dashboard.
     	SmartDashboard.putNumber("PDriveToAngle: Angle Error", piderror());
     	SmartDashboard.putNumber("PDriveToAngle: Theta Angle Correction", yawcorrect);

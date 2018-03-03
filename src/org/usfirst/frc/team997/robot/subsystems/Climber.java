@@ -15,14 +15,17 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	private VictorSP climberMotor;
 	private VictorSP climberMotor2;
 	private boolean climbing = false;
+
 	
 	public Climber() {
 		climberMotor = new VictorSP(RobotMap.Ports.climberVictorPort);
+		climberMotor2 = new VictorSP(RobotMap.Ports.climberVictorPort2);
 	}
 		
 	public void safeClimb() {
 		if (Robot.pdp.getCurrent(RobotMap.PDPPorts.climber) > RobotMap.Values.climberLimit) {
 			climberMotor.set(0);
+			climberMotor2.set(0);
 		} else {
 			climberMotor.set(RobotMap.Values.climbspeed);
 			climberMotor2.set(RobotMap.Values.climbspeed);
@@ -35,13 +38,16 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 	public void safeUnclimb() {
 		if (Robot.pdp.getCurrent(RobotMap.PDPPorts.climber) > RobotMap.Values.climberLimit) {
 			climberMotor.set(0);
+			climberMotor2.set(0);
 		} else {
 			climberMotor.set(-RobotMap.Values.climbspeed);
+			climberMotor2.set(-RobotMap.Values.climbspeed);
 		}
 	}
 	
 	public void stopclimb() {
 		climberMotor.set(0);
+		climberMotor2.set(0);
 	}
 	
 	// The 775Pro can run indefinetly at 2V @ 0.19N.m up to 4V @ 0.34N.m torque for each motor.

@@ -9,6 +9,7 @@ package org.usfirst.frc.team997.robot;
 
 import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
+import org.usfirst.frc.team997.robot.commands.AutoTest;
 import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
@@ -23,6 +24,7 @@ import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
 import edu.wpi.first.wpilibj.command.Scheduler;
+import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
@@ -63,12 +65,16 @@ public class Robot extends TimedRobot {
 		motionProfile = MotionProfile.getInstance();
 		logger = Logger.getInstance();
 		
+		pdp.clearStickyFaults();
+		LiveWindow.disableTelemetry(pdp); // turn-off the telemetry features in Livewindow to stop the CTRE Timeouts
+		
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
 		m_chooser.addObject("Center switch ", new AutoCenterSwitchDelivery());
 		m_chooser.addObject("Cross line", new CrossLine());
 		m_chooser.addObject("Same side switch", new SwitchSameSideDelivery());
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
-		m_chooser.addObject("Drive forward 2 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((120 - RobotMap.Values.robotLength) / 12)));
+		m_chooser.addObject("Drive forward 5 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((60 - RobotMap.Values.robotLength) / 12)));
+		m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 

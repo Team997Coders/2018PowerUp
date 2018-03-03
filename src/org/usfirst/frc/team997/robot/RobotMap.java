@@ -33,6 +33,7 @@ public class RobotMap {
 		rightVictorPort = 6,
 		rightVictorPort2 = 7,
 		climberVictorPort = 9,
+		climberVictorPort2 = 10,
 		elevatorVictorPort = 1,
 		leftCollectorPort = 2,
 		rightCollectorPort = 3,

@@ -7,31 +7,19 @@ import edu.wpi.first.wpilibj.command.Command;
 /**
  *
  */
-public class Flop extends Command {
-	
-	boolean _state;
-	
-    public Flop() {
-    	requires(Robot.elevator);			//Toggle
-    	_state = !Robot.elevator.flop;
-    }
-    
-    public Flop(boolean state) {			//Manual
-    	requires(Robot.elevator);
-    	_state = state;
+public class FlopDown extends Command {
+
+    public FlopDown() {
+       requires(Robot.elevator);
     }
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	
     }
 
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
-    	if (Robot.elevator.flop != _state) {
-    		Robot.elevator.flopBoolean(_state);
-    	}
-    	
+    	Robot.elevator.flopDown();
     }
 
     // Make this return true when this Command no longer needs to run execute()
@@ -46,6 +34,5 @@ public class Flop extends Command {
     // Called when another command which requires one or more of the same
     // subsystems is scheduled to run
     protected void interrupted() {
-    	end();
     }
 }
