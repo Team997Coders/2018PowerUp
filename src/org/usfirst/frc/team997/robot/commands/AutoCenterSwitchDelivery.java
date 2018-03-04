@@ -38,6 +38,7 @@ public class AutoCenterSwitchDelivery extends CommandGroup {
     	
     	}
 		//addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
+    	addSequential(new FlopDown());
 		addSequential(new TimedUncollect(-0.5, -0.5, 3));
     }
 }

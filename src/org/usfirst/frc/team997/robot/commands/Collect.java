@@ -43,7 +43,9 @@ public class Collect extends Command {
     // Called once after isFinished returns true
     protected void end() {
     	Robot.collector.collect(0,0);
-    	Scheduler.getInstance().add(new ElevatorToHeight((RobotMap.Values.elevatorSafeDriveHeight)));
+    	if (Robot.collector.gotCube) {
+    		Scheduler.getInstance().add(new ElevatorToHeight((RobotMap.Values.elevatorSafeDriveHeight)));
+    	}
     }
 
     // Called when another command which requires one or more of the same

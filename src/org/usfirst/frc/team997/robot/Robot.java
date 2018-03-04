@@ -14,12 +14,14 @@ import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
 import org.usfirst.frc.team997.robot.commands.SwitchSameSideDelivery;
+import org.usfirst.frc.team997.robot.subsystems.Arduino;
 import org.usfirst.frc.team997.robot.subsystems.Climber;
 import org.usfirst.frc.team997.robot.subsystems.Collector;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
@@ -44,6 +46,7 @@ public class Robot extends TimedRobot {
 	public static Logger logger;
 	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
 	public static PowerDistributionPanel pdp;
+	public static Arduino arduino;
 	
 	Command m_autonomousCommand;
 	SendableChooser<Command> m_chooser = new SendableChooser<>();
@@ -60,6 +63,13 @@ public class Robot extends TimedRobot {
 		elevator = new Elevator();
 		m_oi = new OI();
 		pdp = new PowerDistributionPanel();
+		arduino = new Arduino();
+		
+		if(DriverStation.getInstance().getAlliance() == Alliance.Red) {
+			arduino.sendRed();
+		} else {
+			arduino.sendBlue();
+		}
 		
 		logger = Logger.getInstance();
 		

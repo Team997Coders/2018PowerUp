@@ -26,6 +26,7 @@ public class PDriveToDistance extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
+    	//requires(Robot.collector);
     	distSetpoint = _dist;
     	speed = _speed;
     	System.out.println("(PDTD-CONSTRUCTOR) Calling constructor!! :^)");
@@ -36,6 +37,7 @@ public class PDriveToDistance extends Command {
         // eg. requires(chassis);
     	System.out.println("(PDTD-CONSTRUCTOR) Calling constructor!! :^)");
     	requires(Robot.drivetrain);
+    	//requires(Robot.collector);
     	distSetpoint = _dist;
     	speed = 0.5;
     }
@@ -112,14 +114,15 @@ public class PDriveToDistance extends Command {
     		System.out.println("(PDTD-ISFINISHED) PDTD ended with isFinished!");
     		 return onTarget();
     	} else {
-    		if (Robot.collector.getAvgLeftVoltage() > RobotMap.Values.autoIRthreshold ||
+    		/*if (Robot.collector.getAvgLeftVoltage() > RobotMap.Values.autoIRthreshold ||
     			Robot.collector.getAvgRightVoltage() > RobotMap.Values.autoIRthreshold) {
     			return true;
     		} else {
     			return false;
-    		}
+    		}*/
+    		return false;
     	}
-    	//
+    	
     }
     
     // Called once after isFinished returns true
