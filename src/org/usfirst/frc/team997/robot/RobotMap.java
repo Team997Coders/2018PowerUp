@@ -85,20 +85,21 @@ public class RobotMap {
 		robotWheelBase = 30,
 		
 		//distances from centerline. Measure these at each comp!
-		autoLeftSwitchTotal = 11.79167, 
-		autoRightSwitchTotal = 11.77083,
-		autoCenterSwitchTotal = 12,
+		autoLeftSwitchTotal = 140/12, //11.79167, 
+		autoRightSwitchTotal = 141/12, //11.77083,
+		autoCenterSwitchTotal = 142.25/12, //12,
 		
 		//ir sensor value - the reading when close enough
 		//Measure this at comp
 		autoIRthreshold = 0.8,	//0.8 for plywood, 0.4 for clear plexiglass
 		
 		elevatorTopHeight,
-		elevatorHighMidHeight,
+		elevatorHighMidHeight = 16000,
 		elevatorLowMidHeight = 6135,
-		elevatorSwitchHeight = 14083,
+		elevatorSwitchHeight = 11281,
+								//14083 <--PB switch height,
 		elevatorBottomHeight = 0,
-		elevatorSafeDriveHeight = 1503,
+		elevatorSafeDriveHeight = 1503, //good for PB and CB
 		//TODO: Set values
 		
 		slowcollectspeed = 0.25,
