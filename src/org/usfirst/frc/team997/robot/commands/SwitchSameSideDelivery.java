@@ -11,6 +11,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class SwitchSameSideDelivery extends CommandGroup {
 
     public SwitchSameSideDelivery() {
+        if(!Robot.getGameData().isEmpty()) {
         	
         	addSequential(new PDriveToDistance(14 * RobotMap.Values.ticksPerFoot));
         	if (Robot.getGameData().charAt(0) == 'L') {
@@ -19,6 +20,6 @@ public class SwitchSameSideDelivery extends CommandGroup {
         		addSequential(new PDriveToAngle(-90)); //Turn left to face switch.
         	}
         	//TODO How far does the robot have to travel to get close enough to the switch?
-
+        }
     }
 }
