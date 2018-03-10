@@ -10,17 +10,18 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class AutoCenterSwitchDelivery extends CommandGroup {
 
     public AutoCenterSwitchDelivery() {
-    	if(!Robot.getGameData().isEmpty()) {
+    	if(Robot.gameData != null && !Robot.gameData.isEmpty()) {
+    		Robot.isAuto(true);
     		addParallel(new FlopDown());
     		addParallel(new ElevatorToHeight(RobotMap.Values.elevatorSafeDriveHeight));
     		//addParallel(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
     		//Drive forward to avoid exhchange zone. Always 2 feet
     		addSequential(new PDriveToDistance(2 * RobotMap.Values.ticksPerFoot)); 
     	
-    		if(Robot.getGameData().charAt(0) == 'L') {
-    			addSequential(new PDriveToAngle(-65)); //Turn left to face switch.
+    		if(Robot.gameData.charAt(0) == 'L') {
+    			addSequential(new PDriveToAngle(-65)); //Turn to face switch.
     			addSequential(new PDriveToDistance(3.887 * RobotMap.Values.ticksPerFoot)); //Diagonal length towards our switch. Prev value: 5.5
-    			addSequential(new PDriveToAngle(60)); //Turn right to face straight again.
+    			addSequential(new PDriveToAngle(60)); //Turn to face straight again.
     			addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
     			addSequential(new PDriveToDistance((RobotMap.Values.autoLeftSwitchTotal - 5.887) * RobotMap.Values.ticksPerFoot)); //Drive to reach switch for cube delivery. Prev value: 4.15
     			//PRETTY ACCURATE NOW!!:^)
@@ -41,6 +42,9 @@ public class AutoCenterSwitchDelivery extends CommandGroup {
     		//addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
     		addSequential(new FlopDown());
     		addSequential(new TimedUncollect(-0.5, -0.5, 3));
+    	} else {
+    		System.out.println("Game data is null or empty");
+    		Robot.isAuto(false);
     	}
     }
 }

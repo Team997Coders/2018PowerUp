@@ -89,6 +89,10 @@ public class RobotMap {
 		autoRightSwitchTotal = 141/12, //11.77083,
 		autoCenterSwitchTotal = 142.25/12, //12,
 		
+		autoAngle1,
+		autoAngle2,
+		turnAngle,
+		
 		//ir sensor value - the reading when close enough
 		//Measure this at comp
 		autoIRthreshold = 0.8,	//0.8 for plywood, 0.4 for clear plexiglass
@@ -128,7 +132,7 @@ public class RobotMap {
 		//ELEVATOR CONTROLS
 		elevatorManualUp = 6, //Right Bumper, GamePad1
 		elevatorManualDown = 5, //Left Bumper, GamePad1
-		elevatorArrayUp = 4, //Square, GamePad2
+		//elevatorArrayUp = 4, //Square, GamePad2
 		elevatorArrayDown = 1, //Triangle, GamePad2
 		
 		topPosition = 4, //Y, GamePad1
@@ -138,9 +142,9 @@ public class RobotMap {
 		bottomPosition = 1, //A, GamePad1
 		
 		//COLLECTOR CONTROLS
-		collectButton = 8, //Right Trigger, Gamepad2
+		collectButton = 4, //Right Trigger, Gamepad2
 		//smartCollectButton = 7, //Left Trigger, Gamepad2 TODO: needs testing
-		uncollectButton = 7, //Left Trigger, Gamepad2
+		uncollectButton = 1, //Left Trigger, Gamepad2
 		flopButton = 7, //Back, Gamepad1
 		
 		//CLIMBER CONTROLS

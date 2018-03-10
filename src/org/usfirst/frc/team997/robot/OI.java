@@ -78,8 +78,8 @@ public class OI {
 		elevatorManualDown.whenReleased(new LockElevator());
 		
 		//ELEVATOR ARRAY CONTROLS
-		elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
-		elevatorArrayUp.whenPressed(new ArrayHeightSelector(true));
+		//elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
+		//elevatorArrayUp.whenPressed(new ArrayHeightSelector(true));
 				
 		elevatorArrayDown = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayDown);
 		elevatorArrayDown.whenPressed(new ArrayHeightSelector(false));

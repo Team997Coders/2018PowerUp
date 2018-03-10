@@ -17,7 +17,7 @@ import edu.wpi.first.wpilibj.command.Subsystem;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
 
 /**
- *
+ * Bugs: Follower motor not working. ((More than)Possibly not software related)
  */
 public class Elevator extends Subsystem {
 	
@@ -57,7 +57,6 @@ public class Elevator extends Subsystem {
     	Motor.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 10);
     	Motor.setSensorPhase(false);
     	Motor.clearStickyFaults(10);
-    	Motor.enableCurrentLimit(false);
     	Motor.configNominalOutputForward(0, 10);
     	Motor.configNominalOutputReverse(0, 10);
     	Motor.configPeakOutputForward(1.0, 10);

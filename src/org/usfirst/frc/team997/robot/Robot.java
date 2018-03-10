@@ -44,7 +44,7 @@ public class Robot extends TimedRobot {
 	public static Elevator elevator;
 	public static OI m_oi;
 	public static Logger logger;
-	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
+	public static String gameData;
 	public static PowerDistributionPanel pdp;
 	public static Arduino arduino;
 	
@@ -126,7 +126,12 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		logger.openFile();
+		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		SmartDashboard.putString("gamedata", gameData);
+		
 		m_autonomousCommand = m_chooser.getSelected();
+		System.out.println("auto init game data: " + gameData);
 
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
@@ -215,5 +220,9 @@ public class Robot extends TimedRobot {
 		public static String getGameData() {
 			return gameData;
 	}
+		
+		public static void isAuto(boolean a) {
+			SmartDashboard.putBoolean("isAuto", a);
+		}
 
 }
