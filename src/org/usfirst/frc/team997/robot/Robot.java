@@ -98,6 +98,7 @@ public class Robot extends TimedRobot {
 		elevator.updateSmartDashboard();
 		elevator.autozero();
 		logger.close();
+		gameData = "";
 		//controlCurrent();
 	}
 
