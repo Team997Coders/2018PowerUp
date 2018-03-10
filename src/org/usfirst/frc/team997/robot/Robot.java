@@ -64,6 +64,7 @@ public class Robot extends TimedRobot {
 		m_oi = new OI();
 		pdp = new PowerDistributionPanel();
 		arduino = new Arduino();
+		gameData = "";
 		
 		if(DriverStation.getInstance().getAlliance() == Alliance.Red) {
 			arduino.sendRed();
