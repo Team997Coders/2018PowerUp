@@ -27,8 +27,9 @@ public class LockElevator extends Command {
 	// CCB: So why would you want to finish this command if the PID closed loop error approaches zero?
 	// Shouldn't you just keep executing until button is released or possibly if the elevator
 	// is at the zero position?
-    	double closedLoopError = Robot.elevator.getError();
-    	return /*!Robot.elevator.isZeroed ||*/ (Math.abs(closedLoopError) < 60);
+    	//double closedLoopError = Robot.elevator.getError();
+    	//return /*!Robot.elevator.isZeroed ||*/ (Math.abs(closedLoopError) < 60);
+    	return false;
     }
 
     protected void end() {

@@ -26,6 +26,6 @@ public class MoveElevator extends Command {
     }
 
     protected void interrupted() {
-    	end();
+    	//end();
     }
 }

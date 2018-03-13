@@ -3,6 +3,7 @@ package org.usfirst.frc.team997.robot.subsystems;
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
+import org.usfirst.frc.team997.robot.commands.LockElevator;
 
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
@@ -69,7 +70,7 @@ public class Elevator extends Subsystem {
     	Motor.config_kF(0, 0, 10);
     	Motor.setNeutralMode(NeutralMode.Brake);
     	
-    	Motor.enableCurrentLimit(true);
+    	Motor.enableCurrentLimit(false);
 		Motor.configPeakCurrentLimit(40, 10);
 		Motor.configPeakCurrentDuration(100, 10);
 		Motor.configContinuousCurrentLimit(30, 10);
@@ -117,6 +118,7 @@ public class Elevator extends Subsystem {
     public void initDefaultCommand() {
         // Set the default command for a subsystem here.
         //setDefaultCommand(new MySpecialCommand());
+    	setDefaultCommand(new LockElevator());
     }
 
     public void stop() {
@@ -158,13 +160,13 @@ public class Elevator extends Subsystem {
     	return heightList[index];
     }
     
-    public void safeSetVoltage(double volts) {
+   /* public void safeSetVoltage(double volts) {
     	if (getCurrent() > RobotMap.Values.elevatorLimit) {
     		Motor.set(ControlMode.PercentOutput, 0);
     	} else {
     		Motor.set(ControlMode.PercentOutput, volts);
     	}
-    }
+    }*/
     
     public void updateSmartDashboard() {
     	if(delayCount == 10) {

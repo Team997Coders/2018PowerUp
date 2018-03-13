@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.AutoCenterLeftSwitch;
+import org.usfirst.frc.team997.robot.commands.AutoCenterRightSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.commands.AutoTest;
@@ -25,6 +27,7 @@ import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -46,10 +49,10 @@ public class Robot extends TimedRobot {
 	public static Logger logger;
 	public static String gameData;
 	public static PowerDistributionPanel pdp;
-	public static Arduino arduino;
+	public static Arduino arduino;  
 	
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<Command> m_chooser = new SendableChooser<Command>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -131,10 +134,24 @@ public class Robot extends TimedRobot {
 		
 		gameData = DriverStation.getInstance().getGameSpecificMessage();
 		SmartDashboard.putString("gamedata", gameData);
-		
-		m_autonomousCommand = m_chooser.getSelected();
 		System.out.println("auto init game data: " + gameData);
-
+		
+		//this logic works. has been tested :)
+		if((m_chooser.getSelected()).getName().equals("AutoCenterSwitchDelivery")) {
+			
+			if(gameData.charAt(0) == 'L') {
+				m_autonomousCommand = new AutoCenterLeftSwitch();
+				System.out.println("Autocommand switch left");
+			} else {
+				m_autonomousCommand = new AutoCenterRightSwitch();
+				System.out.println("Autocommand switch right");
+			}
+		} else {
+			m_autonomousCommand = m_chooser.getSelected();
+			System.out.println("Name is: " + (m_chooser.getSelected()).getName());
+			System.out.println("autocommand is " + m_autonomousCommand);
+		}
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand

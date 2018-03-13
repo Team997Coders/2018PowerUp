@@ -111,7 +111,7 @@ public class RobotMap {
 		collectspeed = 0.25,
 		
 		driveDistanceP = 0.005,//completely arbitrary guesstimate value; needs tuning
-		elevatorPidP = 0.5,
+		elevatorPidP = 0.75,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
 		climbspeed = 1.0,
