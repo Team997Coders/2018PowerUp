@@ -173,8 +173,8 @@ public class Elevator extends Subsystem {
     	absolutePosition = Motor.getSelectedSensorPosition(0);// & 0xFFF;
     	
     	//DISPLAYED DATA
-       	SmartDashboard.putNumber("TalonSRX Mode", Motor.getControlMode().value);
-    	SmartDashboard.putNumber("Absolute Position", absolutePosition);
+       	//SmartDashboard.putNumber("TalonSRX Mode", Motor.getControlMode().value);
+    	//SmartDashboard.putNumber("Absolute Position", absolutePosition);
     	SmartDashboard.putBoolean("Top limit switch", sensorCollection.isFwdLimitSwitchClosed());
     	SmartDashboard.putBoolean("Bottom limit switch", sensorCollection.isRevLimitSwitchClosed());
     	SmartDashboard.putBoolean("Elevator Zeroed", Robot.elevator.isZeroed);
