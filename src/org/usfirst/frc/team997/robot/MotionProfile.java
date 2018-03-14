@@ -22,8 +22,7 @@ import jaci.pathfinder.modifiers.TankModifier;
  * interface to the commands and command groups that allow control of the robot.
  */
 public class MotionProfile {
-	private Trajectory trajectory, left, right;
-	private EncoderFollower leftEncoderFollower, rightEncoderFollower;
+
 	private static MotionProfile instance;
 	private String fileName = "";
 	private String path = "/home/lvuser/spartanpath";
@@ -107,17 +106,17 @@ public class MotionProfile {
 				RobotMap.Values.pf_max_acc, RobotMap.Values.pf_max_jerk);
 
 		// Generate the trajectory
-		trajectory = Pathfinder.generate(points, config);
+		RobotMap.trajectory = Pathfinder.generate(points, config);
 
 		// save the calculated trajectory (for later reference)
 		File myFile = new File(getPath());
-		Pathfinder.writeToCSV(myFile, trajectory);
+		Pathfinder.writeToCSV(myFile, RobotMap.trajectory);
 	}
 
 	// Load pre-generated data from csv file
 	public void load_path() {
 		File myFile = new File(getPath());
-		trajectory = Pathfinder.readFromCSV(myFile);
+		RobotMap.trajectory = Pathfinder.readFromCSV(myFile);
 	}
 	
 	public void setupTrajectory() {
@@ -127,20 +126,20 @@ public class MotionProfile {
 		Robot.drivetrain.resetEncoders();
 		
 		// Create the Modifier Object
-		TankModifier modifier = new TankModifier(trajectory);
+		TankModifier modifier = new TankModifier(RobotMap.trajectory);
 
 		// Generate the Left and Right trajectories using the original trajectory
 		// as the center of the path.  The main option is the wheelbase of the robot
 		modifier.modify(RobotMap.Values.robotWheelBase/12.0);  // wheelbase is specified in inches
 		
-		left = modifier.getLeftTrajectory(); // Get the Left Side
-		right = modifier.getRightTrajectory(); // Get the Right Side
+		RobotMap.leftTrajectory = modifier.getLeftTrajectory(); // Get the Left Side
+		RobotMap.rightTrajectory = modifier.getRightTrajectory(); // Get the Right Side
 		
 		int leftCurrentPosition  = Robot.drivetrain.getLeftEncoderPosition();
 		int rightCurrentPosition = Robot.drivetrain.getRightEncoderPosition();
 		
-		leftEncoderFollower =  new EncoderFollower(left);
-		leftEncoderFollower.configureEncoder(leftCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
+		RobotMap.leftEncoderFollower =  new EncoderFollower(RobotMap.leftTrajectory);
+		RobotMap.leftEncoderFollower.configureEncoder(leftCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
 		
 		// The first argument is the proportional gain. Usually this will be quite high
 		// The second argument is the integral gain. This is unused for motion profiling
@@ -148,13 +147,13 @@ public class MotionProfile {
 		// The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
 		//      trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
 		// The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-		leftEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd, 
+		RobotMap.leftEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd, 
 				1 / RobotMap.Values.pf_max_vel, RobotMap.Values.pf_Ka);
 		
 		// Do the same thing for the right hand side of the robot...
-		rightEncoderFollower =  new EncoderFollower(right);
-		rightEncoderFollower.configureEncoder(rightCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
-		rightEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd, 
+		RobotMap.rightEncoderFollower =  new EncoderFollower(RobotMap.rightTrajectory);
+		RobotMap.rightEncoderFollower.configureEncoder(rightCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
+		RobotMap.rightEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd, 
 				1 / RobotMap.Values.pf_max_vel, RobotMap.Values.pf_Ka);
 	}
 
@@ -172,10 +171,10 @@ public class MotionProfile {
 		double leftPosition =  Robot.drivetrain.getLeftEncoderPosition() / RobotMap.Values.ticksPerFoot;
 		double rightPosition = Robot.drivetrain.getRightEncoderPosition() / RobotMap.Values.ticksPerFoot;
 		
-		double leftPath = leftEncoderFollower.calculate((int) leftPosition);
-		double rightPath = leftEncoderFollower.calculate((int) rightPosition);
+		double leftPath = RobotMap.leftEncoderFollower.calculate((int) leftPosition);
+		double rightPath = RobotMap.leftEncoderFollower.calculate((int) rightPosition);
 		
-		double desiredHeading = Pathfinder.r2d(leftEncoderFollower.getHeading());
+		double desiredHeading = Pathfinder.r2d(RobotMap.leftEncoderFollower.getHeading());
 		double angleDiff = (desiredHeading - Robot.drivetrain.getAHRSAngle());
 		double turn = RobotMap.Values.pf_Kt * angleDiff;
 		

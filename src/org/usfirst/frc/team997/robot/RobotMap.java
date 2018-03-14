@@ -8,6 +8,8 @@
 package org.usfirst.frc.team997.robot;
 
 import edu.wpi.first.wpilibj.SerialPort;
+import jaci.pathfinder.Trajectory;
+import jaci.pathfinder.followers.EncoderFollower;
 
 /**
  * The RobotMap is a mapping from the ports sensors and actuators are wired into
@@ -16,6 +18,13 @@ import edu.wpi.first.wpilibj.SerialPort;
  * floating around.
  */
 public class RobotMap {
+	public static Trajectory 	trajectory, 
+								leftTrajectory, 
+								rightTrajectory;
+
+	public static EncoderFollower 	leftEncoderFollower, 
+									rightEncoderFollower;
+	
 	public static class Ports {
 		public static int
 		//CAN
@@ -79,13 +88,13 @@ public class RobotMap {
 		ticksPerRev = 4096;
 		
 		public static double
-		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
-		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot
-		
-		robotLength = 33.25, //in inches
+		robotLength = 33.25, //in inches (includes bumpers)
 		robotWidth = 37.25,
-		robotWheelBase = 30, // or 0.6 meters.  Use 0.0254 meters/in or 39.37in/m
-		robotWheelDia = 4.0, // remember all pf variables are in ft.  Need to convert when used.
+		robotWheelBase = 30, // inches or 2.5ft or 0.6 meters.  Use 0.0254 meters/in or 39.37in/m
+		robotWheelDia = 3.9, // remember all pf variables are in ft.  Need to convert when used.
+		
+		inchesPerTick = (robotWheelDia*Math.PI)/4096,	//inches per encoder tick
+		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot
 		
 		elevatorTopHeight,
 		elevatorHighMidHeight,
