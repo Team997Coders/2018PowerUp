@@ -66,6 +66,8 @@ public class MotionProfile {
 
 		generatePath();
 		setupTrajectory();
+		
+		RobotMap.Values.pf_path_ready = true;
 	}
 
 	private String getPath() {
@@ -155,29 +157,5 @@ public class MotionProfile {
 		RobotMap.rightEncoderFollower.configureEncoder(rightCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
 		RobotMap.rightEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd, 
 				1 / RobotMap.Values.pf_max_vel, RobotMap.Values.pf_Ka);
-	}
-
-	// Using the preset trajectory file, run each point.
-	public void profileLoop() {
-		/*
-		 * for (int i = 0; i < trajectory.length(); i++) { Trajectory.Segment seg =
-		 * trajectory.get(i);
-		 * 
-		 * System.out.printf("%f,%f,%f,%f,%f,%f,%f,%f\n", seg.dt, seg.x, seg.y,
-		 * seg.position, seg.velocity, seg.acceleration, seg.jerk, seg.heading); }
-		 * 
-		 * Need to convert the position to feet from encoder ticks
-		 */
-		double leftPosition =  Robot.drivetrain.getLeftEncoderPosition() / RobotMap.Values.ticksPerFoot;
-		double rightPosition = Robot.drivetrain.getRightEncoderPosition() / RobotMap.Values.ticksPerFoot;
-		
-		double leftPath = RobotMap.leftEncoderFollower.calculate((int) leftPosition);
-		double rightPath = RobotMap.leftEncoderFollower.calculate((int) rightPosition);
-		
-		double desiredHeading = Pathfinder.r2d(RobotMap.leftEncoderFollower.getHeading());
-		double angleDiff = (desiredHeading - Robot.drivetrain.getAHRSAngle());
-		double turn = RobotMap.Values.pf_Kt * angleDiff;
-		
-	    Robot.drivetrain.setVoltages(leftPath + turn, rightPath - turn);
 	}
 }

@@ -18,12 +18,14 @@ import jaci.pathfinder.followers.EncoderFollower;
  * floating around.
  */
 public class RobotMap {
-	public static Trajectory 	trajectory, 
-								leftTrajectory, 
-								rightTrajectory;
+	public static Trajectory 	
+		trajectory, 
+		leftTrajectory, 
+		rightTrajectory;
 
-	public static EncoderFollower 	leftEncoderFollower, 
-									rightEncoderFollower;
+	public static EncoderFollower 	
+		leftEncoderFollower, 
+		rightEncoderFollower;
 	
 	public static class Ports {
 		public static int
