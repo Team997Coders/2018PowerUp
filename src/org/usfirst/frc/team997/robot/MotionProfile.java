@@ -137,11 +137,6 @@ public class MotionProfile {
 		RobotMap.leftTrajectory = modifier.getLeftTrajectory(); // Get the Left Side
 		RobotMap.rightTrajectory = modifier.getRightTrajectory(); // Get the Right Side
 		
-		int leftCurrentPosition  = Robot.drivetrain.getLeftEncoderPosition();
-		int rightCurrentPosition = Robot.drivetrain.getRightEncoderPosition();
-		
-		RobotMap.leftEncoderFollower =  new EncoderFollower(RobotMap.leftTrajectory);
-		RobotMap.leftEncoderFollower.configureEncoder(leftCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
 		
 		// The first argument is the proportional gain. Usually this will be quite high
 		// The second argument is the integral gain. This is unused for motion profiling
@@ -149,13 +144,6 @@ public class MotionProfile {
 		// The fourth argument is the velocity ratio. This is 1 over the maximum velocity you provided in the 
 		//      trajectory configuration (it translates m/s to a -1 to 1 scale that your motors can read)
 		// The fifth argument is your acceleration gain. Tweak this if you want to get to a higher or lower speed quicker
-		RobotMap.leftEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd, 
-				1 / RobotMap.Values.pf_max_vel, RobotMap.Values.pf_Ka);
-		
 		// Do the same thing for the right hand side of the robot...
-		RobotMap.rightEncoderFollower =  new EncoderFollower(RobotMap.rightTrajectory);
-		RobotMap.rightEncoderFollower.configureEncoder(rightCurrentPosition,  RobotMap.Values.ticksPerRev, RobotMap.Values.robotWheelDia/12.0);
-		RobotMap.rightEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd, 
-				1 / RobotMap.Values.pf_max_vel, RobotMap.Values.pf_Ka);
 	}
 }

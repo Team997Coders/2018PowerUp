@@ -22,11 +22,9 @@ public class RobotMap {
 		trajectory, 
 		leftTrajectory, 
 		rightTrajectory;
-
 	public static EncoderFollower 	
 		leftEncoderFollower, 
 		rightEncoderFollower;
-	
 	public static class Ports {
 		public static int
 		//CAN
@@ -43,8 +41,8 @@ public class RobotMap {
 		leftVictorPort2 = 5,
 		rightVictorPort = 6,
 		rightVictorPort2 = 7,
-		climberVictorPort = 9,
-		climberVictorPort2 = 10,
+		climberVictorPort = 0,
+		climberVictorPort2 = 1,
 		elevatorVictorPort = 1,
 		leftCollectorPort = 2,
 		rightCollectorPort = 3,
@@ -86,6 +84,7 @@ public class RobotMap {
 	}
 	
 	public static class Values {
+		
 		public static int
 		ticksPerRev = 4096;
 		
@@ -95,27 +94,43 @@ public class RobotMap {
 		robotWheelBase = 30, // inches or 2.5ft or 0.6 meters.  Use 0.0254 meters/in or 39.37in/m
 		robotWheelDia = 3.9, // remember all pf variables are in ft.  Need to convert when used.
 		
-		inchesPerTick = (robotWheelDia*Math.PI)/4096,	//inches per encoder tick
-		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot
+		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
+		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot	
+		
+		
+		//distances from centerline. Measure these at each comp!
+		autoLeftSwitchTotal = 140/12, //11.79167, 
+		autoRightSwitchTotal = 141/12, //11.77083,
+		autoCenterSwitchTotal = 142.25/12, //12,
+		
+		autoAngle1,
+		autoAngle2,
+		turnAngle,
+		
+		//ir sensor value - the reading when close enough
+		//Measure this at comp
+		autoIRthreshold = 0.8,	//0.8 for plywood, 0.4 for clear plexiglass
 		
 		elevatorTopHeight,
-		elevatorHighMidHeight,
+		elevatorHighMidHeight = 16000,
 		elevatorLowMidHeight = 6135,
-		elevatorSwitchHeight = 10672,
-		elevatorBottomHeight,
+		elevatorSwitchHeight = 11281,
+								//14083 <--PB switch height,
+		elevatorBottomHeight = 0,
+		elevatorSafeDriveHeight = 1503, //good for PB and CB
 		//TODO: Set values
 		
 		slowcollectspeed = 0.25,
 		fastcollectspeed = 0.75,
-		collectspeed = 0.5,
+		collectspeed = 0.25,
 		
 		driveDistanceP = 0.005,//completely arbitrary guesstimate value; needs tuning
-		elevatorPidP = 0.5,
+		elevatorPidP = 0.75,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
-		climbspeed = 0.5,
+		climbspeed = 1.0,
 		
-		//Current limits in amps
+		//voltage limits in amps
 		drivetrainLeftLimit = 81, //81
 		drivetrainRightLimit = 81, //81
 		collectorLeftLimit = 12,
@@ -142,6 +157,9 @@ public class RobotMap {
 		// "Do I end with a comma or a semicolon?"
 		last=0.0;
 		
+		public static boolean
+		pf_path_ready = false;
+
 	}
 
 	public static class Buttons {
@@ -150,8 +168,6 @@ public class RobotMap {
 		//ELEVATOR CONTROLS
 		elevatorManualUp = 6, //Right Bumper, GamePad1
 		elevatorManualDown = 5, //Left Bumper, GamePad1
-		elevatorArrayUp = 4, //Square, GamePad2
-		elevatorArrayDown = 1, //Triangle, GamePad2
 		
 		topPosition = 4, //Y, GamePad1
 		highMidPosition = 2, //B, GamePad1
@@ -160,14 +176,15 @@ public class RobotMap {
 		bottomPosition = 1, //A, GamePad1
 		
 		//COLLECTOR CONTROLS
-		collectButton = 8, //Right Trigger, Gamepad2
+		collectButton = 4, //Right Trigger, Gamepad2
 		//smartCollectButton = 7, //Left Trigger, Gamepad2 TODO: needs testing
-		uncollectButton = 7, //Left Trigger, Gamepad2
+		uncollectButton = 1, //Left Trigger, Gamepad2
 		flopButton = 7, //Back, Gamepad1
 		
 		//CLIMBER CONTROLS
-		climbbutton = 3, //X, Gamepad2
-		unclimbbutton = 2; //Circle, Gamepad2
+		climbbutton = 2, //Circle, Gamepad2
+		unclimbbutton = 3; //X, Gamepad2
 
+	
 	}
 }

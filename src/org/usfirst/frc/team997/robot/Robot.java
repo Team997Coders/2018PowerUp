@@ -7,6 +7,8 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.AutoCenterLeftSwitch;
+import org.usfirst.frc.team997.robot.commands.AutoCenterRightSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.commands.AutoTest;
@@ -14,15 +16,18 @@ import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
 import org.usfirst.frc.team997.robot.commands.SwitchSameSideDelivery;
+import org.usfirst.frc.team997.robot.subsystems.Arduino;
 import org.usfirst.frc.team997.robot.subsystems.Climber;
 import org.usfirst.frc.team997.robot.subsystems.Collector;
 import org.usfirst.frc.team997.robot.subsystems.DriveTrain;
 import org.usfirst.frc.team997.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.DriverStation;
+import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;
@@ -42,12 +47,13 @@ public class Robot extends TimedRobot {
 	public static Elevator elevator;
 	public static OI m_oi;
 	public static Logger logger;
-	public static String gameData = DriverStation.getInstance().getGameSpecificMessage();
+	public static String gameData;
 	public static PowerDistributionPanel pdp;
 	private MotionProfile motionProfile;
+	public static Arduino arduino;  
 	
 	Command m_autonomousCommand;
-	SendableChooser<Command> m_chooser = new SendableChooser<>();
+	SendableChooser<Command> m_chooser = new SendableChooser<Command>();
 
 	/**
 	 * This function is run when the robot is first started up and should be
@@ -61,9 +67,18 @@ public class Robot extends TimedRobot {
 		elevator = new Elevator();
 		m_oi = new OI();
 		pdp = new PowerDistributionPanel();
+		arduino = new Arduino();
+		gameData = "";
+		
+		if(DriverStation.getInstance().getAlliance() == Alliance.Red) {
+			arduino.sendRed();
+		} else {
+			arduino.sendBlue();
+		}
 		
 		motionProfile = MotionProfile.getInstance();
 		logger = Logger.getInstance();
+		RobotMap.Values.pf_path_ready = false;
 		
 		pdp.clearStickyFaults();
 		LiveWindow.disableTelemetry(pdp); // turn-off the telemetry features in Livewindow to stop the CTRE Timeouts
@@ -90,6 +105,7 @@ public class Robot extends TimedRobot {
 		elevator.updateSmartDashboard();
 		elevator.autozero();
 		logger.close();
+		gameData = "";
 		//controlCurrent();
 		
 	}
@@ -119,8 +135,27 @@ public class Robot extends TimedRobot {
 	@Override
 	public void autonomousInit() {
 		logger.openFile();
-		m_autonomousCommand = m_chooser.getSelected();
-
+		
+		gameData = DriverStation.getInstance().getGameSpecificMessage();
+		SmartDashboard.putString("gamedata", gameData);
+		System.out.println("auto init game data: " + gameData);
+		
+		//this logic works. has been tested :)
+		if((m_chooser.getSelected()).getName().equals("AutoCenterSwitchDelivery")) {
+			
+			if(gameData.charAt(0) == 'L') {
+				m_autonomousCommand = new AutoCenterLeftSwitch();
+				System.out.println("Autocommand switch left");
+			} else {
+				m_autonomousCommand = new AutoCenterRightSwitch();
+				System.out.println("Autocommand switch right");
+			}
+		} else {
+			m_autonomousCommand = m_chooser.getSelected();
+			System.out.println("Name is: " + (m_chooser.getSelected()).getName());
+			System.out.println("autocommand is " + m_autonomousCommand);
+		}
+		
 		/*
 		 * String autoSelected = SmartDashboard.getString("Auto Selector",
 		 * "Default"); switch(autoSelected) { case "My Auto": autonomousCommand
@@ -198,5 +233,9 @@ public class Robot extends TimedRobot {
 	public static String getGameData() {
 			return gameData;
 	}
+		
+		public static void isAuto(boolean a) {
+			SmartDashboard.putBoolean("isAuto", a);
+		}
 
 }

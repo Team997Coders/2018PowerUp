@@ -1,6 +1,7 @@
 package org.usfirst.frc.team997.robot.subsystems;
 
 import org.usfirst.frc.team997.robot.RobotMap;
+import org.usfirst.frc.team997.robot.commands.Uncollect;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.VictorSP;
@@ -46,6 +47,7 @@ public class Collector extends Subsystem {
     	SmartDashboard.putNumber("rightCollectorSensor", getAvgRightVoltage());
 		SmartDashboard.putNumber("leftCollectorSensor", getAvgLeftVoltage());
 		SmartDashboard.putBoolean("Got Cube?", gotCube);
+		SmartDashboard.putData(new Uncollect(-0.25, -0.25));
     }
     
 }

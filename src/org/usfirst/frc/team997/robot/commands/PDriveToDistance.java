@@ -27,6 +27,7 @@ public class PDriveToDistance extends Command {
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     	requires(Robot.drivetrain);
+    	//requires(Robot.collector);
     	distSetpoint = _dist;
     	speed = _speed;
     	System.out.println("(PDTD-CONSTRUCTOR) Calling constructor!! :^)");
@@ -37,6 +38,7 @@ public class PDriveToDistance extends Command {
         // eg. requires(chassis);
     	System.out.println("(PDTD-CONSTRUCTOR) Calling constructor!! :^)");
     	requires(Robot.drivetrain);
+    	//requires(Robot.collector);
     	distSetpoint = _dist;
     	speed = 0.5;
     }
@@ -46,7 +48,7 @@ public class PDriveToDistance extends Command {
     	lastVoltage = 0;
     	Robot.drivetrain.resetEncoders();
     	Robot.drivetrain.setBrake();
-    	initYaw = Robot.drivetrain.getAHRSAngle();
+    	initYaw = Robot.drivetrain.getAngle();
     	timer.reset();
     	timer.start();
     	System.out.println("(PDTD-INIT) OMG, I got initialized!!! :O");
@@ -73,7 +75,7 @@ public class PDriveToDistance extends Command {
     	// compute the pid P value
     	double pfactor = speed * utils.clamp(RobotMap.Values.driveDistanceP * piderror(), -1, 1);
     	double pfactor2 = linearAccel(pfactor);
-    	double deltaTheta = Robot.drivetrain.getAHRSAngle() - initYaw;
+    	double deltaTheta = Robot.drivetrain.getAngle() - initYaw;
     	deltaT = timer.get() - lastTime;
     	lastTime = timer.get();
 
@@ -85,17 +87,16 @@ public class PDriveToDistance extends Command {
     	//Robot.driveTrain.SetVoltages(-pfactor, -pfactor); //without yaw correction, accel
 
     	// Debug information to be placed on the smart dashboard.
-    	SmartDashboard.putNumber("Setpoint", distSetpoint);
-    	SmartDashboard.putNumber("Encoder Distance", Robot.drivetrain.getLeftEncoderPosition());
+    	SmartDashboard.putNumber("PDTD - Setpoint", distSetpoint);
+    	SmartDashboard.putNumber("PDTD - Encoder Distance", Robot.drivetrain.getLeftEncoderPosition());
     	//SmartDashboard.putNumber("Encoder Rate", Robot.drivetrain.getEncoderRate());
-    	SmartDashboard.putNumber("Distance Error", piderror());
-    	SmartDashboard.putNumber("K-P factor", pfactor);
-    	SmartDashboard.putNumber("K-P factor Accel", pfactor2);
-    	SmartDashboard.putNumber("deltaT", deltaT);
-    	SmartDashboard.putNumber("Theta Correction", yawcorrect);
-    	SmartDashboard.putBoolean("On Target", onTarget());
-    	SmartDashboard.putNumber("NavX Heading", Robot.drivetrain.getAHRSAngle());
-    	SmartDashboard.putNumber("Init Yaw", initYaw);
+    	SmartDashboard.putNumber("PDTD - Distance Error", piderror());
+    	SmartDashboard.putNumber("PDTD - K-P factor", pfactor);
+    	SmartDashboard.putNumber("PDTD - K-P factor Accel", pfactor2);
+    	SmartDashboard.putNumber("PDTD - deltaT", deltaT);
+    	SmartDashboard.putNumber("PDTD - Theta Correction", yawcorrect);
+    	SmartDashboard.putBoolean("PDTD - On Target", onTarget());
+    	SmartDashboard.putNumber("PDTD - NavX Heading", Robot.drivetrain.getAngle());
     }
 
     private double piderror() {
@@ -113,9 +114,15 @@ public class PDriveToDistance extends Command {
     		System.out.println("(PDTD-ISFINISHED) PDTD ended with isFinished!");
     		 return onTarget();
     	} else {
+    		/*if (Robot.collector.getAvgLeftVoltage() > RobotMap.Values.autoIRthreshold ||
+    			Robot.collector.getAvgRightVoltage() > RobotMap.Values.autoIRthreshold) {
+    			return true;
+    		} else {
+    			return false;
+    		}*/
     		return false;
     	}
-    	//
+    	
     }
     
     // Called once after isFinished returns true

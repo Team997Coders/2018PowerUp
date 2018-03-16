@@ -21,7 +21,7 @@ public class PDriveToAngle extends Command {
     }
 
     protected void initialize() {
-    	initYaw = Robot.drivetrain.getAHRSAngle();
+    	initYaw = Robot.drivetrain.getAngle();
     	Robot.drivetrain.setBrake();
     	System.out.println("PDriveAngle - Init PAngle" + initYaw);
     }
@@ -38,7 +38,7 @@ public class PDriveToAngle extends Command {
     }
 
     private double piderror() {
-    	return initYaw + angSetpoint - Robot.drivetrain.getAHRSAngle();
+    	return initYaw + angSetpoint - Robot.drivetrain.getAngle();
     }
     
     private boolean onTarget() {

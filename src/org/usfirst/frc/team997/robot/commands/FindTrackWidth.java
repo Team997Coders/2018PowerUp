@@ -23,7 +23,7 @@ public class FindTrackWidth extends Command {
 
     // Called just before this Command runs the first time
     protected void initialize() {
-    	init_angle = Robot.drivetrain.getAHRSAngle();
+    	init_angle = Robot.drivetrain.getAngle();
     	Robot.drivetrain.setBrake();
     	Robot.drivetrain.resetEncoders();
     }
@@ -31,7 +31,7 @@ public class FindTrackWidth extends Command {
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	Robot.drivetrain.setVoltages(0.5, -0.5);
-    	rots = Math.abs(Robot.drivetrain.getAHRSAngle() - init_angle) / 360.0;
+    	rots = Math.abs(Robot.drivetrain.getAngle() - init_angle) / 360.0;
     }
     
     // Make this return true when this Command no longer needs to run execute()

@@ -3,10 +3,11 @@ package org.usfirst.frc.team997.robot.subsystems;
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 import org.usfirst.frc.team997.robot.commands.ArcadeDrive;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
+import com.ctre.phoenix.motorcontrol.SensorCollection;
+import com.ctre.phoenix.motorcontrol.StatusFrameEnhanced;
 import com.ctre.phoenix.motorcontrol.can.TalonSRX;
 import com.ctre.phoenix.motorcontrol.can.VictorSPX;
 import com.kauailabs.navx.frc.AHRS;
@@ -19,25 +20,24 @@ import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  */
 public class DriveTrain extends Subsystem {
 
-	public TalonSRX leftTalon;
-	public TalonSRX rightTalon;
+	private TalonSRX leftTalon;
+	private TalonSRX rightTalon;
 	//temp
 	private VictorSPX leftVictor;
 	private VictorSPX leftVictor2;
 	private VictorSPX rightVictor;
 	private VictorSPX rightVictor2;
-
 	private double prevLeftV;
 	private double prevRightV;
 	
 	private AHRS ahrs;
-	private double init_angle;
-	private double floorHeight = -1;
 
 	public boolean decellOn = true; // Default is false.
-	public boolean gyropresent;
+	public boolean gyroPresent = false;
 	public double decellSpeed = 0.2;
 	public double decellDivider = 1.2;
+	
+	int delayCount = 0;
 
 	public static double totalLeftCurrent;
 	public static double totalRightCurrent;
@@ -86,8 +86,10 @@ public class DriveTrain extends Subsystem {
 		/* set the peak, nominal outputs */
 		leftTalon.configNominalOutputForward(0, 10);
 		leftTalon.configNominalOutputReverse(0, 10);
-		leftTalon.configPeakOutputForward(1, 10);
-		leftTalon.configPeakOutputReverse(-1, 10);
+		//leftTalon.configPeakOutputForward(1, 10);	//Use for PB
+		//leftTalon.configPeakOutputReverse(-1, 10); //Use for PB
+		leftTalon.configPeakOutputForward(0.6, 10);	//Use for extrasensitive CB
+		leftTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
 		
 		leftTalon.enableCurrentLimit(true);
 		leftTalon.configPeakCurrentLimit(40, 10);
@@ -96,14 +98,19 @@ public class DriveTrain extends Subsystem {
 		
 		rightTalon.configNominalOutputForward(0, 10);
 		rightTalon.configNominalOutputReverse(0, 10);
-		rightTalon.configPeakOutputForward(1, 10);
-		rightTalon.configPeakOutputReverse(-1, 10);
+		//rightTalon.configPeakOutputForward(1, 10); //Use for PB
+		//rightTalon.configPeakOutputReverse(-1, 10); //Use for PB
+		rightTalon.configPeakOutputForward(0.6, 10);  //Use for extrasensitive CB
+		rightTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
 		
 		rightTalon.enableCurrentLimit(true);
 		rightTalon.configPeakCurrentLimit(40, 10);
 		rightTalon.configPeakCurrentDuration(100, 10);
 		rightTalon.configContinuousCurrentLimit(30, 10);
-
+		
+		leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
 		leftTalon.config_kP(0, 0.113333, 10);
@@ -114,6 +121,9 @@ public class DriveTrain extends Subsystem {
 		rightTalon.config_kP(0, 0.113333, 10);
 		rightTalon.config_kI(0, 0, 10);
 		rightTalon.config_kD(0, 0, 10);	
+		
+		new SensorCollection(leftTalon);
+		new SensorCollection(rightTalon);
 
 		/*
 		 * Set-up the gyro
@@ -122,12 +132,11 @@ public class DriveTrain extends Subsystem {
 			ahrs = new AHRS(RobotMap.Ports.AHRS);
 			System.out.println("ahrs is cool!");
 			ahrs.reset();
-			init_angle = ahrs.getAngle();
-			floorHeight = ahrs.getAltitude();
+			gyroPresent = true;
+			ahrs.zeroYaw();
 		} catch (RuntimeException e) {
 			System.out.println("DT - The AHRS constructor do a bad.");
 		}
-
 		
     	//Motor.changeControlMode(TalonControlMode.PercentVbus);
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
@@ -189,11 +198,14 @@ public class DriveTrain extends Subsystem {
 		rightTalon.set(ControlMode.PercentOutput, rightSpeed);
 	}
 
-	public int getLeftEncoderPosition() {
+	public double getLeftEncoderPosition() {
+		/* CTRE Magnetic Encoder relative, same as Quadrature */
+		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		return leftTalon.getSelectedSensorPosition(0);
 	}
 
-	public int getRightEncoderPosition() {
+	public double getRightEncoderPosition() {
+		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		return rightTalon.getSelectedSensorPosition(0);
 	}
 
@@ -206,23 +218,29 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void resetEncoders() {
+		leftTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		leftTalon.setSelectedSensorPosition(0, 0, 10);
+		rightTalon.configSelectedFeedbackSensor(FeedbackDevice.CTRE_MagEncoder_Relative, 0, 0); /* PIDLoop=0,timeoutMs=0 */
 		rightTalon.setSelectedSensorPosition(0, 0, 10);
+		System.out.println("Encoders reset!");
 	}
 	
-	public double getHeading() {
-		// should we be using ahrs.getFusedHeading()?
-		return( ahrs.getAngle() - init_angle );
+	public double getAngle() {
+		if (gyroPresent) {
+			return ahrs.getAngle();
+		} else {
+			return 0.0;
+		}
 	}
 	
-	public double getAHRSAngle() {
-		return ahrs.getAngle();
-	}
-
 	public double getElevation() {
-		return (ahrs.getAltitude() - floorHeight);
-	}
-	
+		if (gyroPresent) {
+			return ahrs.getAltitude();
+		} else {
+			return 0.0;
+		}
+	} 
+
 	public double getleftVelocity() {
 		return leftTalon.getSelectedSensorVelocity(0);
 	}
@@ -252,29 +270,36 @@ public class DriveTrain extends Subsystem {
 	}
 
 	public void updateDashboard() {
-		SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
-		SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
-		SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderPosition());
-		SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderPosition());
-		SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderPosition()*RobotMap.Values.inchesPerTick);
-		SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderPosition()*RobotMap.Values.inchesPerTick);
-		SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
-		SmartDashboard.putNumber("DT - Heading", getHeading());
-		SmartDashboard.putNumber("total left current", totalLeftCurrent);
-		SmartDashboard.putNumber("total right current", totalRightCurrent);
-		SmartDashboard.putBoolean("Decell on?", decellOn);
-	}
+		if (delayCount == 10) {
+			SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
+			SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
+			SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderPosition());
+			SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderPosition());
+			SmartDashboard.putNumber("DT - Left Encoder distance in inches", getLeftEncoderPosition()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Right Encoder distance in inches", getRightEncoderPosition()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
+			SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
+			SmartDashboard.putNumber("DT - Heading", getAngle());
+			SmartDashboard.putNumber("DT - Yaw", ahrs.getYaw());
+			SmartDashboard.putNumber("total left current", totalLeftCurrent);
+			SmartDashboard.putNumber("total right current", totalRightCurrent);
+			SmartDashboard.putBoolean("Decell on?", decellOn);
 
+			delayCount = 0;
+		} else {
+			delayCount++;
+		}		
+	}
 
 	public double getTotalLeftCurrent() {
 		totalLeftCurrent = (Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrainTalon)
-				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain)
-				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain2));
+					+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain)
+					+ Robot.pdp.getCurrent(RobotMap.PDPPorts.leftDriveTrain2));
 		return totalLeftCurrent;
 	}
 
 	public double getTotalRightCurrent() {
+		
 		totalRightCurrent = (Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrainTalon)
 				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrain)
 				+ Robot.pdp.getCurrent(RobotMap.PDPPorts.rightDriveTrain2));
@@ -295,5 +320,4 @@ public class DriveTrain extends Subsystem {
 			rightTalon.set(ControlMode.PercentOutput, rightSpeed);
 		}
 	}
-
 }

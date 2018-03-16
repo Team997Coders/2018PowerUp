@@ -24,73 +24,19 @@ public class ArcadeDrive extends Command {
     protected void initialize() {
     	//Robot.drivetrain.resetEncoders();
     	Robot.drivetrain.setCoast();
-    	initAngle = Robot.drivetrain.getAHRSAngle();
     }
 
     protected void execute() {
-    	//leftEncoderDist = Robot.drivetrain.getLeftEncoderTicks()*RobotMap.Values.inchesPerTick;
-    	//rightEncoderDist = Robot.drivetrain.getRightEncoderTicks()*RobotMap.Values.inchesPerTick;
-    	
-    	
     	if (Robot.drivetrain.decellOn) {
     		//using decell code
-    		//simple correction w/ multiplier
-    		Robot.drivetrain.driveDecell((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()), 
-    				((Robot.m_oi.getLeftY()*0.85) - Robot.m_oi.getRightX()*0.85));
-    		
-    		//correction using gyro
-        	/*if (Robot.m_oi.joystickDeadband(Math.abs(Robot.m_oi.getRightX())) != 0) {
-        		Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() + Robot.m_oi.getRightX(), 
-    					Robot.m_oi.getLeftY() - Robot.m_oi.getRightX());
-        		initAngle = Robot.drivetrain.getAHRSAngle();
-        		
-        	} else {
-        		
-        		deltaTheta = Robot.drivetrain.getAHRSAngle() - initAngle;
-        		correction = deltaTheta*kTheta;
-        		Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY() + Robot.m_oi.getRightX()) - correction, 
-    					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) + correction);
-        	}
-        	
-        	SmartDashboard.putNumber("Arcade drive initAngle", initAngle);
-        	SmartDashboard.putNumber("Arcade drive deltatheta", deltaTheta);
-        	SmartDashboard.putNumber("Arcade drive correction", correction);*/
-        	
+    		//simple correction w/ multiplier and squared
+    		Robot.drivetrain.driveDecell(((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))*Math.abs(((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))), 
+    				((Robot.m_oi.getLeftY()*0.85) - Robot.m_oi.getRightX()*0.85)*Math.abs(((Robot.m_oi.getLeftY()*0.85) - Robot.m_oi.getRightX()*0.85)));
     	} else {
-    		//simple correction w/ multiplier
-        	Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()), 
-    				(Robot.m_oi.getLeftY()*0.85) - (Robot.m_oi.getRightX()*0.85));
+    		//simple correction w/ multiplier and squared
+        	Robot.drivetrain.setVoltages(((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))*Math.abs((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX())), 
+    				((Robot.m_oi.getLeftY()*0.85) - (Robot.m_oi.getRightX()*0.85))*Math.abs((Robot.m_oi.getLeftY()*0.85) - (Robot.m_oi.getRightX()*0.85)));
     	}
-    	
-    	//no correction
-    	/*Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() + Robot.m_oi.getRightX(), 
-				Robot.m_oi.getLeftY() - Robot.m_oi.getRightX());*/
-    	
-    	//correction using encoders (unfinished)
-    	/*if (Math.abs(Robot.m_oi.getRightX()) != 0) {
-    		Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() + Robot.m_oi.getRightX(), 
-					Robot.m_oi.getLeftY() - Robot.m_oi.getRightX());
-    	}*/
-    	
-    	
-    	//correction using gyro
-    	/*if (Math.abs(Robot.m_oi.getRightX()) != 0) {
-    		Robot.drivetrain.setVoltages(Robot.m_oi.getLeftY() + Robot.m_oi.getRightX(), 
-					Robot.m_oi.getLeftY() - Robot.m_oi.getRightX());
-    		initAngle = Robot.drivetrain.getAHRSAngle();
-    		
-    	} else {
-    		
-    		deltaTheta = Robot.drivetrain.getAHRSAngle() - initAngle;
-    		correction = deltaTheta*kTheta;
-    		Robot.drivetrain.setVoltages((Robot.m_oi.getLeftY() + Robot.m_oi.getRightX()) - correction, 
-					(Robot.m_oi.getLeftY() - Robot.m_oi.getRightX()) + correction); 
-    	}
-    	
-    	SmartDashboard.putNumber("Arcade drive initAngle", initAngle);
-    	SmartDashboard.putNumber("Arcade drive deltatheta", deltaTheta);
-    	SmartDashboard.putNumber("Arcade drive correction", correction);*/
-    	
     }
 
     protected boolean isFinished() {
