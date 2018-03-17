@@ -3,6 +3,8 @@ package org.usfirst.frc.team997.robot.subsystems;
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 import org.usfirst.frc.team997.robot.commands.ArcadeDrive;
+import org.usfirst.frc.team997.robot.commands.ResetEncoders;
+
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -272,6 +274,7 @@ public class DriveTrain extends Subsystem {
 
 	public void updateDashboard() {
 		if (delayCount == 10) {
+			SmartDashboard.putData(new ResetEncoders());
 			SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
 			SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
 			SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
