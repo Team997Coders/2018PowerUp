@@ -3,8 +3,6 @@ package org.usfirst.frc.team997.robot.subsystems;
 import org.usfirst.frc.team997.robot.Robot;
 import org.usfirst.frc.team997.robot.RobotMap;
 import org.usfirst.frc.team997.robot.commands.ArcadeDrive;
-import org.usfirst.frc.team997.robot.commands.ResetEncoders;
-
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;
@@ -86,13 +84,13 @@ public class DriveTrain extends Subsystem {
 		leftTalon.setNeutralMode(NeutralMode.Coast);
 		rightTalon.setNeutralMode(NeutralMode.Coast);
 		
+		
 		/* set the peak, nominal outputs */
 		leftTalon.configNominalOutputForward(0, 10);
 		leftTalon.configNominalOutputReverse(0, 10);
-		//leftTalon.configPeakOutputForward(1, 10);	//Use for PB
-		//leftTalon.configPeakOutputReverse(-1, 10); //Use for PB
-		leftTalon.configPeakOutputForward(0.6, 10);	//Use for extrasensitive CB
-		leftTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
+		leftTalon.configPeakOutputForward(1, 10);	
+		leftTalon.configPeakOutputReverse(-1, 10); 
+		
 		
 		leftTalon.enableCurrentLimit(true);
 		leftTalon.configPeakCurrentLimit(40, 10);
@@ -101,10 +99,9 @@ public class DriveTrain extends Subsystem {
 		
 		rightTalon.configNominalOutputForward(0, 10);
 		rightTalon.configNominalOutputReverse(0, 10);
-		//rightTalon.configPeakOutputForward(1, 10); //Use for PB
-		//rightTalon.configPeakOutputReverse(-1, 10); //Use for PB
-		rightTalon.configPeakOutputForward(0.6, 10);  //Use for extrasensitive CB
-		rightTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
+		rightTalon.configPeakOutputForward(1, 10); 
+		rightTalon.configPeakOutputReverse(-1, 10); 
+		
 		
 		rightTalon.enableCurrentLimit(true);
 		rightTalon.configPeakCurrentLimit(40, 10);
@@ -112,7 +109,9 @@ public class DriveTrain extends Subsystem {
 		rightTalon.configContinuousCurrentLimit(30, 10);
 		
 		leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		//leftTalon.configOpenloopRamp(0.25, 10);
 		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		//rightTalon.configOpenloopRamp(0.25, 10);
 		
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
@@ -274,7 +273,6 @@ public class DriveTrain extends Subsystem {
 
 	public void updateDashboard() {
 		if (delayCount == 10) {
-			SmartDashboard.putData(new ResetEncoders());
 			SmartDashboard.putNumber("DT - Left master voltage", leftTalon.getMotorOutputVoltage());
 			SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
 			SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());

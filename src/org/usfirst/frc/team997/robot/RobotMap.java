@@ -78,11 +78,12 @@ public class RobotMap {
 		
 		public static double
 		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
-		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot	
+		ticksPerFoot = 3865, //3940, //encoder ticks per foot	
 		
 		robotLength = 33.25, //in inches
 		robotWidth = 37.25,
 		robotWheelBase = 30,
+		maxSpeed = 4200, //ticks per hundred miliseconds
 		
 		//distances from centerline. Measure these at each comp!
 		autoLeftSwitchTotal = 140/12, //11.79167, 
@@ -110,7 +111,7 @@ public class RobotMap {
 		fastcollectspeed = 0.75,
 		collectspeed = 0.25,
 		
-		driveDistanceP = 0.005,//completely arbitrary guesstimate value; needs tuning
+		driveDistanceP = 0.00002,//completely arbitrary guesstimate value; needs tuning
 		elevatorPidP = 0.75,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
@@ -122,7 +123,10 @@ public class RobotMap {
 		collectorLeftLimit = 12,
 		collectorRightLimit = 12,
 		elevatorLimit = 55,
-		climberLimit = 50;
+		climberLimit = 50,
+		
+		piderror = 0, //logger variables
+		PF = 0;
 		
 	}
 
@@ -140,6 +144,8 @@ public class RobotMap {
 		switchPosition = 8, //Start, GamePad1
 		lowMidPosition = 3, //X, Gamepad1
 		bottomPosition = 1, //A, GamePad1
+		
+		findTrackWidthButton = 5, //left bumper, Gamepad2
 		
 		//COLLECTOR CONTROLS
 		collectButton = 4, //Right Trigger, Gamepad2

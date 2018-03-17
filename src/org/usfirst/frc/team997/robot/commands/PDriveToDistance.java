@@ -57,6 +57,7 @@ public class PDriveToDistance extends Command {
     // current algorithm assumes that we are starting
     // from a stop
     private double linearAccel(double input) {
+    
     	double Klin = 0.8;
     	double deltaT = timer.get() - lastTime;
     	lastTime = timer.get();
@@ -73,7 +74,8 @@ public class PDriveToDistance extends Command {
     protected void execute() {
     	// compute the pid P value
     	double pfactor = speed * Robot.clamp(RobotMap.Values.driveDistanceP * piderror(), -1, 1);
-    	double pfactor2 = linearAccel(pfactor);
+    	double pfactor2 = pfactor;//linearAccel(pfactor);
+    	RobotMap.Values.PF = pfactor;
     	double deltaTheta = Robot.drivetrain.getAHRSAngle() - initYaw;
     	deltaT = timer.get() - lastTime;
     	lastTime = timer.get();
@@ -100,7 +102,9 @@ public class PDriveToDistance extends Command {
     }
 
     private double piderror() {
+    	RobotMap.Values.piderror = distSetpoint - Robot.drivetrain.getLeftEncoderTicks();
     	return distSetpoint - Robot.drivetrain.getLeftEncoderTicks();
+    	
     }
     
     private boolean onTarget() {

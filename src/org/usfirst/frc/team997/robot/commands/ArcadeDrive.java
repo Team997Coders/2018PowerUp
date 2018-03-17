@@ -12,6 +12,7 @@ public class ArcadeDrive extends Command {
 	double deltaTheta;
 	double correction;
 	double kTheta = 0.01;
+	double driveMod = 1.0; //0.6;
 	
 	double leftEncoderDist;
 	double rightEncoderDist;
@@ -34,8 +35,8 @@ public class ArcadeDrive extends Command {
     	if (Robot.drivetrain.decellOn) {
     		//using decell code
     		//simple correction w/ multiplier and squared
-    		Robot.drivetrain.driveDecell(((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))*Math.abs(((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))), 
-    				((Robot.m_oi.getLeftY()*0.85) - Robot.m_oi.getRightX()*0.85)*Math.abs(((Robot.m_oi.getLeftY()*0.85) - Robot.m_oi.getRightX()*0.85)));
+    		Robot.drivetrain.driveDecell(driveMod*((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))*Math.abs(((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))), 
+    				driveMod*((Robot.m_oi.getLeftY()*0.85) - Robot.m_oi.getRightX()*0.85)*Math.abs(((Robot.m_oi.getLeftY()*0.85) - Robot.m_oi.getRightX()*0.85)));
     		
     		//correction using gyro
         	/*if (Robot.m_oi.joystickDeadband(Math.abs(Robot.m_oi.getRightX())) != 0) {
@@ -57,8 +58,8 @@ public class ArcadeDrive extends Command {
         	
     	} else {
     		//simple correction w/ multiplier and squared
-        	Robot.drivetrain.setVoltages(((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))*Math.abs((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX())), 
-    				((Robot.m_oi.getLeftY()*0.85) - (Robot.m_oi.getRightX()*0.85))*Math.abs((Robot.m_oi.getLeftY()*0.85) - (Robot.m_oi.getRightX()*0.85)));
+        	Robot.drivetrain.setVoltages(driveMod*((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX()))*Math.abs((Robot.m_oi.getLeftY()) + (Robot.m_oi.getRightX())), 
+    				driveMod*((Robot.m_oi.getLeftY()*0.85) - (Robot.m_oi.getRightX()*0.85))*Math.abs((Robot.m_oi.getLeftY()*0.85) - (Robot.m_oi.getRightX()*0.85)));
     	}
     	
     	//no correction

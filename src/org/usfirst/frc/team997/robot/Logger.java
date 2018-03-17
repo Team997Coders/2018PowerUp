@@ -5,13 +5,15 @@ import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
 
+import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
+
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.smartdashboard.SmartDashboard;
  
 public class Logger {
    
     private BufferedWriter writer;
-    private boolean logging =false; 
+    private boolean logging = true; 
     private final String loggerBoolean = "2_Logging";
     private static Logger instance;
     private String fileName ="";
@@ -67,7 +69,7 @@ public class Logger {
 	        try{
 	            path = this.getPath();
 	            this.writer = new BufferedWriter(new FileWriter(path));
-	            this.writer.write("time,voltage,current,left_tics,left_vel,right_tics,right_vel");
+	            this.writer.write("time,voltage,current,left_tics,left_vel,right_tics,right_vel,pfactor,piderror");
 	            this.writer.newLine();
 	            this.startTime = System.currentTimeMillis();
 	        } catch (IOException e) {
@@ -99,6 +101,8 @@ public class Logger {
 	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getLeftEncoderRate()));
 	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getRightEncoderTicks()));
 	            this.writer.write(String.format(",%.3f", Robot.drivetrain.getRightEncoderRate()));
+	            this.writer.write(String.format(",%.3f", RobotMap.Values.PF));
+	            this.writer.write(String.format(",%.3f", RobotMap.Values.piderror));
 	            
 	            this.writer.newLine();
 	        }

@@ -11,6 +11,7 @@ import org.usfirst.frc.team997.robot.commands.ArrayHeightSelector;
 import org.usfirst.frc.team997.robot.commands.Climb;
 import org.usfirst.frc.team997.robot.commands.Collect;
 import org.usfirst.frc.team997.robot.commands.ElevatorToHeight;
+import org.usfirst.frc.team997.robot.commands.FindTrackWidth;
 import org.usfirst.frc.team997.robot.commands.Flop;
 import org.usfirst.frc.team997.robot.commands.LockElevator;
 import org.usfirst.frc.team997.robot.commands.MoveElevator;
@@ -54,7 +55,8 @@ public class OI {
 	smartCollectButton,
 	uncollectButton,
 	collectButton,
-	flopButton;
+	flopButton,
+	findWidthButton;
 	
 	public OI() {
 		//JOYSTICK INIT
@@ -113,6 +115,10 @@ public class OI {
 		
 		flopButton = new JoystickButton(GamePad1, RobotMap.Buttons.flopButton);
 		flopButton.whenPressed(new Flop());
+		
+		//FindTrackWidth
+		findWidthButton = new JoystickButton(GamePad2, RobotMap.Buttons.findTrackWidthButton);
+		findWidthButton.whenPressed(new FindTrackWidth());
 		
 	}
 	
