@@ -124,6 +124,9 @@ public class RobotMap {
 		elevatorLimit = 55,
 		climberLimit = 50;
 		
+		
+		
+		
 	}
 
 	public static class Buttons {
@@ -152,5 +155,15 @@ public class RobotMap {
 		unclimbbutton = 3; //X, Gamepad2
 
 	
+	}
+	
+	public static class MPConstants {
+		public static int
+		
+		//Motion Profiling stuff
+		kBaseTrajPeriodMs = 0, //TODO Actually put numbas here
+		kTimeoutMs = 10, //in miliseconds
+		kSensorUnitsPerRotation = 0; //TODO Converts revolutions to units. Insert math here.
+		
 	}
 }
