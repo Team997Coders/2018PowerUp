@@ -117,8 +117,8 @@ public class OI {
 		flopButton.whenPressed(new Flop());
 		
 		//FindTrackWidth
-		findWidthButton = new JoystickButton(GamePad2, RobotMap.Buttons.findTrackWidthButton);
-		findWidthButton.whenPressed(new FindTrackWidth());
+		//findWidthButton = new JoystickButton(GamePad2, RobotMap.Buttons.findTrackWidthButton);
+		//findWidthButton.whenPressed(new FindTrackWidth());
 		
 	}
 	
