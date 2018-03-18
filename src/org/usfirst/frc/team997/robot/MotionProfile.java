@@ -81,6 +81,15 @@ public class MotionProfile {
 			return String.format("/home/lvuser/spartanpath/%d.csv", ++this.max);
 		}
 	}
+	
+	private String getLeftPath() {
+		return "C:\\Users\\chsrobotics\\Motion-Profile-CSV\\profiletest_left";
+	}
+	
+	private String getRightPath() {
+		
+		return "C:\\Users\\chsrobotics\\Motion-Profile-CSV\\profiletest_right";
+	}
 
 	// Create the way point list
 	// I used the motion-profile-generator app to generate the paths:
@@ -117,11 +126,14 @@ public class MotionProfile {
 
 	// Load pre-generated data from csv file
 	public void load_path() {
-		File myFile = new File(getPath());
-		RobotMap.trajectory = Pathfinder.readFromCSV(myFile);
+		File myLeftFile = new File(getLeftPath());
+		RobotMap.leftTrajectory = Pathfinder.readFromCSV(myLeftFile);
+		
+		File myRightFile = new File(getRightPath());
+		RobotMap.rightTrajectory = Pathfinder.readFromCSV(myRightFile);
 	}
 	
-	public void setupTrajectory() {
+	public void setupTrajectory() { 
 		//
 		// remember that all distance parameters are in feet!
 		//
@@ -136,7 +148,6 @@ public class MotionProfile {
 		
 		RobotMap.leftTrajectory = modifier.getLeftTrajectory(); // Get the Left Side
 		RobotMap.rightTrajectory = modifier.getRightTrajectory(); // Get the Right Side
-		
 		
 		// The first argument is the proportional gain. Usually this will be quite high
 		// The second argument is the integral gain. This is unused for motion profiling

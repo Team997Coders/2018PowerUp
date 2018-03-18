@@ -13,6 +13,7 @@ import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.commands.AutoTest;
 import org.usfirst.frc.team997.robot.commands.CrossLine;
+import org.usfirst.frc.team997.robot.commands.FollowPath;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
 import org.usfirst.frc.team997.robot.commands.PDriveToDistance;
 import org.usfirst.frc.team997.robot.commands.SwitchSameSideDelivery;
@@ -77,6 +78,7 @@ public class Robot extends TimedRobot {
 		}
 		
 		motionProfile = MotionProfile.getInstance();
+		motionProfile.load_path();
 		logger = Logger.getInstance();
 		RobotMap.Values.pf_path_ready = false;
 		
@@ -90,6 +92,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
 		m_chooser.addObject("Drive forward 5 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((60 - RobotMap.Values.robotLength) / 12)));
 		m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
+		m_chooser.addObject("Motion Profiling Test 10 feet", new FollowPath(RobotMap.leftTrajectory, RobotMap.rightTrajectory, 10));
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -100,6 +103,7 @@ public class Robot extends TimedRobot {
 	 */
 	@Override
 	public void disabledInit() {
+		motionProfile.load_path();
 		drivetrain.updateDashboard();
 		collector.updateSmartDashboard();
 		elevator.updateSmartDashboard();

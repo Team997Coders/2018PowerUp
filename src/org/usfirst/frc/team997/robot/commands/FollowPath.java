@@ -25,29 +25,40 @@ public class FollowPath extends Command {
 	private Timer _timer;
 	private double _timeout = 5.0;
 	private double velocity_ratio = 1.0 / RobotMap.Values.pf_max_vel;
+	
+	private EncoderFollower leftEncoderFollower;
+	private EncoderFollower rightEncoderFollower;
+	private Trajectory _leftTraj;
+	private Trajectory _rightTraj;
 
 	private boolean _done = false;
 
-	public FollowPath(Waypoint[] points, double timeout) {
+	public FollowPath(Trajectory leftTraj, Trajectory rightTraj, double timeout) {
 		requires(Robot.drivetrain);
+		
+		this._leftTraj = leftTraj;
+		this._rightTraj = rightTraj;
 
 		this._timer = new Timer();
 		this._timeout = timeout;
 
-		this._points = points.clone(); // Don't want a reference of points, I want a copy of it
+		//this._points = points.clone(); // Don't want a reference of points, I want a copy of it
 	}
 
 	// Called just before this Command runs the first time
 	protected void initialize() {
-		RobotMap.leftEncoderFollower.configureEncoder((int)Robot.drivetrain.getLeftEncoderPosition(), RobotMap.Values.ticksPerRev,
+		leftEncoderFollower = new EncoderFollower(_leftTraj);
+		rightEncoderFollower = new EncoderFollower(_rightTraj);
+		
+		leftEncoderFollower.configureEncoder((int)Robot.drivetrain.getLeftEncoderPosition(), RobotMap.Values.ticksPerRev,
 				RobotMap.Values.robotWheelDia / 12.0);
-		RobotMap.rightEncoderFollower.configureEncoder((int)Robot.drivetrain.getRightEncoderPosition(), RobotMap.Values.ticksPerRev,
+		rightEncoderFollower.configureEncoder((int)Robot.drivetrain.getRightEncoderPosition(), RobotMap.Values.ticksPerRev,
 				RobotMap.Values.robotWheelDia / 12.0);
 
-		RobotMap.leftEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd,
+		leftEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd,
 				velocity_ratio, RobotMap.Values.pf_Ka);
 
-		RobotMap.rightEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd,
+		rightEncoderFollower.configurePIDVA(RobotMap.Values.pf_Kp, RobotMap.Values.pf_Ki, RobotMap.Values.pf_Kd,
 				velocity_ratio, RobotMap.Values.pf_Ka);
 
 		this._timer.start();
@@ -58,10 +69,10 @@ public class FollowPath extends Command {
 		double leftPosition =  Robot.drivetrain.getLeftEncoderPosition() / RobotMap.Values.ticksPerFoot;
 		double rightPosition = Robot.drivetrain.getRightEncoderPosition() / RobotMap.Values.ticksPerFoot;
 		
-		double left = RobotMap.leftEncoderFollower.calculate((int) leftPosition);
-		double right= RobotMap.leftEncoderFollower.calculate((int) rightPosition);
+		double left = leftEncoderFollower.calculate((int) leftPosition);
+		double right= rightEncoderFollower.calculate((int) rightPosition);
 		
-		double desiredHeading = Pathfinder.r2d((RobotMap.leftEncoderFollower.getHeading() + RobotMap.rightEncoderFollower.getHeading()) / 2);
+		double desiredHeading = Pathfinder.r2d((leftEncoderFollower.getHeading() + rightEncoderFollower.getHeading()) / 2);
 		double angleDiff = (desiredHeading - Robot.drivetrain.getAngle());
 		double turn = RobotMap.Values.pf_Kt * angleDiff;
 		

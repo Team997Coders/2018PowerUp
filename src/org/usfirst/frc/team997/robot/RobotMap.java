@@ -20,11 +20,11 @@ import jaci.pathfinder.followers.EncoderFollower;
 public class RobotMap {
 	public static Trajectory 	
 		trajectory, 
-		leftTrajectory, 
+		leftTrajectory,  
 		rightTrajectory;
-	public static EncoderFollower 	
+	/*public static EncoderFollower 	
 		leftEncoderFollower, 
-		rightEncoderFollower;
+		rightEncoderFollower*/
 	public static class Ports {
 		public static int
 		//CAN
