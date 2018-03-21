@@ -16,9 +16,9 @@ public class AutoTest extends CommandGroup {
 		//addSequential(new PDriveToDistance(3.0 * RobotMap.Values.ticksPerFoot)); //Diagonal length towards our switch.
 		//addSequential(new PDriveToAngle(-65)); //Turn left to face straight again.
 		//addSequential(new PDriveToDistance(3.47 * RobotMap.Values.ticksPerFoot)); //Drive to reach switch for cube delivery.
-    	addSequential(new PDriveToDistance(3 * RobotMap.Values.ticksPerFoot));
-    	addSequential(new Timercommand(2.0));
+    	addSequential(new PDriveToDistance(30 * RobotMap.Values.ticksPerFoot));
+    	//addSequential(new Timercommand(2.0));
     	//addSequential(new PDriveToDistance(3 * RobotMap.Values.ticksPerFoot));
-    	addSequential(new PDriveToAngle(90));
+    	//addSequential(new PDriveToAngle(90));
     }
 }

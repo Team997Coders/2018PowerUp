@@ -103,14 +103,14 @@ public class RobotMap {
 		elevatorSwitchHeight = 11281,
 								//14083 <--PB switch height,
 		elevatorBottomHeight = 0,
-		elevatorSafeDriveHeight = 1503, //good for PB and CB
+		elevatorSafeDriveHeight = 2500, //good for PB and CB
 		//TODO: Set values
 		
 		slowcollectspeed = 0.25,
 		fastcollectspeed = 0.75,
 		collectspeed = 0.25,
 		
-		driveDistanceP = 0.005,//completely arbitrary guesstimate value; needs tuning
+		driveDistanceP = 0.00025,
 		elevatorPidP = 0.75,
 		elevatorPidI = 0,
 		elevatorPidD = 0,

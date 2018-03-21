@@ -20,9 +20,8 @@ public class ElevatorToHeight extends Command {
     // Called just before this Command runs the first time
     protected void initialize() {
     	if (!Robot.elevator.isZeroed) {
-    		System.out.println("Not zeroed!");
+    		System.out.println("Not zeroed, so won't run!");
     		end();
-    		cancel();
     	}
 
     }
@@ -31,7 +30,6 @@ public class ElevatorToHeight extends Command {
     protected void execute() {
     	
     	Robot.elevator.setPosition(height);
-    	System.out.println("setting elevator to height " + height);
     }
 
     // Make this return true when this Command no longer needs to run execute()

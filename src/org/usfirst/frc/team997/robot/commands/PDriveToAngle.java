@@ -11,7 +11,7 @@ public class PDriveToAngle extends Command {
 	private double angSetpoint;
 	private double minError = 10;
 	private double initYaw = -999; 
-	private double Ktheta = 0.016; 
+	private double Ktheta = 0.035; 
 
     public PDriveToAngle(double _ang) {
     	requires(Robot.drivetrain);

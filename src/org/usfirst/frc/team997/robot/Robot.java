@@ -11,6 +11,7 @@ import org.usfirst.frc.team997.robot.commands.AutoCenterLeftSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoCenterRightSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
+import org.usfirst.frc.team997.robot.commands.AutoLeftLeftScale;
 import org.usfirst.frc.team997.robot.commands.AutoTest;
 import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
@@ -87,6 +88,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
 		m_chooser.addObject("Drive forward 5 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((60 - RobotMap.Values.robotLength) / 12)));
 		m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
+		m_chooser.addObject("Left Scale Left Side", new AutoLeftLeftScale());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
