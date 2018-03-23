@@ -58,22 +58,14 @@
 
 ## March 23 Plan (Friday) 
 
-- Roll out carpet in library
+- Roll out carpet and continue to test practice bot in library
 - Check in code from last meeting (resolve merge errors)
-- If new PID calc good, regression test auto
+- If new PID calc acceptable, regression test auto
 - Tune I & D to make drive to distance auto even better
 - Merge motion profile code into master
 - Create scale auto for opposite side paths (2)
-- Test same side scale auto
-
----
-
-## March 24 Plan (Saturday)
-
-- Obtain robot constants from design (and/or experimentally derive)
-  - Kv, Ka, Kj
-- Plot a path and generate CSV trajectories to scale (LHS, RHS -> near side, far side) with appropriate timestep (20ms for Command fed)
-- Insure that path does not violate robot constraints and plots are continuous
+- Test same side scale auto (lift amount...make adjustable)
+- Regression test comp bot once mechanical finishes
 
 ---
 
