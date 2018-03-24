@@ -35,11 +35,12 @@ public class ElevatorToHeight extends Command {
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
     	double closedLoopError = Robot.elevator.getError();
-    	return !Robot.elevator.isZeroed || (Math.abs(closedLoopError) < 60);
+    	return !Robot.elevator.isZeroed || (Math.abs(closedLoopError) < 100);
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	System.out.println("Elevator To Height Ended");
     }
 
     // Called when another command which requires one or more of the same

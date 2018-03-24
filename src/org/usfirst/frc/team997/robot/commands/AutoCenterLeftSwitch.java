@@ -15,10 +15,10 @@ public class AutoCenterLeftSwitch extends CommandGroup {
 		addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSafeDriveHeight));
 		addSequential(new PDriveToDistance(2 * RobotMap.Values.ticksPerFoot)); 
 		addSequential(new PDriveToAngle(-65)); //Turn to face switch.
-		addSequential(new PDriveToDistance(5.0 * RobotMap.Values.ticksPerFoot)); //Diagonal length towards our switch. Prev value: 5.5 and 3.887
-		addSequential(new PDriveToAngle(60)); //Turn to face straight again.
+		addSequential(new PDriveToDistance(6.9881 * RobotMap.Values.ticksPerFoot)); //Diagonal length towards our switch. Prev value: 5.5 and 3.887
+		addSequential(new PDriveToAngle(65)); //Turn to face straight again.
 		addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
-		addSequential(new PDriveToDistance((RobotMap.Values.autoLeftSwitchTotal - 5.887) * RobotMap.Values.ticksPerFoot)); //Drive to reach switch for cube delivery. Prev value: 4.15
+		addSequential(new PDriveToDistance(3.9426 * RobotMap.Values.ticksPerFoot)); //Drive to reach switch for cube delivery. Prev value: 4.15
 		addSequential(new TimedUncollect(-0.5, -0.5, 1.5) );
     }
 }

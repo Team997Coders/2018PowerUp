@@ -116,9 +116,9 @@ public class RobotMap {
 		driveDistanceP = 0.00025,
 		driveDistanceI = 0.0,
 		driveDistanceD = 0.0,
-		elevatorPidP = 0.75,
-		elevatorPidI = 0,
-		elevatorPidD = 0,
+		elevatorPidP = 1,//0.75,
+		elevatorPidI = 0.0001,
+		elevatorPidD = 0.1,
 		climbspeed = 1.0,
 		
 		//voltage limits in amps
