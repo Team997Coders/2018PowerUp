@@ -19,6 +19,6 @@ public class AutoCenterRightSwitch extends CommandGroup {
 		addSequential(new PDriveToAngle(-65)); //Turn to face straight again.
 		addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
 		addSequential(new PDriveToDistance(2.9089 * RobotMap.Values.ticksPerFoot)); //Drive to reach switch for cube delivery. Prev value: 4.15
-		addSequential(new TimedUncollect(-0.3, -0.3, 1.5) );
+		addSequential(new TimedUncollect(-0.4, -0.4, 1.5) );
     }
 }

@@ -94,7 +94,7 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Drive forward 5 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((60 - RobotMap.Values.robotLength) / 12)));
 		m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
 		m_chooser.addObject("Left Scale", new AutoLeftScale());
-		m_chooser.addObject("Left Scale", new AutoRightScale());
+		m_chooser.addObject("Right Scale", new AutoRightScale());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 

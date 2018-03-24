@@ -84,7 +84,7 @@ public class RobotMap {
 		robotWidth = 37.25,
 		robotWheelBase = 30,
 		
-		autoScaleDistance = 27, //in feet
+		autoScaleDistance = 28, //in feet
 		
 		//distances from centerline. Measure these at each comp!
 		autoLeftSwitchTotal = 140/12, //11.79167, 
@@ -121,8 +121,9 @@ public class RobotMap {
 		elevatorPidD = 0.1,
 		climbspeed = 1.0,
 		
-		driveAngleP = 0.0244, //0.035, then 0.0138
-		driveAngleI = 0.000138,
+		driveAngleP = 0.02, //0.035, then 0.0138, then 0.0244 (important one), then 0.00694, then 0.0138
+		driveAngleI = 0.0025925, //0.000138 (important one) then 0.000038 then 0.000138 then 0.0001037 
+		//then 0.000138 then 0.000514
 		driveAngleD = 0,
 		
 		//voltage limits in amps
