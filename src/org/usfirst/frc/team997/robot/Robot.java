@@ -12,6 +12,11 @@ import org.usfirst.frc.team997.robot.commands.AutoCenterRightSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.commands.AutoLeftLeftScale;
+import org.usfirst.frc.team997.robot.commands.AutoLeftRightScale;
+import org.usfirst.frc.team997.robot.commands.AutoLeftScale;
+import org.usfirst.frc.team997.robot.commands.AutoRightLeftScale;
+import org.usfirst.frc.team997.robot.commands.AutoRightRightScale;
+import org.usfirst.frc.team997.robot.commands.AutoRightScale;
 import org.usfirst.frc.team997.robot.commands.AutoTest;
 import org.usfirst.frc.team997.robot.commands.CrossLine;
 import org.usfirst.frc.team997.robot.commands.PDriveToAngle;
@@ -88,7 +93,8 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
 		m_chooser.addObject("Drive forward 5 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((60 - RobotMap.Values.robotLength) / 12)));
 		m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
-		m_chooser.addObject("Left Scale Left Side", new AutoLeftLeftScale());
+		m_chooser.addObject("Left Scale", new AutoLeftScale());
+		m_chooser.addObject("Left Scale", new AutoRightScale());
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -148,7 +154,28 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutoCenterRightSwitch();
 				System.out.println("Autocommand switch right");
 			}
-		} else {
+			
+		} else if((m_chooser.getSelected()).getName().equals("AutoLeftScale")) {
+			if(gameData.charAt(1) == 'L') {
+				m_autonomousCommand = new AutoLeftLeftScale();
+				System.out.println("Autocommand scale left left");
+			} else {
+				m_autonomousCommand = new AutoLeftRightScale();
+				System.out.println("Autocommand scale left right");
+			}
+			
+		} else if((m_chooser.getSelected()).getName().equals("AutoRightScale")) {
+			if(gameData.charAt(1) == 'R') {
+				m_autonomousCommand = new AutoRightRightScale();
+				System.out.println("Autocommand scale right right");
+			} else {
+				m_autonomousCommand = new AutoRightLeftScale();
+				System.out.println("Autocommand scale left right");
+			}
+		}
+		
+		
+		else {
 			m_autonomousCommand = m_chooser.getSelected();
 			System.out.println("Name is: " + (m_chooser.getSelected()).getName());
 			System.out.println("autocommand is " + m_autonomousCommand);
