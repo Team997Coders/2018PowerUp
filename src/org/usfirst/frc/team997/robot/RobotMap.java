@@ -121,6 +121,10 @@ public class RobotMap {
 		elevatorPidD = 0.1,
 		climbspeed = 1.0,
 		
+		driveAngleP = 0.0244, //0.035, then 0.0138
+		driveAngleI = 0.000138,
+		driveAngleD = 0,
+		
 		//voltage limits in amps
 		drivetrainLeftLimit = 81, //81
 		drivetrainRightLimit = 81, //81
