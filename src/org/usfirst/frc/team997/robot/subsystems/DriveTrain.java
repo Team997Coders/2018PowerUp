@@ -276,8 +276,8 @@ public class DriveTrain extends Subsystem {
 			SmartDashboard.putNumber("DT - Right master voltage", rightTalon.getMotorOutputVoltage());
 			SmartDashboard.putNumber("DT - Left Encoder", getLeftEncoderTicks());
 			SmartDashboard.putNumber("DT - Right Encoder", getRightEncoderTicks());
-			SmartDashboard.putNumber("DT - Left Encoder distance", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
-			SmartDashboard.putNumber("DT - Right Encoder distance", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Left Encoder distance in inches", getLeftEncoderTicks()*RobotMap.Values.inchesPerTick);
+			SmartDashboard.putNumber("DT - Right Encoder distance in inches", getRightEncoderTicks()*RobotMap.Values.inchesPerTick);
 			SmartDashboard.putNumber("DT - Left Encoder Velocity", leftTalon.getSelectedSensorVelocity(0));
 			SmartDashboard.putNumber("DT - Right EncoderVelocity", rightTalon.getSelectedSensorVelocity(0));
 			SmartDashboard.putNumber("DT - Heading", getHeading());

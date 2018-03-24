@@ -21,6 +21,7 @@ public class PDriveToDistance extends Command {
 	private double speed = 0.5;
 	private double initYaw = -999;
 	private double Ktheta = 0.02;
+	private double integral, previous_error = 0;
 
     public PDriveToDistance(double _speed, double _dist) {
         // Use requires() here to declare subsystem dependencies
@@ -48,6 +49,7 @@ public class PDriveToDistance extends Command {
     	Robot.drivetrain.resetEncoders();
     	Robot.drivetrain.setBrake();
     	initYaw = Robot.drivetrain.getAHRSAngle();
+    	this.previous_error = this.piderror();
     	timer.reset();
     	timer.start();
     	System.out.println("(PDTD-INIT) OMG, I got initialized!!! :O");
@@ -69,10 +71,26 @@ public class PDriveToDistance extends Command {
     	return Volts;
     }
 
+    
+    public double pFactor() {
+    	// Calculate full PID
+    	// pfactor = (P × error) + (I × ∑error) + (D × δerrorδt)
+    	double error = this.piderror();
+    	// Integral is increased by the error*time (which is .02 seconds using normal IterativeRobot)
+    	this.integral += (error * .02);
+    	// Derivative is change in error over time
+    	double derivative = (error - this.previous_error) / .02;
+        this.previous_error = error;
+        return 
+        	(RobotMap.Values.driveDistanceP * error) + 
+        	(RobotMap.Values.driveDistanceI * this.integral) + 
+        	(RobotMap.Values.driveDistanceD * derivative);
+    }
+    
     // Called repeatedly when this Command is scheduled to run
     protected void execute() {
     	// compute the pid P value
-    	double pfactor = speed * Robot.clamp(RobotMap.Values.driveDistanceP * piderror(), -1, 1);
+    	double pfactor = speed * Robot.clamp(this.pFactor(), -1, 1);
     	double pfactor2 = linearAccel(pfactor);
     	double deltaTheta = Robot.drivetrain.getAHRSAngle() - initYaw;
     	deltaT = timer.get() - lastTime;
@@ -87,7 +105,7 @@ public class PDriveToDistance extends Command {
 
     	// Debug information to be placed on the smart dashboard.
     	SmartDashboard.putNumber("Setpoint", distSetpoint);
-    	SmartDashboard.putNumber("Encoder Distance", Robot.drivetrain.getLeftEncoderTicks());
+    	SmartDashboard.putNumber("Encoder Distance", this.encoderDistance());
     	//SmartDashboard.putNumber("Encoder Rate", Robot.drivetrain.getEncoderRate());
     	SmartDashboard.putNumber("Distance Error", piderror());
     	SmartDashboard.putNumber("K-P factor", pfactor);
@@ -100,7 +118,12 @@ public class PDriveToDistance extends Command {
     }
 
     private double piderror() {
-    	return distSetpoint - Robot.drivetrain.getLeftEncoderTicks();
+    	// shouldn't we average this out between both of the encoders?
+    	return distSetpoint - this.encoderDistance();
+    }
+    
+    private double encoderDistance() {
+    	return (Robot.drivetrain.getLeftEncoderTicks() + Robot.drivetrain.getRightEncoderTicks()) / 2;
     }
     
     private boolean onTarget() {
@@ -127,7 +150,7 @@ public class PDriveToDistance extends Command {
     
     // Called once after isFinished returns true
     protected void end() {
-    	System.out.println(Robot.drivetrain.getLeftEncoderTicks());
+    	System.out.println(this.encoderDistance());
     	System.out.println("PDrive End");
     	timer.stop();
     	Robot.drivetrain.setVoltages(0, 0);

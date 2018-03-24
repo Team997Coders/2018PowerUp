@@ -8,3 +8,4 @@ FRCUserProgram
 
 # Generated .gitIgnore files from eclipse
 *.gitignore
+/bin/

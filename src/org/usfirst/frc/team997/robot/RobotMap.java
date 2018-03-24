@@ -110,7 +110,10 @@ public class RobotMap {
 		fastcollectspeed = 0.75,
 		collectspeed = 0.25,
 		
+
 		driveDistanceP = 0.00025,
+		driveDistanceI = 0.0,
+		driveDistanceD = 0.0,
 		elevatorPidP = 0.75,
 		elevatorPidI = 0,
 		elevatorPidD = 0,
