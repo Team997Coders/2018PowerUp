@@ -19,9 +19,9 @@ import jaci.pathfinder.followers.EncoderFollower;
  */
 public class RobotMap {
 	public static Trajectory 	
-		trajectory, 
-		leftTrajectory,  
-		rightTrajectory;
+		trajectory, //Combined left and right trajectory. As of 3/24/18. we are not utilizing this.
+		leftTrajectory,  //Stored under C:\Users\chsrobotics\Motion-Profile-CSV\profiletest_left
+		rightTrajectory; //Stored under C:\Users\chsrobotics\Motion-Profile-CSV\profiletest_right
 	/*public static EncoderFollower 	
 		leftEncoderFollower, 
 		rightEncoderFollower*/
@@ -90,22 +90,24 @@ public class RobotMap {
 		
 		public static double
 		robotLength = 33.25, //in inches (includes bumpers)
-		robotWidth = 37.25,
+		robotWidth = 37.25,	
 		robotWheelBase = 30, // inches or 2.5ft or 0.6 meters.  Use 0.0254 meters/in or 39.37in/m
 		robotWheelDia = 3.9, // remember all pf variables are in ft.  Need to convert when used.
 		
 		inchesPerTick = (3.954*Math.PI)/4096,	//inches per encoder tick
-		ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot	
+		//ticksPerFoot = ((49152/(3.97*Math.PI)))*0.9, //3940, //encoder ticks per foot
+		ticksPerFoot = 3865,
 		
 		
 		//distances from centerline. Measure these at each comp!
-		autoLeftSwitchTotal = 140/12, //11.79167, 
-		autoRightSwitchTotal = 141/12, //11.77083,
-		autoCenterSwitchTotal = 142.25/12, //12,
+		autoLeftSwitchTotal = 140/12, //11.79167 feet
+		autoRightSwitchTotal = 141/12, //11.77083 feet
+		autoCenterSwitchTotal = 142.25/12, //12 feet
 		
-		autoAngle1,
-		autoAngle2,
-		turnAngle,
+		//autoAngle1,
+		//autoAngle2,
+		//turnAngle,
+		//COMMENTED OUT 3/24/18 BECAUSE WE MAY NOT BE USING THESE
 		
 		//ir sensor value - the reading when close enough
 		//Measure this at comp
@@ -142,13 +144,13 @@ public class RobotMap {
 		// a number of the initial values for these variables came from Team 2053 TigerTronics
 		// https://github.com/team2053tigertronics/Robot2018/blob/master/Robot2018/src/Pathfinder/TestFollower.h
 		// all pathfinder specific variables are prefaced with 'pf_'
-		pf_timestep = 0.05,
-		pf_max_vel = 15, // max velocity in ft/sec.
-		pf_max_acc = 12,
+		pf_timestep = 0.02,
+		pf_max_vel = 10.87, // max velocity in ft/sec.
+		pf_max_acc = 6.79,
 		pf_max_jerk = 60,
-		pf_Kp = 1,
-		pf_Ki = 0,
-		pf_Kd = 0.15,
+		pf_Kp = 0.85,
+		pf_Ki = 0.0170,
+		pf_Kd = 0.0,
 		pf_Kv = (1/pf_max_vel),
 		pf_Ka = 0.0856,
 		pf_Kt = 0.35,
@@ -177,7 +179,6 @@ public class RobotMap {
 		
 		//COLLECTOR CONTROLS
 		collectButton = 4, //Right Trigger, Gamepad2
-		//smartCollectButton = 7, //Left Trigger, Gamepad2 TODO: needs testing
 		uncollectButton = 1, //Left Trigger, Gamepad2
 		flopButton = 7, //Back, Gamepad1
 		

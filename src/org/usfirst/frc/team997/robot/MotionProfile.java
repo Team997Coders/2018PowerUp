@@ -38,6 +38,7 @@ public class MotionProfile {
 	}
 
 	private MotionProfile() {
+/*
 		this.ds = DriverStation.getInstance();
 		fileName = "NO_NAME";
 		File f = new File(path);
@@ -68,6 +69,7 @@ public class MotionProfile {
 		setupTrajectory();
 		
 		RobotMap.Values.pf_path_ready = true;
+*/
 	}
 
 	private String getPath() {
@@ -83,12 +85,12 @@ public class MotionProfile {
 	}
 	
 	private String getLeftPath() {
-		return "C:\\Users\\chsrobotics\\Motion-Profile-CSV\\profiletest_left";
+		return this.path + "/profiletest_left_detailed.csv";
 	}
 	
 	private String getRightPath() {
 		
-		return "C:\\Users\\chsrobotics\\Motion-Profile-CSV\\profiletest_right";
+		return this.path + "/profiletest_right_detailed.csv";
 	}
 
 	// Create the way point list

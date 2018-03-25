@@ -70,7 +70,7 @@ public class FollowPath extends Command {
 		double rightPosition = Robot.drivetrain.getRightEncoderPosition() / RobotMap.Values.ticksPerFoot;
 		
 		double left = leftEncoderFollower.calculate((int) leftPosition);
-		double right= rightEncoderFollower.calculate((int) rightPosition);
+		double right = rightEncoderFollower.calculate((int) rightPosition);
 		
 		double desiredHeading = Pathfinder.r2d((leftEncoderFollower.getHeading() + rightEncoderFollower.getHeading()) / 2);
 		double angleDiff = (desiredHeading - Robot.drivetrain.getAngle());
@@ -78,13 +78,16 @@ public class FollowPath extends Command {
 		
 		if (this._timer.get() >= this._timeout) {
 			this._done = true;
+			System.out.println("Finished because timed out!");
 			return;
 		} else if (left == 0 && right == 0) {
 			this._done = true;
+			System.out.println("Finished because error is 0!");
 			return;
 		}
 
-	    Robot.drivetrain.setVoltages(left + turn, right - turn);
+	    //Robot.drivetrain.setVoltages(left + turn, right - turn);
+	    Robot.drivetrain.setVoltages(((left / 10.87)), (((right / 10.87) * 0.85)));
 	}
 
 	// Make this return true when this Command no longer needs to run execute()

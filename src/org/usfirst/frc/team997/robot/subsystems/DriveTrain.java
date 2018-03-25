@@ -88,8 +88,8 @@ public class DriveTrain extends Subsystem {
 		leftTalon.configNominalOutputReverse(0, 10);
 		//leftTalon.configPeakOutputForward(1, 10);	//Use for PB
 		//leftTalon.configPeakOutputReverse(-1, 10); //Use for PB
-		leftTalon.configPeakOutputForward(0.6, 10);	//Use for extrasensitive CB
-		leftTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
+		leftTalon.configPeakOutputForward(1, 10);	//Use for extrasensitive CB //0.6
+		leftTalon.configPeakOutputReverse(-1, 10); //Use for extrasensitive CB //-0.6
 		
 		leftTalon.enableCurrentLimit(true);
 		leftTalon.configPeakCurrentLimit(40, 10);
@@ -100,8 +100,8 @@ public class DriveTrain extends Subsystem {
 		rightTalon.configNominalOutputReverse(0, 10);
 		//rightTalon.configPeakOutputForward(1, 10); //Use for PB
 		//rightTalon.configPeakOutputReverse(-1, 10); //Use for PB
-		rightTalon.configPeakOutputForward(0.6, 10);  //Use for extrasensitive CB
-		rightTalon.configPeakOutputReverse(-0.6, 10); //Use for extrasensitive CB
+		rightTalon.configPeakOutputForward(1, 10);  //Use for extrasensitive CB
+		rightTalon.configPeakOutputReverse(-1, 10); //Use for extrasensitive CB
 		
 		rightTalon.enableCurrentLimit(true);
 		rightTalon.configPeakCurrentLimit(40, 10);
