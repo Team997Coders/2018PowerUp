@@ -70,11 +70,11 @@ public class OI {
 		
 		//ELEVATOR MANUAL CONTROLS
 		elevatorManualUp = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualUp);
-		elevatorManualUp.whileHeld(new MoveElevator(0.5));
+		elevatorManualUp.whileHeld(new MoveElevator(0.8));
 		elevatorManualUp.whenReleased(new LockElevator());
 		
 		elevatorManualDown = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualDown);
-		elevatorManualDown.whileHeld(new MoveElevator(-0.5));
+		elevatorManualDown.whileHeld(new MoveElevator(-0.8));
 		elevatorManualDown.whenReleased(new LockElevator());
 		
 		//ELEVATOR ARRAY CONTROLS

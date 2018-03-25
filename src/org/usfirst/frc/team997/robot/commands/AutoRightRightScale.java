@@ -12,7 +12,7 @@ public class AutoRightRightScale extends CommandGroup {
         
    	public AutoRightRightScale() {
        	addSequential(new PDriveToDistance(RobotMap.Values.autoScaleDistance * RobotMap.Values.ticksPerFoot));
-       	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight)); //elevatorTopHeight
+       	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorTopHeight)); //elevatorTopHeight
        	addSequential(new PDriveToAngle(-90));
        	addSequential(new FlopDown());
        	addSequential(new Timercommand(1));
