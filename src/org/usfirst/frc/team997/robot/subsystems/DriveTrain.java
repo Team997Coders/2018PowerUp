@@ -110,7 +110,9 @@ public class DriveTrain extends Subsystem {
 		rightTalon.configContinuousCurrentLimit(30, 10);
 		
 		leftTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		//leftTalon.configOpenloopRamp(0.25, 10);
 		rightTalon.setStatusFramePeriod(StatusFrameEnhanced.Status_2_Feedback0, 40, 10);
+		//rightTalon.configOpenloopRamp(0.25, 10);
 		
 		/* set closed loop gains in slot0 */
 		leftTalon.config_kF(0, 0.1097, 10);
