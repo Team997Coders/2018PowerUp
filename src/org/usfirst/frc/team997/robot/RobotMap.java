@@ -88,8 +88,8 @@ public class RobotMap {
 		
 		//distances from centerline. Measure these at each comp!
 		autoLeftSwitchTotal = 140/12, //11.79167, 
-		autoRightSwitchTotal = 141/12, //11.77083,
-		autoCenterSwitchTotal = 142.25/12, //12,
+		autoRightSwitchTotal = 140/12, //11.77083,
+		autoCenterSwitchTotal = 140/12, //12,
 		
 		autoAngle1,
 		autoAngle2,
@@ -99,14 +99,14 @@ public class RobotMap {
 		//Measure this at comp
 		autoIRthreshold = 0.8,	//0.8 for plywood, 0.4 for clear plexiglass
 		
-		elevatorTopHeight = 34150, //<--CB top height
+		elevatorTopHeight = 34725, //<--CB top height
 							//22336, <--PB top height
 		elevatorHighMidHeight = 16000,
 		elevatorLowMidHeight = 6135,
-		elevatorSwitchHeight = 11281,
+		elevatorSwitchHeight = 14333,
 								//14083 <--PB switch height,
 		elevatorBottomHeight = 0,
-		elevatorSafeDriveHeight = 2500, //good for PB and CB
+		elevatorSafeDriveHeight = 2750, //good for PB and CB
 		//TODO: Set values
 		
 		slowcollectspeed = 0.25,

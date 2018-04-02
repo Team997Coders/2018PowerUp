@@ -71,7 +71,7 @@ public class Elevator extends Subsystem {
     	Motor.setNeutralMode(NeutralMode.Brake);
     	Motor.configOpenloopRamp(0.25, 10); 
     	
-    	Motor.enableCurrentLimit(false);
+    	Motor.enableCurrentLimit(true);
 		Motor.configPeakCurrentLimit(40, 10);
 		Motor.configPeakCurrentDuration(100, 10);
 		Motor.configContinuousCurrentLimit(30, 10);

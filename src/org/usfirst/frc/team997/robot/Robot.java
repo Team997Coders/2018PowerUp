@@ -160,8 +160,9 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutoLeftLeftScale();
 				System.out.println("Autocommand scale left left");
 			} else {
-				m_autonomousCommand = new AutoLeftRightScale();
-				System.out.println("Autocommand scale left right");
+				m_autonomousCommand = new CrossLine();
+				//m_autonomousCommand = new AutoLeftRightScale();
+				//System.out.println("Autocommand scale left right");
 			}
 			
 		} else if((m_chooser.getSelected()).getName().equals("AutoRightScale")) {
@@ -169,8 +170,9 @@ public class Robot extends TimedRobot {
 				m_autonomousCommand = new AutoRightRightScale();
 				System.out.println("Autocommand scale right right");
 			} else {
-				m_autonomousCommand = new AutoRightLeftScale();
-				System.out.println("Autocommand scale left right");
+				m_autonomousCommand = new CrossLine();
+				//m_autonomousCommand = new AutoRightLeftScale();
+				//System.out.println("Autocommand scale left right");
 			}
 		}
 		
