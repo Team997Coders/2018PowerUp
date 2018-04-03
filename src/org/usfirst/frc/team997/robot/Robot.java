@@ -206,7 +206,6 @@ public class Robot extends TimedRobot {
 			if(gameData.charAt(0) == 'L' && gameData.charAt(1) == 'L') {
 				m_autonomousCommand = new Auto2CubeLeftLeft();
 				System.out.println("Autocommand 2 cube left left scale and switch");
-				
 			} else if(gameData.charAt(0) == 'L' && gameData.charAt(1) == 'R') {
 				m_autonomousCommand = new AutoLeftLeftSwitch();
 				System.out.println("Autocommand 1 cube left left switch (2 CUBE NOT SUPPORTED)");
