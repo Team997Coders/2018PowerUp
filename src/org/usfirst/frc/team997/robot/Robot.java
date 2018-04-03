@@ -7,15 +7,21 @@
 
 package org.usfirst.frc.team997.robot;
 
+import org.usfirst.frc.team997.robot.commands.Auto2CubeLeftLeft;
+import org.usfirst.frc.team997.robot.commands.Auto2CubeLeftStart;
+import org.usfirst.frc.team997.robot.commands.Auto2CubeRightRight;
+import org.usfirst.frc.team997.robot.commands.Auto2CubeRightStart;
 import org.usfirst.frc.team997.robot.commands.AutoCenterLeftSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoCenterRightSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoCenterSwitchDelivery;
 import org.usfirst.frc.team997.robot.commands.AutoDoNothing;
 import org.usfirst.frc.team997.robot.commands.AutoLeftLeftScale;
+import org.usfirst.frc.team997.robot.commands.AutoLeftLeftSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoLeftRightScale;
 import org.usfirst.frc.team997.robot.commands.AutoLeftScale;
 import org.usfirst.frc.team997.robot.commands.AutoRightLeftScale;
 import org.usfirst.frc.team997.robot.commands.AutoRightRightScale;
+import org.usfirst.frc.team997.robot.commands.AutoRightRightSwitch;
 import org.usfirst.frc.team997.robot.commands.AutoRightScale;
 import org.usfirst.frc.team997.robot.commands.AutoTest;
 import org.usfirst.frc.team997.robot.commands.CrossLine;
@@ -87,14 +93,25 @@ public class Robot extends TimedRobot {
 		LiveWindow.disableTelemetry(pdp); // turn-off the telemetry features in Livewindow to stop the CTRE Timeouts
 		
 		m_chooser.addDefault("Do nothing", new AutoDoNothing());
-		m_chooser.addObject("Center switch ", new AutoCenterSwitchDelivery());
+		
 		m_chooser.addObject("Cross line", new CrossLine());
 		m_chooser.addObject("Same side switch", new SwitchSameSideDelivery());
 		m_chooser.addObject("Turn 90 degrees", new PDriveToAngle(90));
 		m_chooser.addObject("Drive forward 5 ft", new PDriveToDistance(0.5, RobotMap.Values.ticksPerFoot * ((60 - RobotMap.Values.robotLength) / 12)));
-		m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
+		//m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
+		
+		//1 CUBE DELIVERY
+		m_chooser.addObject("Center switch", new AutoCenterSwitchDelivery());
 		m_chooser.addObject("Left Scale", new AutoLeftScale());
 		m_chooser.addObject("Right Scale", new AutoRightScale());
+		
+		m_chooser.addObject("Left Switch", new AutoLeftLeftSwitch());
+		m_chooser.addObject("Right Switch", new AutoRightRightSwitch());
+		
+		//2 CUBE DELIVERY
+		m_chooser.addObject("2 Cube Left Scale/Switch Left Start", new Auto2CubeLeftStart());
+		m_chooser.addObject("2 Cube Right Scale/Switch Right Start", new Auto2CubeRightStart());
+
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
 
@@ -144,9 +161,15 @@ public class Robot extends TimedRobot {
 		SmartDashboard.putString("gamedata", gameData);
 		System.out.println("auto init game data: " + gameData);
 		
+		//AUTONOMOUS CHOSEN BASED ON GAMEDATA
 		//this logic works. has been tested :)
+		
+		//TODO: add near side switch delivery auto!!
+		
+		//1 CUBE AUTO
+		
+		//AUTO CENTER SWITCH DELIVERY
 		if((m_chooser.getSelected()).getName().equals("AutoCenterSwitchDelivery")) {
-			
 			if(gameData.charAt(0) == 'L') {
 				m_autonomousCommand = new AutoCenterLeftSwitch();
 				System.out.println("Autocommand switch left");
@@ -176,6 +199,42 @@ public class Robot extends TimedRobot {
 			}
 		}
 		
+		//2 CUBE AUTO
+		
+		//AUTO LEFT SCALE/SWITCH DELIVERY
+		else if((m_chooser.getSelected()).getName().equals("Auto2CubeLeftStart")) {
+			if(gameData.charAt(0) == 'L' && gameData.charAt(1) == 'L') {
+				m_autonomousCommand = new Auto2CubeLeftLeft();
+				System.out.println("Autocommand 2 cube left left scale and switch");
+				
+			} else if(gameData.charAt(0) == 'L' && gameData.charAt(1) == 'R') {
+				m_autonomousCommand = new AutoLeftLeftSwitch();
+				System.out.println("Autocommand 1 cube left left switch (2 CUBE NOT SUPPORTED)");
+			} else if (gameData.charAt(0) == 'R' && gameData.charAt(1) == 'L') {
+				m_autonomousCommand = new AutoLeftLeftScale();
+				System.out.println("Autocommand 1 cube left left scale (2 CUBE NOT SUPPORTED)");
+			} else if (gameData.charAt(0) == 'R' && gameData.charAt(1) == 'R'){
+				m_autonomousCommand = new CrossLine();
+				System.out.println("Autocommand crossline (2 CUBE NOT SUPPORTED");
+			}
+		}
+		//AUTO RIGHT SCALE/SWITCH DELIVERY	
+		else if((m_chooser.getSelected()).getName().equals("Auto2CubeRightStart")){
+			if(gameData.charAt(0) == 'R' && gameData.charAt(1) == 'R') {
+				m_autonomousCommand = new Auto2CubeRightRight();
+				System.out.println("Autocommand 2 cube right right scale and switch");
+			} else if(gameData.charAt(0) == 'R' && gameData.charAt(1) == 'L') {
+				m_autonomousCommand = new AutoRightRightSwitch();
+				System.out.println("Autocommand 1 cube right right switch (2 CUBE NOT SUPPORTED)");
+			} else if(gameData.charAt(0) == 'L' && gameData.charAt(1) == 'R') {
+				m_autonomousCommand = new AutoRightRightScale();
+				System.out.println("2 CUBE NOT SUPPORTED");
+			} else if (gameData.charAt(0) == 'L' && gameData.charAt(1) == 'L') {
+				m_autonomousCommand = new CrossLine();
+				System.out.println("Autocommand crossline (2 CUBE NOT SUPPORTED)");
+			}
+		}
+			
 		
 		else {
 			m_autonomousCommand = m_chooser.getSelected();

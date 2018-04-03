@@ -84,6 +84,7 @@ public class RobotMap {
 		robotWidth = 37.25,
 		robotWheelBase = 30,
 		
+		autoSwitchDistance = 14, //in feet (supposedly)
 		autoScaleDistance = 28, //in feet
 		
 		//distances from centerline. Measure these at each comp!
