@@ -12,9 +12,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Auto2CubeRightRight extends CommandGroup {
 
     public Auto2CubeRightRight() {
-    	PDriveToDistance cube2SwitchDistance = new PDriveToDistance(5 * RobotMap.Values.ticksPerFoot);
-    	Timer timeout = new Timer();
-    	boolean isTimedout = false;
+    	SlowForward slowForward = new SlowForward(3);
     	
     	addSequential(new PDriveToDistance(RobotMap.Values.autoScaleDistance * RobotMap.Values.ticksPerFoot));
     	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorTopHeight)); //elevatorTopHeight
@@ -31,33 +29,12 @@ public class Auto2CubeRightRight extends CommandGroup {
     	addSequential(new PDriveToAngle(45));
     	addSequential(new FlopDown());
     	addParallel(new Collect(1, 1));
-    	addParallel(cube2SwitchDistance);
-    	timeout.reset();
-    	timeout.start();
-    	while (Robot.collector.gotCube == false || timeout.get() > 3) {}
-    	if (Robot.collector.gotCube == true) {
-    		cube2SwitchDistance.cancel();
-    		addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
-    		addSequential(new PDriveToDistance(0.5 * RobotMap.Values.ticksPerFoot));
-    		addSequential(new TimedUncollect(-1, -1, 2));
-    	} else {
-    		cube2SwitchDistance.cancel();
-    	}
-        // Add Commands here:
-        // e.g. addSequential(new Command1());
-        //      addSequential(new Command2());
-        // these will run in order.
-
-        // To run multiple commands at the same time,
-        // use addParallel()
-        // e.g. addParallel(new Command1());
-        //      addSequential(new Command2());
-        // Command1 and Command2 will run in parallel.
-
-        // A command group will require all of the subsystems that each member
-        // would require.
-        // e.g. if Command1 requires chassis, and Command2 requires arm,
-        // a CommandGroup containing them would require both the chassis and the
-        // arm.
+    	addParallel(slowForward);
+    	addSequential(new Conditional(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight), new AutoDoNothing()) {
+    	    protected boolean condition() {return Robot.collector.gotCube;}});
+    	addSequential(new Conditional(new PDriveToDistance(0.5 * RobotMap.Values.ticksPerFoot), new AutoDoNothing()){
+    		protected boolean condition() {return Robot.collector.gotCube;}});
+    	addSequential(new Conditional(new TimedUncollect(-1, -1, 2), new AutoDoNothing()) {
+    		protected boolean condition() {return Robot.collector.gotCube;}});
     }
 }

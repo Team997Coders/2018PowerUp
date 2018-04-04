@@ -1,15 +1,22 @@
 package org.usfirst.frc.team997.robot.commands;
 
+
+
 import org.usfirst.frc.team997.robot.Robot;
+
+import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;
 
 /**
  *
  */
 public class SlowForward extends Command {
-
-    public SlowForward() {
+	private Timer timer;
+	private double timeout;
+    public SlowForward(double timeout) {
     	requires(Robot.drivetrain);
+    	this.timer = new Timer();
+    	this.timeout = timeout;
         // Use requires() here to declare subsystem dependencies
         // eg. requires(chassis);
     }
@@ -26,11 +33,16 @@ public class SlowForward extends Command {
 
     // Make this return true when this Command no longer needs to run execute()
     protected boolean isFinished() {
-        return false;
+    	if (this.timer.get() >= this.timeout) {
+    		return true;
+    	} else {
+    		return false;
+    	}
     }
 
     // Called once after isFinished returns true
     protected void end() {
+    	Robot.drivetrain.setVoltages(0, 0);
     }
 
     // Called when another command which requires one or more of the same
