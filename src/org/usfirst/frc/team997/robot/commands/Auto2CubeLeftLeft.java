@@ -25,8 +25,8 @@ public class Auto2CubeLeftLeft extends CommandGroup {
     	addSequential(new PDriveToDistance(7 * RobotMap.Values.ticksPerFoot));
     	addSequential(new PDriveToAngle(-45));
     	addSequential(new FlopDown());
-    	addParallel(new Collect(1, 1));
-    	addParallel(new SlowForwardUntilHaveCube(3));
+    	// CCB: Grouped collection and driving together
+    	addSequential(new GoForthAndCollect(3));
     	addSequential(new Conditional(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight), new AutoDoNothing()) {
     	    protected boolean condition() {return Robot.collector.gotCube;}});
     	addSequential(new Conditional(new PDriveToDistance(0.5 * RobotMap.Values.ticksPerFoot), new AutoDoNothing()){
