@@ -11,8 +11,6 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Auto2CubeLeftLeft extends CommandGroup {
 
     public Auto2CubeLeftLeft() {
-    	SlowForward slowForward = new SlowForward(3);
-    	
     	addSequential(new PDriveToDistance(RobotMap.Values.autoScaleDistance * RobotMap.Values.ticksPerFoot));
     	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorTopHeight)); //elevatorTopHeight
     	addSequential(new Timercommand(1));
@@ -28,7 +26,7 @@ public class Auto2CubeLeftLeft extends CommandGroup {
     	addSequential(new PDriveToAngle(-45));
     	addSequential(new FlopDown());
     	addParallel(new Collect(1, 1));
-    	addParallel(slowForward);
+    	addParallel(new SlowForwardUntilHaveCube(3));
     	addSequential(new Conditional(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight), new AutoDoNothing()) {
     	    protected boolean condition() {return Robot.collector.gotCube;}});
     	addSequential(new Conditional(new PDriveToDistance(0.5 * RobotMap.Values.ticksPerFoot), new AutoDoNothing()){
