@@ -101,7 +101,7 @@ public class Robot extends TimedRobot {
 		//m_chooser.addObject("Conditionals Test 2/24/28", new AutoTest());
 		
 		//1 CUBE DELIVERY
-		m_chooser.addObject("Center switch", new AutoCenterSwitchDelivery());
+		m_chooser.addObject("Center Switch", new AutoCenterSwitchDelivery());
 		m_chooser.addObject("Left Scale", new AutoLeftScale());
 		m_chooser.addObject("Right Scale", new AutoRightScale());
 		

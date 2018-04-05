@@ -29,6 +29,7 @@ public class Auto2CubeLeftLeft extends CommandGroup {
     	addSequential(new FlopDown());
     	addParallel(new Collect(1, 1));
     	addParallel(slowForward);
+    	//Cube collect and deposit based on conditionals
     	addSequential(new Conditional(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight), new AutoDoNothing()) {
     	    protected boolean condition() {return Robot.collector.gotCube;}});
     	addSequential(new Conditional(new PDriveToDistance(0.5 * RobotMap.Values.ticksPerFoot), new AutoDoNothing()){
