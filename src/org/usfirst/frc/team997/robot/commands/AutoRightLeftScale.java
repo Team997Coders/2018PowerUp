@@ -11,7 +11,7 @@ public class AutoRightLeftScale extends CommandGroup {
 
     public AutoRightLeftScale() {
     	
-    	addSequential(new PDriveToDistance(((239) / 12) * RobotMap.Values.ticksPerFoot));
+    	addSequential(new PDriveToDistance(((251) / 12) * RobotMap.Values.ticksPerFoot));
 		addSequential(new PDriveToAngle(-90));
 		addSequential(new PDriveToDistance((280 / 12) * RobotMap.Values.ticksPerFoot));
 		addSequential(new PDriveToAngle(90));

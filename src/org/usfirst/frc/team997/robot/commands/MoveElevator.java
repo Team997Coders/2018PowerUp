@@ -1,8 +1,10 @@
 package org.usfirst.frc.team997.robot.commands;
 
 import org.usfirst.frc.team997.robot.Robot;
+import org.usfirst.frc.team997.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.command.Command;
+import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *
@@ -17,7 +19,11 @@ public class MoveElevator extends Command {
     protected void initialize() {
     }
     protected void execute() {
-    	Robot.elevator.setVoltage(value);
+    	if (Robot.elevator.getPosition() >= RobotMap.Values.elevatorTopHeight && value > 0) {
+    		Scheduler.getInstance().add(new LockElevator());
+    	} else {
+    		Robot.elevator.setVoltage(value);
+    	}
     }
     protected boolean isFinished() {
     	return false;

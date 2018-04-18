@@ -87,10 +87,10 @@ public class RobotMap {
 		autoSwitchDistance = 14, //in feet (supposedly)
 		autoScaleDistance = 28, //in feet
 		
-		//distances from centerline. Measure these at each comp!
-		autoLeftSwitchTotal = 140/12, //11.79167, 
-		autoRightSwitchTotal = 140/12, //11.77083,
-		autoCenterSwitchTotal = 140/12, //12,
+		//From back of wall to front of switch. Measure these at each comp!
+		autoLeftSwitchTotal = 139/12, //11.79167, 
+		autoRightSwitchTotal = 139/12, //11.77083,
+		autoCenterSwitchTotal = 139/12, //12,
 		
 		autoAngle1,
 		autoAngle2,
@@ -100,7 +100,7 @@ public class RobotMap {
 		//Measure this at comp
 		autoIRthreshold = 0.8,	//0.8 for plywood, 0.4 for clear plexiglass
 		
-		elevatorTopHeight = 34725, //<--CB top height
+		elevatorTopHeight = 36853, //<--CB top height
 							//22336, <--PB top height
 		elevatorHighMidHeight = 16000,
 		elevatorLowMidHeight = 6135,
@@ -123,8 +123,8 @@ public class RobotMap {
 		elevatorPidD = 0, //0.1,
 		climbspeed = 1.0,
 		
-		driveAngleP = 0.02, //0.035, then 0.0138, then 0.0244 (important one), then 0.00694, then 0.0138
-		driveAngleI = 0.0025925, //0.000138 (important one) then 0.000038 then 0.000138 then 0.0001037 
+		driveAngleP = 0.015, //0.035, then 0.0138, then 0.0244 (important one), then 0.00694, then 0.0138
+		driveAngleI = 0.002595, //0.000138 (important one) then 0.000038 then 0.000138 then 0.0001037 
 		//then 0.000138 then 0.000514
 		driveAngleD = 0,
 		

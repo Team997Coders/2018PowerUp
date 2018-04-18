@@ -10,7 +10,7 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class GoForthAndCollect extends CommandGroup {
 
     public GoForthAndCollect(double timeout) {
-    	addParallel(new Collect(1, 1), timeout);
+    	addParallel(new TimedUncollect(1, 1, timeout));
     	addParallel(new SlowForwardUntilHaveCube(timeout));
     }
 }

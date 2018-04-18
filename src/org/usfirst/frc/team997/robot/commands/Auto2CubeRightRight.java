@@ -12,37 +12,36 @@ import edu.wpi.first.wpilibj.command.CommandGroup;
 public class Auto2CubeRightRight extends CommandGroup {
 
     public Auto2CubeRightRight() {
-    	addSequential(new PDriveToDistance(RobotMap.Values.autoScaleDistance * RobotMap.Values.ticksPerFoot));
+    	addSequential(new PDriveToDistance((RobotMap.Values.autoScaleDistance - 2.5)* RobotMap.Values.ticksPerFoot));
     	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorTopHeight)); //elevatorTopHeight
     	addSequential(new Timercommand(1));
-    	addSequential(new PDriveToAngle(-90));
+    	addSequential(new PDriveToAngle(-45));
     	addSequential(new FlopDown());
     	addSequential(new Timercommand(1));
-    	addSequential(new TimedUncollect(-1, -1, 3));
+    	addSequential(new TimedUncollect(-0.6, -0.6, 3));
     	addSequential(new FlopUp());
     	addSequential(new Timercommand(1));
-    	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorBottomHeight));
-    	addSequential(new PDriveToAngle(-90));
-    	addSequential(new PDriveToDistance(7 * RobotMap.Values.ticksPerFoot));
-    	addSequential(new PDriveToAngle(45));
-    	addSequential(new FlopDown());
+    	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorBottomHeight), 2);
+    	//addSequential(new Timercommand(1));
+    	addSequential(new PDriveToAngle(-135));
+    	addSequential(new PDriveToDistance((2.667) * RobotMap.Values.ticksPerFoot));
+    	addSequential(new PDriveToAngle(30), 3);
+    	addSequential(new FlopDown(), 2);
     	
-    	//I had a merge conflict?? 
-    	//Wasn't sure what to do so I commented out what I think is outdated
-    	//Still here in case I was wrong, though
-/*<<<<<<< HEAD
-    	addParallel(new Collect(1, 1));
-    	addParallel(slowForward);
-    	//Cube collect and deposit based on conditionals
-=======*/
     	// CCB: Grouped collection and driving together
-    	addSequential(new GoForthAndCollect(3));
-//>>>>>>> df33eafb00248e82ff4ff51a7e019e1e5f1b664e
+    	addSequential(new GoForthAndCollect(2), 2);
+    	
+    	addSequential(new PDriveToDistance(-0.5 * RobotMap.Values.ticksPerFoot), 2);
+    	addSequential(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight));
+    	addSequential(new PDriveToDistance(0.8 * RobotMap.Values.ticksPerFoot), 2);
+    	addSequential(new TimedUncollect(-0.6, -0.6, 2));
+    	
+    	/*addSequential(new GoForthAndCollect(3));
     	addSequential(new Conditional(new ElevatorToHeight(RobotMap.Values.elevatorSwitchHeight), new AutoDoNothing()) {
     	    protected boolean condition() {return Robot.collector.gotCube;}});
     	addSequential(new Conditional(new PDriveToDistance(0.5 * RobotMap.Values.ticksPerFoot), new AutoDoNothing()){
     		protected boolean condition() {return Robot.collector.gotCube;}});
     	addSequential(new Conditional(new TimedUncollect(-1, -1, 2), new AutoDoNothing()) {
-    		protected boolean condition() {return Robot.collector.gotCube;}});
+    		protected boolean condition() {return Robot.collector.gotCube;}});*/
     }
 }

@@ -19,12 +19,18 @@ import org.usfirst.frc.team997.robot.commands.Uncollect;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;
+import edu.wpi.first.wpilibj.buttons.Trigger;
 
 /**
  * This class is the glue that binds the controls on the physical operator
  * interface to the commands and command groups that allow control of the robot.
  */
 public class OI {
+	
+	public JoystickTrigger
+	elevatorManualUp,
+	elevatorManualDown;
+	
 	
 	public Joystick 
 	GamePad1, 
@@ -36,8 +42,8 @@ public class OI {
 	unclimbbutton,
 	
 	//ELEVATOR MANUAL CONTROLS
-	elevatorManualUp,
-	elevatorManualDown,
+	//elevatorManualUp,
+	//elevatorManualDown,
 	
 	//ELEVATOR ARRAY CONTROLS
 	elevatorArrayUp,
@@ -69,13 +75,14 @@ public class OI {
 		unclimbbutton.whenPressed(new UnClimb());
 		
 		//ELEVATOR MANUAL CONTROLS
-		elevatorManualUp = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualUp);
-		elevatorManualUp.whileHeld(new MoveElevator(0.8));
-		elevatorManualUp.whenReleased(new LockElevator());
+		//elevatorManualUp = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualUp);
+		elevatorManualUp = new JoystickTrigger(GamePad1, 3);
+		elevatorManualUp.whileActive(new MoveElevator(0.8));
+		elevatorManualUp.whenInactive(new LockElevator());
 		
-		elevatorManualDown = new JoystickButton(GamePad1, RobotMap.Buttons.elevatorManualDown);
-		elevatorManualDown.whileHeld(new MoveElevator(-0.8));
-		elevatorManualDown.whenReleased(new LockElevator());
+		elevatorManualDown = new JoystickTrigger(GamePad1, 2);
+		elevatorManualDown.whileActive(new MoveElevator(-0.8));
+		elevatorManualDown.whenInactive(new LockElevator());
 		
 		//ELEVATOR ARRAY CONTROLS
 		//elevatorArrayUp = new JoystickButton(GamePad2, RobotMap.Buttons.elevatorArrayUp);
