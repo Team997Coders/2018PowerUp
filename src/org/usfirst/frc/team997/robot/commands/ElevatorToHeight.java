@@ -31,7 +31,7 @@ public class ElevatorToHeight extends Command {
     protected void execute() {
     	
     	Robot.elevator.setPosition(height);
-    	System.out.println("setting elevator to height " + height);
+    	System.out.println("setting elevator to height: " + height);
     }
 
     // Make this return true when this Command no longer needs to run execute()
