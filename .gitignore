@@ -9,3 +9,11 @@ FRCUserProgram
 # Generated .gitIgnore files from eclipse
 *.gitignore
 /bin/
+
+# Files that might appear in the root of a volume
+.Gradle
+
+# Further ignore
+/build/
+/.gradle/
+
