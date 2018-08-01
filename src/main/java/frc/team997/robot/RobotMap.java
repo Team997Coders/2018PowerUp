@@ -112,7 +112,7 @@ public class RobotMap {
 		
 		slowcollectspeed = 0.25,
 		fastcollectspeed = 0.75,
-		collectspeed = 0.25,
+		collectspeed = 1,
 		
 
 		driveDistanceP = 0.00025,
