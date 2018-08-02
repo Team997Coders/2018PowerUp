@@ -71,7 +71,9 @@ public class Elevator extends Subsystem {
     	Motor.setNeutralMode(NeutralMode.Brake);
     	Motor.configOpenloopRamp(0.25, 10); 
     	
-    	Motor.enableCurrentLimit(true);
+		Motor.enableCurrentLimit(true);
+		Motor.configForwardSoftLimitThreshold(35863, 10);
+		Motor.configForwardSoftLimitEnable(true, 10);
 		Motor.configPeakCurrentLimit(40, 10);
 		Motor.configPeakCurrentDuration(100, 10);
 		Motor.configContinuousCurrentLimit(30, 10);
@@ -176,7 +178,7 @@ public class Elevator extends Subsystem {
     	//DISPLAYED DATA
        	//SmartDashboard.putNumber("TalonSRX Mode", Motor.getControlMode().value);
     	//SmartDashboard.putNumber("Absolute Position", absolutePosition);
-    	SmartDashboard.putBoolean("Top limit switch", sensorCollection.isFwdLimitSwitchClosed());
+		SmartDashboard.putBoolean("Top limit switch", sensorCollection.isFwdLimitSwitchClosed());
     	SmartDashboard.putBoolean("Bottom limit switch", sensorCollection.isRevLimitSwitchClosed());
     	SmartDashboard.putBoolean("Elevator Zeroed", Robot.elevator.isZeroed);
     	SmartDashboard.putNumber("ElevatorPIDError", Motor.getClosedLoopError(0));
