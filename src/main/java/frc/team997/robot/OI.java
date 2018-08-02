@@ -81,7 +81,7 @@ public class OI {
 		elevatorManualUp.whenInactive(new LockElevator());
 		
 		elevatorManualDown = new JoystickTrigger(GamePad1, 2);
-		elevatorManualDown.whileActive(new MoveElevator(-0.8));
+		elevatorManualDown.whileActive(new MoveElevator(-1));
 		elevatorManualDown.whenInactive(new LockElevator());
 		
 		//ELEVATOR ARRAY CONTROLS
@@ -112,7 +112,7 @@ public class OI {
 		collectButton.whenPressed(new Collect(0.75, 0.75)); //VALUES ALREADY INVERTED IN COLLECTOR
 		
 		uncollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.uncollectButton);
-		uncollectButton.whileHeld(new Uncollect(-1, -1));
+		uncollectButton.whileHeld(new Uncollect(-0.75, -0.75));
 		
 		//smartCollectButton = new JoystickButton(GamePad2, RobotMap.Buttons.smartCollectButton);
 		//smartCollectButton.whileHeld(new SmartCollect());
