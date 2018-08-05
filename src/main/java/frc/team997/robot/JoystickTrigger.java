@@ -1,4 +1,4 @@
-package main.java.frc.team997.robot;
+package frc.team997.robot;
 import edu.wpi.first.wpilibj.GenericHID;
 import edu.wpi.first.wpilibj.buttons.Button;
 

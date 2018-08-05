@@ -5,7 +5,7 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package main.java.frc.team997.robot;
+package frc.team997.robot;
 
 import edu.wpi.first.wpilibj.SerialPort;
 

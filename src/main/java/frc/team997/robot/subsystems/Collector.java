@@ -1,7 +1,7 @@
-package main.java.frc.team997.robot.subsystems;
+package frc.team997.robot.subsystems;
 
-import main.java.frc.team997.robot.RobotMap;
-import main.java.frc.team997.robot.commands.Uncollect;
+import frc.team997.robot.RobotMap;
+import frc.team997.robot.commands.Uncollect;
 
 import edu.wpi.first.wpilibj.AnalogInput;
 import edu.wpi.first.wpilibj.VictorSP;

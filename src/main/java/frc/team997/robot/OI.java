@@ -5,17 +5,17 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package main.java.frc.team997.robot;
+package frc.team997.robot;
 
-import main.java.frc.team997.robot.commands.ArrayHeightSelector;
-import main.java.frc.team997.robot.commands.Climb;
-import main.java.frc.team997.robot.commands.Collect;
-import main.java.frc.team997.robot.commands.ElevatorToHeight;
-import main.java.frc.team997.robot.commands.Flop;
-import main.java.frc.team997.robot.commands.LockElevator;
-import main.java.frc.team997.robot.commands.MoveElevator;
-import main.java.frc.team997.robot.commands.UnClimb;
-import main.java.frc.team997.robot.commands.Uncollect;
+import frc.team997.robot.commands.ArrayHeightSelector;
+import frc.team997.robot.commands.Climb;
+import frc.team997.robot.commands.Collect;
+import frc.team997.robot.commands.ElevatorToHeight;
+import frc.team997.robot.commands.Flop;
+import frc.team997.robot.commands.LockElevator;
+import frc.team997.robot.commands.MoveElevator;
+import frc.team997.robot.commands.UnClimb;
+import frc.team997.robot.commands.Uncollect;
 
 import edu.wpi.first.wpilibj.Joystick;
 import edu.wpi.first.wpilibj.buttons.JoystickButton;

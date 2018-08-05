@@ -1,4 +1,4 @@
-package main.java.frc.team997.robot;
+package frc.team997.robot;
  
 import java.io.BufferedWriter;
 import java.io.File;

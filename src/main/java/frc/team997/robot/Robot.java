@@ -5,43 +5,47 @@
 /* the project.                                                               */
 /*----------------------------------------------------------------------------*/
 
-package main.java.frc.team997.robot;
+/* Aug. 5th, 2018: Commented out all un-used imports and fixed packaging error
+ * Solution: change packages to desired package (Specified by the java extension), THEN restart vscode.
+ */
 
-import main.java.frc.team997.robot.commands.Auto2CubeLeftLeft;
-import main.java.frc.team997.robot.commands.Auto2CubeLeftStart;
-import main.java.frc.team997.robot.commands.Auto2CubeRightRight;
-import main.java.frc.team997.robot.commands.Auto2CubeRightStart;
-import main.java.frc.team997.robot.commands.AutoCenterLeftSwitch;
-import main.java.frc.team997.robot.commands.AutoCenterRightSwitch;
-import main.java.frc.team997.robot.commands.AutoCenterSwitchDelivery;
-import main.java.frc.team997.robot.commands.AutoDoNothing;
-import main.java.frc.team997.robot.commands.AutoLeftLeftScale;
-import main.java.frc.team997.robot.commands.AutoLeftLeftSwitch;
-import main.java.frc.team997.robot.commands.AutoLeftRightScale;
-import main.java.frc.team997.robot.commands.AutoLeftScale;
-import main.java.frc.team997.robot.commands.AutoRightLeftScale;
-import main.java.frc.team997.robot.commands.AutoRightRightScale;
-import main.java.frc.team997.robot.commands.AutoRightRightSwitch;
-import main.java.frc.team997.robot.commands.AutoRightScale;
-import main.java.frc.team997.robot.commands.AutoTest;
-import main.java.frc.team997.robot.commands.CrossLine;
-import main.java.frc.team997.robot.commands.LeftScaleOrSwitch;
-import main.java.frc.team997.robot.commands.PDriveToAngle;
-import main.java.frc.team997.robot.commands.PDriveToDistance;
-import main.java.frc.team997.robot.commands.RightScaleOrSwitch;
-import main.java.frc.team997.robot.commands.SwitchSameSideDelivery;
-import main.java.frc.team997.robot.subsystems.Arduino;
-import main.java.frc.team997.robot.subsystems.Climber;
-import main.java.frc.team997.robot.subsystems.Collector;
-import main.java.frc.team997.robot.subsystems.DriveTrain;
-import main.java.frc.team997.robot.subsystems.Elevator;
+package frc.team997.robot;
+
+import frc.team997.robot.commands.Auto2CubeLeftLeft;
+import frc.team997.robot.commands.Auto2CubeLeftStart;
+import frc.team997.robot.commands.Auto2CubeRightRight;
+import frc.team997.robot.commands.Auto2CubeRightStart;
+import frc.team997.robot.commands.AutoCenterLeftSwitch;
+import frc.team997.robot.commands.AutoCenterRightSwitch;
+import frc.team997.robot.commands.AutoCenterSwitchDelivery;
+import frc.team997.robot.commands.AutoDoNothing;
+import frc.team997.robot.commands.AutoLeftLeftScale;
+import frc.team997.robot.commands.AutoLeftLeftSwitch;
+//import frc.team997.robot.commands.AutoLeftRightScale;
+import frc.team997.robot.commands.AutoLeftScale;
+//import frc.team997.robot.commands.AutoRightLeftScale;
+import frc.team997.robot.commands.AutoRightRightScale;
+import frc.team997.robot.commands.AutoRightRightSwitch;
+import frc.team997.robot.commands.AutoRightScale;
+//import frc.team997.robot.commands.AutoTest;
+import frc.team997.robot.commands.CrossLine;
+import frc.team997.robot.commands.LeftScaleOrSwitch;
+//import frc.team997.robot.commands.PDriveToAngle;
+//import frc.team997.robot.commands.PDriveToDistance;
+import frc.team997.robot.commands.RightScaleOrSwitch;
+//import frc.team997.robot.commands.SwitchSameSideDelivery;
+import frc.team997.robot.subsystems.Arduino;
+import frc.team997.robot.subsystems.Climber;
+import frc.team997.robot.subsystems.Collector;
+import frc.team997.robot.subsystems.DriveTrain;
+import frc.team997.robot.subsystems.Elevator;
 
 import edu.wpi.first.wpilibj.DriverStation;
 import edu.wpi.first.wpilibj.DriverStation.Alliance;
 import edu.wpi.first.wpilibj.PowerDistributionPanel;
 import edu.wpi.first.wpilibj.TimedRobot;
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.CommandGroup;
+//import edu.wpi.first.wpilibj.command.CommandGroup;
 import edu.wpi.first.wpilibj.command.Scheduler;
 import edu.wpi.first.wpilibj.livewindow.LiveWindow;
 import edu.wpi.first.wpilibj.smartdashboard.SendableChooser;

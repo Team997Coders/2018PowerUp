@@ -1,9 +1,9 @@
-package main.java.frc.team997.robot.commands;
+package frc.team997.robot.commands;
 
-import main.java.frc.team997.robot.Robot;
+import frc.team997.robot.Robot;
 
 import edu.wpi.first.wpilibj.command.Command;
-import edu.wpi.first.wpilibj.command.Scheduler;
+//import edu.wpi.first.wpilibj.command.Scheduler;
 
 /**
  *

@@ -1,8 +1,8 @@
-package main.java.frc.team997.robot.subsystems;
+package frc.team997.robot.subsystems;
 
-import main.java.frc.team997.robot.Robot;
-import main.java.frc.team997.robot.RobotMap;
-import main.java.frc.team997.robot.commands.ArcadeDrive;
+import frc.team997.robot.Robot;
+import frc.team997.robot.RobotMap;
+import frc.team997.robot.commands.ArcadeDrive;
 import com.ctre.phoenix.motorcontrol.ControlMode;
 import com.ctre.phoenix.motorcontrol.FeedbackDevice;
 import com.ctre.phoenix.motorcontrol.NeutralMode;

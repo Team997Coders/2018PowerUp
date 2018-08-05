@@ -1,4 +1,4 @@
-package main.java.frc.team997.robot.subsystems;
+package frc.team997.robot.subsystems;
 
 import edu.wpi.first.wpilibj.command.Subsystem;
 

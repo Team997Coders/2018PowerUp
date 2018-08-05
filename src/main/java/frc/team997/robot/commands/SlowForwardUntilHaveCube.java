@@ -1,8 +1,8 @@
-package main.java.frc.team997.robot.commands;
+package frc.team997.robot.commands;
 
 
 
-import main.java.frc.team997.robot.Robot;
+import frc.team997.robot.Robot;
 
 import edu.wpi.first.wpilibj.Timer;
 import edu.wpi.first.wpilibj.command.Command;

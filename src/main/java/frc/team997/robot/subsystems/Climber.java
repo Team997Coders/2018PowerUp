@@ -1,7 +1,7 @@
-package main.java.frc.team997.robot.subsystems;
+package frc.team997.robot.subsystems;
 
-import main.java.frc.team997.robot.Robot;
-import main.java.frc.team997.robot.RobotMap;
+import frc.team997.robot.Robot;
+import frc.team997.robot.RobotMap;
 
 import edu.wpi.first.wpilibj.VictorSP;
 import edu.wpi.first.wpilibj.command.Subsystem;
