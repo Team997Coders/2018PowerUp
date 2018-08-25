@@ -7,29 +7,7 @@
 
 package main.java.frc.team997.robot;
 
-import main.java.frc.team997.robot.commands.Auto2CubeLeftLeft;
-import main.java.frc.team997.robot.commands.Auto2CubeLeftStart;
-import main.java.frc.team997.robot.commands.Auto2CubeRightRight;
-import main.java.frc.team997.robot.commands.Auto2CubeRightStart;
-import main.java.frc.team997.robot.commands.AutoCenterLeftSwitch;
-import main.java.frc.team997.robot.commands.AutoCenterRightSwitch;
-import main.java.frc.team997.robot.commands.AutoCenterSwitchDelivery;
-import main.java.frc.team997.robot.commands.AutoDoNothing;
-import main.java.frc.team997.robot.commands.AutoLeftLeftScale;
-import main.java.frc.team997.robot.commands.AutoLeftLeftSwitch;
-import main.java.frc.team997.robot.commands.AutoLeftRightScale;
-import main.java.frc.team997.robot.commands.AutoLeftScale;
-import main.java.frc.team997.robot.commands.AutoRightLeftScale;
-import main.java.frc.team997.robot.commands.AutoRightRightScale;
-import main.java.frc.team997.robot.commands.AutoRightRightSwitch;
-import main.java.frc.team997.robot.commands.AutoRightScale;
-import main.java.frc.team997.robot.commands.AutoTest;
-import main.java.frc.team997.robot.commands.CrossLine;
-import main.java.frc.team997.robot.commands.LeftScaleOrSwitch;
-import main.java.frc.team997.robot.commands.PDriveToAngle;
-import main.java.frc.team997.robot.commands.PDriveToDistance;
-import main.java.frc.team997.robot.commands.RightScaleOrSwitch;
-import main.java.frc.team997.robot.commands.SwitchSameSideDelivery;
+import main.java.frc.team997.robot.commands.*;
 import main.java.frc.team997.robot.subsystems.Arduino;
 import main.java.frc.team997.robot.subsystems.Climber;
 import main.java.frc.team997.robot.subsystems.Collector;
@@ -115,8 +93,10 @@ public class Robot extends TimedRobot {
 		m_chooser.addObject("Right Scale or right switch or cross line", new RightScaleOrSwitch());
 		
 		//2 CUBE DELIVERY
-		m_chooser.addObject("2 Cube Left Scale/Switch Left Start", new Auto2CubeLeftStart());
+		m_chooser.addObject("2 Cube Left Scale/Switch Left Start", new Auto2CubeLeftLeft());
 		m_chooser.addObject("2 Cube Right Scale/Switch Right Start", new Auto2CubeRightStart());
+
+		m_chooser.addObject("DANK ASS AUTO", new AutoDank(""));
 
 		SmartDashboard.putData("Auto mode", m_chooser);
 	}
@@ -184,6 +164,14 @@ public class Robot extends TimedRobot {
 				System.out.println("Autocommand center switch right");
 			}
 			
+		} else if ((m_chooser.getSelected()).getName().equals("DANK ASS AUTO")) {
+			if(gameData.charAt(0) == 'L') {
+				m_autonomousCommand = new AutoDank(gameData);
+				System.out.println("Autocommand center double switch left");
+			} else {
+				m_autonomousCommand = new AutoDank(gameData);
+				System.out.println("Autocommand center double switch right");
+			}
 		} else if((m_chooser.getSelected()).getName().equals("LeftScaleOrSwitch")) {
 			if(gameData.charAt(1) == 'L') {
 				m_autonomousCommand = new AutoLeftLeftScale();

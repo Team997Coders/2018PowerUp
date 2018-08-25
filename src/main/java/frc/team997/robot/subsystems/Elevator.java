@@ -72,7 +72,7 @@ public class Elevator extends Subsystem {
     	Motor.configOpenloopRamp(0.25, 10); 
     	
 		Motor.enableCurrentLimit(true);
-		Motor.configForwardSoftLimitThreshold(35863, 10);
+		Motor.configForwardSoftLimitThreshold(33000, 10);
 		Motor.configForwardSoftLimitEnable(true, 10);
 		Motor.configPeakCurrentLimit(40, 10);
 		Motor.configPeakCurrentDuration(100, 10);

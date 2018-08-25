@@ -100,7 +100,7 @@ public class RobotMap {
 		//Measure this at comp
 		autoIRthreshold = 0.8,	//0.8 for plywood, 0.4 for clear plexiglass
 		
-		elevatorTopHeight = 36853, //<--CB top height
+		elevatorTopHeight = 33000, //<--CB top height // 36853
 							//22336, <--PB top height
 		elevatorHighMidHeight = 16000,
 		elevatorLowMidHeight = 6135,
@@ -115,7 +115,7 @@ public class RobotMap {
 		collectspeed = 1,
 		
 
-		driveDistanceP = 0.00025,
+		driveDistanceP = 0.00025, // 0.00025
 		driveDistanceI = 0.0,
 		driveDistanceD = 0.0,
 		elevatorPidP = 0.75,
